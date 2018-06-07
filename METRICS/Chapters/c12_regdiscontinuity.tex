@@ -1,0 +1,81 @@
+\section{Introduction}
+
+This chapter focuses on a particular type of situation where we observe an outcome $Y$ that is a consequence of a treatment $T$. Hence, $T$ causes $Y$ but not the other way around.
+
+We will also restrict our attention to binary treatments meaning that:\begin{itemize}
+\item $T_i = 1$ if $i$ is in the treatment group.
+\item $T_i = 0$ if $i$ is in the control group.
+\end{itemize}
+Hence, following the Rubin causal notation, for each individual $i$ there are two outcomes: $Y_i(1)$ if individual $i$ was in the treatment group and $Y_i(0)$ if individual $i$ was in the control group. Clearly, you can see that only one of those two outcomes can be observed! In fact, it is impossible that an individual was in both groups at the same time. We call the unobserved outcome the counterfactual.
+
+The actual outcome can be written as: $$Y_i = Y_i(0) + [Y_i(1) - Y_i(0)]\cdot T_i $$ where $[Y_i(1) - Y_i(0)]$ is called the treatment effect. Note that for the same reason exposed earlier, this treatment effect cannot be observed or computed exactly. That's why the literature has focused on two related but different problems: what is the average treatment effect (ATE)? And what is the average treatment effect on treated individuals (ATT)? These two questions help us formalize the two concepts: $$\operatorname{ATE} = \E{Y_i(1) - Y_i(0)} $$ $$\operatorname{ATT} = \E{Y_i(1) - Y_i(0)\vert T_i=1} $$
+
+\section{Average Treatment Effect (ATE)}
+
+From the data, we can identify two elements: $\E{Y_i(1)\vert T_i=1}$, the average outcome of the treatment group and $\E{Y_i(0)\vert T_i=0}$, the average outcome of the control group. Notice that here $$ \E{Y_i(1)\vert T_i=1} = \E{Y\vert T_i=1} $$ $$\E{Y_i(0)\vert T_i=0} = \E{Y\vert T_i=0} $$
+
+If the treatment is truly random, then we have that: $$\operatorname{ATE} = \E{Y_i(1)\vert T_i=1} - \E{Y_i(0)\vert T_i=0} $$ It is trivial to understand this relation by intuition, but can be helpful to put it in more formal terms. This result depends on two assumptions grouped as assumptions for mean unconditional unconfoundedness.
+
+\begin{definition}[Mean unconditional unconfoundedness]
+A treatment dataset satisfies MUU if:\begin{enumerate}
+\item $\E{Y(1)\vert T=1} = \E{Y(1) \vert T=0} = \E{Y(1)}$: this implies that regardless of the group we consider, the average outcome of receiving the treatment is the same.
+\item $\E{Y(0)\vert T=1} = \E{Y(0) \vert T=0} = \E{Y(0)}$: this implies that regardless of the group we consider, the average outcome of not receiving the treatment is the same.
+\end{enumerate}
+\end{definition}
+
+If these assumptions hold, then the ATE written as $\operatorname{ATE} = \E{Y_i(1)\vert T_i=1} - \E{Y_i(0)\vert T_i=0} $ is a consistent estimator. But what do those assumptions rely on? How can we interpret them in terms of a real-life situation.
+
+For example, when the treatment $T$ is randomly assigned, meaning that $T$ is independent of the outcomes: $(Y(0), Y(1)) \perp T $, then we have unconditional unboundedness. The difference between this and the assumptions above is that "mean" unconfoundedness implies that on average the treatment is as if it was random. Taking out the "mean" implies that it is actually truly random for every individual. Already, we can see how these assumptions can be described as strong since in reality it is very rare to observe true randomness.
+
+To solve this issue, consider the weaker statement that within groups of individuals sharing a characteristic, the treatment is random. That is, conditional on an observable characteristic $X$, the treatment is randomly assigned or formally, $(Y(0), Y(1))\perp T \vert X $. This property is called confoundedness and allows us to get the analog of the previous results, accounting for $X$. As such, define $$\operatorname{CATE}(X) = \E{Y(1) - Y(0)\vert X} $$ as the conditional average treatment effect. If unconfoundedness is true, then $$\E{Y(1)\vert T=1,X=x} = \E{Y(1)\vert T=0,X=x} = \E{Y(1)\vert X=x} $$ $$\E{Y(0)\vert T=1,X=x} = \E{Y(0)\vert T=0,X=x} = \E{Y(0)\vert X=x} $$ meaning that we can use the following estimator: $$\operatorname{CATE}(X) = \E{Y(1)\vert T=1,X=x} - \E{Y(0)\vert T=0,X=x} $$ Moreover, if we assume that there is overlap in the population by the characteristic $X$ (i.e. for any $x\in X$, some people have been treated and some not), then we can also write $$\operatorname{ATE} = \E{\operatorname{CATE(X)}} $$ meaning that with unconfoundedness and overlap, we can estimate the ATE by averaging the CATE over the $X$.
+
+Now consider the true model $Y = Y(0) + [Y(1) - Y(0)]\cdot T $ and define $a = \E{Y(0)}$ and $b = \E{Y(1) - Y(0)}$. Then, you can rewrite the model as: $$Y = a + u_a + (b + u_b)\cdot T $$ where $u_a, u_b$ are mean-zero errors. This reduces to $$Y = a + bT + (u_a + u_bT) $$ If we consider the last term in parentheses as as an error term, can we estimate the model by OLS? To verify that, let's check the Gauss-Markov assumptions.
+
+Define $e = (u_a + u_bT)$, then:\begin{itemize}
+\item $\E{e} = \E{u_a + u_bT} = \E{u_a} + \E{u_bT}$
+\item $\E{eT} = \E{(u_a + u_bT)T} = \E{u_aT} + \E{u_bT}$
+\end{itemize}
+If both terms are equal to 0, then the model satisfies GM assumptions and we can perform OLS on it. This implies that $\E{u_aT} = \E{u_bT} = 0$.
+
+If $\E{u_aT} = 0$, then:\begin{align*}
+\E{u_aT} = 0 & \Leftrightarrow \E{(Y(0) - \E{Y(0)}T} = 0 \\ & \Leftrightarrow \E{Y(0)T} - \E{\E{Y(0)}T} = 0 \\ & \Leftrightarrow \E{Y(0)\vert T=1}\Prob{T =1} - \E{Y(0)}\E{T} = 0 \\& \Leftrightarrow \E{Y(0)\vert T=1}\E{T} - \E{Y(0)}\E{T} = 0 \\ & \Leftrightarrow \E{T}\cdot [ \E{Y(0)\vert T=1} - \E{Y(0)}] = 0\\ & \Leftrightarrow \underbrace{\E{Y(0)\vert T=1} = \E{Y(0)}}_{\text{Mean Unconditional Unconfoundedness}}
+\end{align*}
+
+This means that OLS also depends on the MUU property of the data!
+
+However, this last result implied a known specification for the effect of the treatment on outcome. In fact, $T$ interacts with $Y$ in a linear manner, but what if it is not the case? We look at three different ways to estimate the relationship between $Y$ and $T$.
+
+\subsubsection{Nonparametric regression}
+
+Suppose the relationship between $Y$ and $T$ is not known, you can run a kernel regression on it as: $Y = \hat m(T,X) + \operatorname{error}$. Then, you can evaluate the nonparametric ATE as: $$\widehat{\operatorname{ATE}} = \avg{1}{n}[\hat m(1,X) - \hat m(0,X)] $$
+
+\subsubsection{Matching estimators}
+
+An alternative to the OLS or the nonparametric regression is to find a matching algorithm such that for each individual $i$ in the treatment group, you look for a or multiple individuals $j$ in the control group such that for a given characteristic $X$, we have $X_i\approx X_j$. Then the ATE is defined for each individual in the treatment group and the estimator for the ATE is the average of the difference in outcome for all $i$ and $j$ matched. Formally, $$\operatorname{ATE} = \E{Y_i - Y_j} $$ $$\widehat{\operatorname{ATE}} = \avg{1}{n} (Y_i - Y_j) $$ In such a setting, the estimation follows three distinct steps:\begin{enumerate}
+\item Draw values of $x$ randomly from the population distribution of $X$.
+\item Randomly draw an individual $i$ in the treatment group such that $x_i = x$ and match him with a randomly drawn individual $j$ in the control group such that $x_j\approx x_i$.
+\item Calculate $Y_i - Y_j$.
+\end{enumerate} Then, you repeat this process many times and average the difference in outcomes to get the estimator for the ATE.
+
+\subsubsection{Propensity score}
+
+A different approach to matching would be to look at the probability of being in the treatment group, conditional on some characteristic $X$. In this situation, we define this probability as the propensity score. Formally, we define the propensity score of an individual $P(X)$ such that $$P(X) = \E{T\vert X} = \Prob{T = 1\vert X}$$ The intuition behind this value is that if the outcome is independent of the group an individual is in, conditional on the characteristic $X$, then it must also be independent on the treatment while conditioning on the propensity score. Therefore, you could write the outcome as a nonparametric function of $T$ and $P(X)$ instead of $X$: $$Y = \hat m(T, P(X)) + \operatorname{error}$$ Then the process of estimating the ATE relies also on three steps:\begin{enumerate}
+\item Estimate the function $P(X)$ (can be done with a known model or again by nonparametric regression if the process of determining $T$ is unknown).
+\item Estimate $Y$ using the nonparametric form with the estimated $P$, that is $Y = \hat r(T, \hat P(X))$.
+\item The ATE is given by: $$\operatorname{ATE} = \E{\hat r(1, \hat P(X)) - \hat r(0, \hat P(X))} $$ while the estimator for it is $$\widehat{\operatorname{ATE}} = \avg{1}{n}[\hat r(1, \hat P(X)) - \hat r(0, \hat P(X))] $$
+\end{enumerate}
+
+The remaining question is why would you use $P(X)$ instead of $X$ directly? Well, that depends on the specification of $P(\cdot)$. If it is known very well (probit or logit model), then you can find easily the value for ATE.
+
+\subsubsection{Propensity score matching}
+
+Finally, the propensity score matching process is trivially the combination of both previous algorithms in the sense that instead of matching a particular characteristic $X$, you try and match the treatment group with the control group by their similarity in $P(X)$.
+
+\section{Local Average Treatment Effect (LATE)}
+
+What if the assignment to either the treatment or the control group is not perfectly random. That is, what if $T$ is not independent to $Y$. Then, all of our previous results do not hold, and we need to put in more work to find a suitable solution. As we did in the OLS case when $e$ and $X$ were correlated, let's try to find a binary instrument $Z$ which is randomly assigned.
+
+We define four main types of individuals: \begin{itemize}
+\item The compliers are individuals for which $T = Z$ as observed BUT ALSO if $T$ was different, we would get $T=Z$ anyway.
+\item The deniers are individuals for which $T \neq Z$ as observed BUT ALSO if $T$ was different, we would get $T\neq Z$ anyway.
+\end{itemize}

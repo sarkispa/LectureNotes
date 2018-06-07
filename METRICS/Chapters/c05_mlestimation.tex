@@ -1,0 +1,114 @@
+\begin{bclogo}[couleur=blue!10, arrondi=0.1, logo=,ombre=false]{ Estimating the probability of a coin flip} 
+\begin{small}
+Let a coin be flipped a hundred times, with probability $p$ of falling on Heads (H) and $(1-p)$ of falling on Tail (T).
+
+Consider any outcome of this experiment, what can we say about $\hat p$?\begin{itemize}
+\item If all 100 coins are H? Probably $\hat p = 1$.
+\item If only 99 coins are Heads? Probably $\hat p = 0.99$.
+\end{itemize} But how can we use what we know of the distribution of these outcomes to help us estimate $p$?
+
+The likelihood of the experiment giving the outcome that 100 H have occurred is $p^{100}$. What is the value of $p$ that maximizes this probability?\\ $\Rightarrow \hat p = 1$
+
+The likelihood of the experiment giving the outcome that 99 H have occurred is $100p^{99}(1-p)$. What is the value of $p$ that maximizes this probability?\begin{align*}
+\Rightarrow \frac{\partial\mathcal{L}}{\partial p} = 0 \Leftrightarrow 99\cdot 100\cdot \hat p^{98} (1 - \hat p) - 100 \hat p^{99} = 0 & \Leftrightarrow 99\hat p^{98} = 100 \hat p^{99} \\ & \Leftrightarrow \hat p = 0.99
+\end{align*} 
+This method is called Maximum Likelihood Estimation.
+\end{small}
+\end{bclogo}
+
+\section{Basic assumptions}
+
+We have seen that for a sequence of random variables $Z_1, ..., Z_n$, the joint pdf can be written as $f(Z_1, ..., Z_2 \vert \theta)$ where $\theta$ is the vector of parameters that define the joint distribution.
+
+\begin{definition}[Likelihood function]
+Let $\{Z_n\}$ be any sequence of random variables following a joint distribution $f(Z_1, ..., Z_n\vert \theta)$. The likelihood function is the equivalent of the joint pdf expressed in terms of the parameters $\theta$. We write it as $L(\theta\vert Z_1, ..., Z_n)$.
+
+When $Z_1,...,Z_n$ are iid, $$ L(\theta\vert Z_1, ..., Z_n) = \prod_{i=1}^{n} f(Z_i\vert \theta) $$
+\end{definition}
+
+\begin{definition}[Maximum Likelihood estimator]
+Let $\{Z_n\}$ be any sequence of random variables following a joint distribution $f(Z_1, ..., Z_n\vert \theta)$. The maximum likelihood estimator of $\theta$ is the argument that maximizes the likelihood function $L(\theta\vert Z_1, ..., Z_n)$. $$\hat \theta_{\text{ML}} = \operatorname{arg}\max_{\theta \in \Theta} L(\theta\vert Z_1, ..., Z_n) $$ where $\Theta$ is the set of all possible values of $\theta$.
+\end{definition}
+
+\begin{definition}[Assumptions on MLE]
+In order to further analyze the MLE, let's describe a set of additional assumptions:
+\begin{itemize}
+\item[\textbf{A1.}]\textbf{Compactness:} Let $\Theta$ be the set of all possible parameters. We will assume that this set is compact and $\theta_0$, the true value of the parameter lies in this set.
+\item[\textbf{A2.}]\textbf{Name?:} For all $\theta \in \Theta$ such that $\theta \neq \theta_0$, we have that,$$ \E{\frac{\partial \ln f(Z_i\vert \theta)}{\partial \theta}} \neq \E{\frac{\partial \ln f(Z_i\vert \theta_0)}{\partial \theta_0}} $$
+\item[\textbf{A3.}]\textbf{Boundedness:} All first-order, second-order and third-order (own and cross) derivatives of $\ln f(Z_i\vert\theta)$ with respect to $\theta$ exist and are bounded.
+\item[\textbf{A4.}]\textbf{Name?:} Let $\Omega_Z$ be the support of $f(\cdot\vert\theta)$; either $\Omega_Z$ does not depend on $\theta$ or $f(Z_i\vert \theta) = 0$ for all $\theta$ on the boundary of $\Theta$.
+\item[\textbf{A5.}]\textbf{Name?:} All $Z_i$ are random variables once conditioned on $\theta$.
+\end{itemize}
+\end{definition}
+
+\section{Some properties}
+
+\begin{remark}[Log-likelihood function]
+Let $\hat \theta_{\text{ML}}$ be the MLE for the parameter $\theta_0$ from the distribution $f(Z_1,...,Z_n\vert\theta)$. Then, $\hat \theta_{\text{ML}}$ also solves the logarithm of the likelihood function:\begin{align*}
+\hat \theta_{\text{ML}} & = \operatorname{arg}\max_{\theta \in \Theta} L(\theta\vert Z_1, ..., Z_n) \\
+& = \operatorname{arg}\max_{\theta \in \Theta} \ln\big(L(\theta\vert Z_1, ..., Z_n)\big) \\
+& = \operatorname{arg}\max_{\theta \in \Theta} \ln\big(\prod_{i=1}^{n} f(Z_i\vert \theta)\big) \\
+& = \operatorname{arg}\max_{\theta \in \Theta}\sum_{i=1}^{n} \ln f(Z_i\vert \theta) \\
+\end{align*}
+\end{remark}
+
+\begin{definition}[Score function]
+The score function, denoted $s(Z\vert\theta)$ is defined as the gradient of the log-likelihood function when differentiated wrt $\theta$:$$ s(Z\vert\theta) = \frac{\partial \ln f(Z\vert \theta)}{\partial \theta} $$Because $Z_i$ are iid, $s_i(Z_i\vert\theta)$ are also iid.
+\end{definition}
+
+\begin{remark}[Maximum of the score function]
+Let $f(Z_1, ..., Z_n)$ be the joint pdf of iid random variables $Z_1, ..., Z_n$ such that $\theta_0$ is the true parameter. Then, $\E{s(Z\vert\theta_0)}=0$. This fact is very important because, linked to assumption 2 above, it means that the log-likelihood function is maximized at one unique point $\theta_0$.
+\end{remark}
+
+\begin{proof}
+We know that for any $\theta$, $\int_{\Omega_Z} f(Z\vert\theta)dZ = 1$. By Leibniz rule, we can differentiate and get:\begin{align*}
+\frac{\partial \int_{\Omega_Z} f(Z\vert\theta)dZ}{\partial \theta} & = 0 \\ \int_{\Omega_Z} \frac{\partial f(Z\vert\theta)dZ}{\partial \theta} & = 0 \\ \int_{\Omega_Z} \frac{\partial \ln f(Z\vert\theta)dZ}{\partial \theta} f(Z\vert\theta)dZ  & = 0 \\ \int_{\Omega_Z} s(Z\vert\theta) f(Z\vert\theta)dZ  & = 0 \\ \E{s(Z\vert\theta)}&=0
+\end{align*} Hence, in particular for $\theta_0$, $\E{s(Z\vert\theta_0)}=0$.
+\end{proof}
+
+\begin{definition}
+The Hessian matrix of the LL function, denoted as $H(Z\vert\theta)$ is the derivative of the score function or equivalently, the second-order derivative of the LL function. $$H(Z\vert\theta) = \frac{\partial^2 \ln f(Z\vert \theta)}{\partial \theta\partial\theta'} = \frac{\partial s(Z\vert \theta)}{\partial\theta'}$$
+\end{definition}
+
+\begin{remark}[Variance of the score function]
+Let $f(Z_1, ..., Z_n)$ be the joint pdf of iid random variables $Z_1, ..., Z_n$ such that $\theta_0$ is the true parameter. Then, $$\V{s(Z\vert\theta_0)}=-\E{H(Z\vert\theta)}$$
+\end{remark}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{definition}[Information matrix]
+The information matrix is the opposite of the Hessian matrix, it can be put in relation to the log-likelihood function of the sequence of rvs as: $$-\E{\frac{\partial^2 \ln f(Z_1, ..., Z_n\vert \theta)}{\partial \theta\partial\theta'}} = - n\E{H(Z\vert\theta)} = -nI(Z\vert\theta) $$ 
+\end{definition}
+
+\begin{theorem}[Consistency of the ML estimator]
+Let $\{Z_n\}$ be any sequence of random variables following a joint distribution $f(Z_1, ..., Z_n\vert \theta)$. Under the assumptions of the MLE, $\hat\theta_{\text{ML}}$, is a consistent estimator of $\theta$.
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{theorem}[Asymptotic normality of the ML estimator]
+Suppose $\theta_{\text{ML}}$ is a consistent estimator of a parameter $\theta$, following the previous theorem. Then, $$\sqrt{n}(\hat\theta - \theta_0)\dconv N(0, J^{-1}JJ^{-1}) $$ where $J = -H$.
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}
+
+\section{Application of ML estimation to Binary Choice models}
+
+\subsection{Classical BC model}
+
+Let $Y_i$ be a binary variable. The data set is $(Y_i, X_i)$ such that $Y_i$ is independent of $X_i$. We write the true model as: $$\Prob{Y_i = 1\vert X} = F(X_i, \beta) $$ From this model, we get: $$\E{Y_i\vert X} = \Prob{Y_i = 1\vert X}\cdot 1 + \Prob{Y_i = 0\vert X} \cdot 0 = F(X_i, \beta)$$ Assuming $Y_i$ are iid, we can get the likelihood function of the data as: \begin{align*}
+L = \Prob{Y_1, ..., Y_n\vert X, \beta} & = \prod_{i=1}^{n} \Prob{Y_i =1\vert X_i, \beta}^{Y_i}\Prob{Y_i=0\vert X_i, \beta}^{1-Y_i} \\
+& = \prod_{i=1}^{n} F(X_i,\beta)^{Y_i} (1 - F(X_i,\beta))^{1 - Y_i}
+\end{align*} in log-likelihood form: $$\ln L = \sum_{i=1}^{n} \left(Y_i\ln(F(X_i,\beta)) + (1-Y_i)\ln(1 - F(X_i,\beta))\right) $$ Its maximum for $\beta$ is: $s(X_i,\beta) = 0 \Leftrightarrow \frac{\partial \ln f(Y_i\vert\beta)}{\partial \beta} = 0 \Leftrightarrow \left[\frac{Y_i}{F(X_i,\beta)} - \frac{(1 - Y_i)}{1 - F(X_i,\beta)}\right]\frac{\partial F(X_i,\beta)}{\partial\beta} = 0$
+
+We can also compute the information matrix \begin{align*}
+J_0 & = \E{s(X\vert\beta_0)s(X\vert\beta_0)'} \\ &= \E{\left[\frac{Y_i}{F(X_i,\beta)} - \frac{(1 - Y_i)}{1 - F(X_i,\beta)}\right]\frac{\partial F(X_i,\beta)}{\partial\beta} \frac{\partial F(X_i,\beta)}{\partial\beta'}\left[\frac{Y_i}{F(X_i,\beta)} - \frac{(1 - Y_i)}{1 - F(X_i,\beta)}\right]'} \\ & = \E{\left[\left(\frac{Y_i}{F(X_i,\beta)}\right)^2 - 2\frac{Y_i}{F(X_i,\beta)} \frac{(1 - Y_i)}{1 - F(X_i,\beta)} + \left(\frac{(1 - Y_i)}{1 - F(X_i,\beta)}\right)^2 \right] \frac{\partial F(X_i,\beta)}{\partial\beta} \frac{\partial F(X_i,\beta)}{\partial\beta'}} \\ & = \E{\left[\frac{Y_i}{F(X_i,\beta)^2} + \frac{(1 - Y_i)}{1 - F(X_i,\beta)^2}\right] \frac{\partial F(X_i,\beta)}{\partial\beta} \frac{\partial F(X_i,\beta)}{\partial\beta'}}
+\end{align*}
+
+\subsection{Threshold model}

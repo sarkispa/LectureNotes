@@ -1,0 +1,103 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Regression, Correlation and Causes}{5}{chapter.1}
+\contentsline {chapter}{\numberline {2}Finite Sample Properties of Estimators}{6}{chapter.2}
+\contentsline {chapter}{\numberline {3}Asymptotic Properties of Estimators}{10}{chapter.3}
+\contentsline {chapter}{\numberline {4}Classical Regression}{18}{chapter.4}
+\contentsline {section}{\numberline {4.1}Introduction, model and assumptions}{18}{section.4.1}
+\contentsline {section}{\numberline {4.2}Finite sample properties of OLS estimation}{22}{section.4.2}
+\contentsline {section}{\numberline {4.3}Asymptotic properties of OLS estimation}{26}{section.4.3}
+\contentsline {chapter}{\numberline {5}Specification issues}{27}{chapter.5}
+\contentsline {section}{\numberline {5.1}Non-randomness of X}{27}{section.5.1}
+\contentsline {section}{\numberline {5.2}Non-stationarity of X}{29}{section.5.2}
+\contentsline {section}{\numberline {5.3}High correlation in the error term}{29}{section.5.3}
+\contentsline {section}{\numberline {5.4}Collinearity}{29}{section.5.4}
+\contentsline {section}{\numberline {5.5}Coefficient interpretation}{30}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Linear vs. log specification}{30}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}Measurement units}{30}{subsection.5.5.2}
+\contentsline {subsection}{\numberline {5.5.3}Percent change}{31}{subsection.5.5.3}
+\contentsline {subsection}{\numberline {5.5.4}Interaction variables}{31}{subsection.5.5.4}
+\contentsline {chapter}{\numberline {6}Maximum Likelihood Estimation}{33}{chapter.6}
+\contentsline {section}{\numberline {6.1}Basic assumptions}{34}{section.6.1}
+\contentsline {section}{\numberline {6.2}Some properties}{35}{section.6.2}
+\contentsline {section}{\numberline {6.3}Application of ML estimation to Binary Choice models}{37}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Classical BC model}{37}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Threshold model}{38}{subsection.6.3.2}
+\contentsline {chapter}{\numberline {7}Inference and Hypothesis tests}{39}{chapter.7}
+\contentsline {section}{\numberline {7.1}Recap}{39}{section.7.1}
+\contentsline {section}{\numberline {7.2}T-statistic}{40}{section.7.2}
+\contentsline {section}{\numberline {7.3}Confidence intervals}{42}{section.7.3}
+\contentsline {section}{\numberline {7.4}Wald tests}{42}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}Linear Regression model}{43}{subsection.7.4.1}
+\contentsline {subsection}{\numberline {7.4.2}General Case}{43}{subsection.7.4.2}
+\contentsline {section}{\numberline {7.5}Likelihood Ratio tests}{43}{section.7.5}
+\contentsline {section}{\numberline {7.6}Lagrange Multiplier tests}{44}{section.7.6}
+\contentsline {chapter}{\numberline {8}Generalized Least-Squares and non-iid errors}{45}{chapter.8}
+\contentsline {section}{\numberline {8.1}Heteroskedasticity}{45}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Generalized Least-Squares}{46}{subsection.8.1.1}
+\contentsline {subsection}{\numberline {8.1.2}White test}{48}{subsection.8.1.2}
+\contentsline {subsection}{\numberline {8.1.3}White standard errors}{48}{subsection.8.1.3}
+\contentsline {section}{\numberline {8.2}Autocorrelation}{49}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}Correlogram}{49}{subsection.8.2.1}
+\contentsline {subsection}{\numberline {8.2.2}First-order autocorrelation}{51}{subsection.8.2.2}
+\contentsline {subsection}{\numberline {8.2.3}GLS and feasible GLS}{52}{subsection.8.2.3}
+\contentsline {subsection}{\numberline {8.2.4}Other lag models}{52}{subsection.8.2.4}
+\contentsline {subsubsection}{AR$(p)$ processes}{53}{section*.2}
+\contentsline {subsubsection}{MA$(q)$ processes}{53}{section*.3}
+\contentsline {subsubsection}{ARMA$(p,q)$ processes}{53}{section*.4}
+\contentsline {subsection}{\numberline {8.2.5}Newey-West standard errors}{53}{subsection.8.2.5}
+\contentsline {chapter}{\numberline {9}Dynamic models and Time Series models}{55}{chapter.9}
+\contentsline {section}{\numberline {9.1}Dynamic Regression Models}{55}{section.9.1}
+\contentsline {subsection}{\numberline {9.1.1}Lagged effects in a dynamic model}{55}{subsection.9.1.1}
+\contentsline {subsection}{\numberline {9.1.2}Lag and difference operators}{57}{subsection.9.1.2}
+\contentsline {section}{\numberline {9.2}Simple Distributed Lag Models}{57}{section.9.2}
+\contentsline {section}{\numberline {9.3}Autoregressive Distributed Lag Models}{57}{section.9.3}
+\contentsline {section}{\numberline {9.4}Issues with Dynamic Models}{57}{section.9.4}
+\contentsline {chapter}{\numberline {10}Instrumental Variables, 2SLS, Endogeneity and Simultaneity}{58}{chapter.10}
+\contentsline {section}{\numberline {10.1}Correlation between errors and regressors}{58}{section.10.1}
+\contentsline {section}{\numberline {10.2}Measurement errors}{59}{section.10.2}
+\contentsline {section}{\numberline {10.3}Instrumental variables}{60}{section.10.3}
+\contentsline {subsection}{\numberline {10.3.1}Intuition}{60}{subsection.10.3.1}
+\contentsline {subsection}{\numberline {10.3.2}Generalization}{60}{subsection.10.3.2}
+\contentsline {section}{\numberline {10.4}Multiple IVs and 2SLS}{61}{section.10.4}
+\contentsline {section}{\numberline {10.5}Testing IVs}{62}{section.10.5}
+\contentsline {subsection}{\numberline {10.5.1}Hausman test}{63}{subsection.10.5.1}
+\contentsline {subsection}{\numberline {10.5.2}Hansen-Sargan test}{63}{subsection.10.5.2}
+\contentsline {section}{\numberline {10.6}Simultaneity}{64}{section.10.6}
+\contentsline {subsection}{\numberline {10.6.1}IV/2SLS}{64}{subsection.10.6.1}
+\contentsline {subsection}{\numberline {10.6.2}Seemingly unrelated regression}{65}{subsection.10.6.2}
+\contentsline {subsubsection}{3-stage least-squares}{66}{section*.5}
+\contentsline {chapter}{\numberline {11}Non-linear models, GMM and extremum estimators}{67}{chapter.11}
+\contentsline {section}{\numberline {11.1}Nonlinear Least Squares}{67}{section.11.1}
+\contentsline {subsection}{\numberline {11.1.1}Model}{67}{subsection.11.1.1}
+\contentsline {subsection}{\numberline {11.1.2}Estimation}{68}{subsection.11.1.2}
+\contentsline {subsubsection}{Gradient method}{69}{section*.6}
+\contentsline {subsubsection}{Grid-search method}{69}{section*.7}
+\contentsline {section}{\numberline {11.2}Extremum Estimators}{69}{section.11.2}
+\contentsline {section}{\numberline {11.3}Generalized Method of Moments}{69}{section.11.3}
+\contentsline {subsection}{\numberline {11.3.1}Method of moments}{69}{subsection.11.3.1}
+\contentsline {subsubsection}{Estimation}{70}{section*.8}
+\contentsline {subsubsection}{Mean and variance of a population}{70}{section*.9}
+\contentsline {subsubsection}{OLS}{71}{section*.10}
+\contentsline {subsubsection}{IV}{71}{section*.11}
+\contentsline {subsection}{\numberline {11.3.2}Generalized Method of Moments}{72}{subsection.11.3.2}
+\contentsline {subsection}{\numberline {11.3.3}GMM Estimator properties}{73}{subsection.11.3.3}
+\contentsline {subsection}{\numberline {11.3.4}Efficient GMM}{73}{subsection.11.3.4}
+\contentsline {subsection}{\numberline {11.3.5}Estimation of the Efficient Weight Matrix}{73}{subsection.11.3.5}
+\contentsline {subsection}{\numberline {11.3.6}Variance Estimation}{73}{subsection.11.3.6}
+\contentsline {chapter}{\numberline {12}Non-parametric estimators}{74}{chapter.12}
+\contentsline {section}{\numberline {12.1}Introduction}{74}{section.12.1}
+\contentsline {section}{\numberline {12.2}Estimation of the EDF}{75}{section.12.2}
+\contentsline {section}{\numberline {12.3}Estimation of the empirical pdf}{76}{section.12.3}
+\contentsline {subsection}{\numberline {12.3.1}Properties of the kernel estimator}{78}{subsection.12.3.1}
+\contentsline {section}{\numberline {12.4}Kernel regressions}{79}{section.12.4}
+\contentsline {section}{\numberline {12.5}Series regressions}{79}{section.12.5}
+\contentsline {section}{\numberline {12.6}Semiparametric regressions}{79}{section.12.6}
+\contentsline {chapter}{\numberline {13}Program Evaluation and Treatment Effects}{80}{chapter.13}
+\contentsline {section}{\numberline {13.1}Introduction}{80}{section.13.1}
+\contentsline {section}{\numberline {13.2}Average Treatment Effect (ATE)}{81}{section.13.2}
+\contentsline {subsubsection}{Nonparametric regression}{83}{section*.12}
+\contentsline {subsubsection}{Matching estimators}{84}{section*.13}
+\contentsline {subsubsection}{Propensity score}{84}{section*.14}
+\contentsline {subsubsection}{Propensity score matching}{85}{section*.15}
+\contentsline {section}{\numberline {13.3}Local Average Treatment Effect (LATE)}{86}{section.13.3}
+\contentsline {chapter}{\numberline {14}Regression Discontinuity Design}{87}{chapter.14}

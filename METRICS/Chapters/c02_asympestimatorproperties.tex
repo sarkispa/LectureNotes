@@ -1,0 +1,188 @@
+\begin{definition} 
+Mean squared error, or MSE, is the expectation of the squared deviation between the estimator and the true value of the estimand. $$ \text{MSE}(\hat{\theta}) = E_{\hat{\theta}}\big[(\hat{\theta} - \theta)^2\big] $$
+\end{definition} 
+
+\begin{definition} 
+Let $\{X_n\}$ denote a sequence of random variables and $c$ a real number such that $\E{X_i} = \mu_i$ and $Var[X_i] = \sigma_i^2$. We say that $X_n$ converges in mean squared error to c if $\lim_{n\to\infty} X_n = c$ and $\lim_{n\to\infty} \sigma_n^2 = 0$. We write : $$ X_n\msconv c $$
+\end{definition} 
+
+\begin{remark} 
+Let $\{Z_n\}$ be a sequence of i.i.d. random variables such that, for all $i$, $\E{Z_i} = \mu$ and $Var[Z_i] = \sigma^2$. Let $X_n$ be the sample average over the $n$ first variables. $X_n$ converges in MSE to the true value of $\E{Z_i} = \mu$.
+\end{remark} 
+
+\begin{definition} 
+Let $\{X_n\}$ denote a sequence of random variables and $c$ a real number. We say that $X_n$ converges in probability to c if, for all $\epsilon$, we have that $$ \lim_{n\to\infty} \text{Pr}\big[\lvert X_n - c \rvert > \epsilon\big] = 0 $$
+We write $ X_n \overset{p.}{\to} c $.\\
+Moreover, we say that $X_n$ converges in probability to a random variable $X$ if $(X_n - X)\pconv 0$.
+\end{definition}
+
+This definition allows us to define a useful characteristic of estimators, namely consistency. An estimator that converges in probability to the true value of its estimand is said to be a consistent estimator.
+
+\begin{remark} If a sequence of random variables converges in MSE to a variable $c$, then it also converges in probability to $c$. The converse is not true.
+\end{remark}
+
+\begin{proof}
+From Chebychev's inequality, we can write that $ \operatorname{Pr}[\lvert X_n - \mu_n \rvert > \epsilon ] \leq \frac{\sigma_n^2}{\epsilon} $, for all $\epsilon >0$. Therefore, we have that $$0\leq \lim_{n\to\infty} \operatorname{Pr}[\lvert X_n - \mu_n \rvert > \epsilon] \leq \lim_{n\to\infty} \frac{\sigma_n^2}{\epsilon} $$ and from the assumption of convergence in MSE, we know that $\lim_{n\to\infty} \frac{\sigma_n^2}{\epsilon} = 0$.
+
+We indeed have that $\lim_{n\to\infty} \operatorname{Pr}[\lvert X_n - c \rvert > \epsilon] = 0$
+\end{proof}
+
+\begin{theorem}[Weak Law of Large Numbers]
+Let $\{Z_n\}$ denote a sequence of iid random variables such that $\E{Z_i} = \mu$ and $\V{Z_i} = \sigma^2$. Let $X_n$ be the sample average of $Z_1, ..., Z_n$, then $X_n \pconv \mu$.
+\end{theorem}
+\begin{proof}
+We already know that $\E{X_n} = \mu$ and $\V{X_n} = \frac{\sigma^2}{n}$, therefore $X_n \msconv \mu \Rightarrow X_n \pconv \mu$
+\end{proof}
+
+\begin{theorem}[Khinchin's WLLN]
+Let $\{Z_n\}$ denote a sequence of iid random variables such that $\E{Z_i} = \mu$ and $\E{\lvert Z_i \rvert}$ is finite. Let $X_n$ be the sample average of $Z_1, ..., Z_n$, then $X_n \pconv \mu$.
+\end{theorem}
+
+These two theorems are pretty useful because they show that for any sequence of iid random variables having a finite variance, the sample average associated will converge in probability to the true mean of the random variables. The next theorem shows what we can say when the sequence is not iid.
+
+\begin{theorem}
+Let $\{Z_n\}$ denote a sequence of random variables such that $\E{Z_i} = \mu_i$ and $\cov{Z_i, Z_j} = \sigma_{i,j} \forall i\neq j$. Let $X_n$ be the sample average of the first $n$ variables. We denote $\bar\mu_n = \frac{1}{n} \sum_{i=1}^{n} \mu_i$ and $\mu_0 = \lim_{n\to\infty} \mu_n$. If $\mu_0$ exists and $\lim_{n\to\infty} \V{\bar Z} = 0$, then $X_n\pconv \mu_0$.
+\end{theorem}
+
+\begin{proof}
+It is trivial to show that $\E{X_n} = \avg{1}{n} \E{Z_i} = \avg{1}{n} \mu_i = \mu_n$ and therefore $\lim_{n\to\infty} \E{X_n} = \mu_0$; if $\mu_0$ exists. By assumption, $\lim_{n\to\infty} \V{X_n} = 0$, therefore, we have that $X_n \pconv \mu_0$.
+\end{proof}
+
+This last theorem relies on two (really) strong assumptions :\begin{enumerate}
+\item $\mu_0$ exists : this assumption is true if the sequence of random variables (which are not iid) somehow have convergent means, which is far from guaranteed.
+\item $\lim_{n\to\infty} \V{X_n} = 0$ : this assumption relies on the fact that $Z_i$s should tend to be more and more uncorrelated as well as having low variances. This can be shown by the fact that $\V{X_n} = \frac{1}{n^2} \sum \V{Z_i} +  \frac{1}{n^2} \sum \sum \cov{Z_i, Z_j}$
+\end{enumerate}
+
+\begin{theorem}[Slutsky's Theorem]
+For any continuous function $g(\cdot)$ that does not depend on the sample size $n$, we have: $$\text{plim } g(X_n) = g(\text{plim }X_n)$$
+\end{theorem}
+
+\begin{definition}
+Let $\{X_n\}$ denote a sequence of random variables with cdf $F_n(\cdot)$. We say that $X_n$ converges in distribution to a random variable $X$ if $$\lim_{n\to\infty} F_n(x) = F(x)$$ at all continuous points of the cdf $F(x)$. We write $X_n \overset{d}{\to} X$.
+\end{definition}
+
+\begin{remark}
+If a sequence of random variables converges in probability to a random variable $X$, then it also converges in distribution to $X$. The converse is not true.
+\end{remark}
+
+Convergence in probability and convergence in distribution can also be used together to give some interesting properties.
+
+\begin{remark}
+Let $X_n\dconv X$ and $Y_n \pconv c$ where $X$ is a random variable and $c$ a constant. We have : \begin{itemize}
+\item $X_nY_n \dconv Xc$
+\item $X_n + Y_n \dconv X + c$
+\end{itemize}
+\end{remark}
+
+\begin{theorem}[Slutsky's Theorem for convergence in distribution]
+For any continuous function $g(\cdot)$ that does not depend on the sample size $n$ and can be used to represent a distribution, we have: $$X_n \dconv X \Rightarrow g(X_n)\dconv g(X)$$
+\end{theorem}
+
+Now we will turn our heads on one of the most important theorem of statistics (and maybe mathematics) that will be used throughout the course to understand asymptotic behavior of estimators.
+
+\begin{theorem}[Lindeberg-Lévy Central Limit Theorem]
+Let $\{Z_n\}$ denote a sequence of iid random variables such that $\E{Z_i} = \mu$ and $\V{Z_i} = \sigma^2 <\infty$. As always, consider $X_n$ the sample average of the $n$ first random variables $Z_i$. As $n$ approaches infinity, the random variable $\sqrt{n}(X_n - \mu)$ converges in distribution to a normal distribution of mean 0 and variance $\sigma^2$. $$\sqrt{n}(X_n - \mu) \dconv N(0, \sigma^2) $$ We say that $X_n$ asymptotically follows a normal distribution $N(0, \sigma^2)$.
+
+Each random variable defined here could also be a random vector. Then we'd assume $\V{Z_i} = \Omega$ its variance matrix.
+\end{theorem}
+
+\begin{bclogo}[couleur=blue!10, arrondi=0.1, logo=,ombre=false]{ Delta Method} 
+\begin{small}
+Consider a random variable $X_n$ such that $\sqrt{n}(X_n - a)\dconv Y$. Moreover, let $g(\cdot)$ be a function such that:\begin{enumerate}
+\item $g(\cdot)$ is a continuous function, differentiable in the neigborhood of $a$.
+\item $\frac{\partial g}{\partial a^T} \neq 0$ and is finite.
+\item $\frac{\partial g}{\partial n} = 0 $.
+\end{enumerate}
+Then, $$\sqrt{n}(g(X_n) - g(a))\dconv \frac{\partial g}{\partial a^T} Y$$
+
+Ex.1. (Normal and Chi-square distributions). Let $Z_n$ be a sequence of i.i.d. random variables such that $\sqrt{n}(Z_n - \alpha)\dconv N(0,1)$. Consider the function $g(x) = x^2$.\begin{itemize}
+\item By the Delta method, we have that $\sqrt{n}(Z_n^2 - \alpha^2)\dconv N(0,\big(\frac{\partial g}{\partial \alpha}\big)^2)$ where $\frac{\partial g}{\partial \alpha} = 2\alpha$
+\end{itemize}
+\end{small}
+\end{bclogo}
+
+\begin{theorem}[Lindeberg-Feller Central Limit Theorem]
+Let $\{Z_n\}$ denote a sequence of independent (but not necessarily identically distributed) random variables such that $\E{Z_i} = \mu_i$ and $\V{Z_i} = \sigma_i^2 <\infty$. Consider the sample average $X_n$ and the sample variance $\bar\sigma_n^2 = \avg{1}{n}\sigma_i^2$. Suppose $$\lim_{n\to\infty} \max_{i} \frac{\sigma_i^2}{n\bar\sigma_n^2} = 0 \text{ and } \lim_{n\to\infty} \bar\sigma_n^2 = \bar\sigma^2 < \infty$$
+Then, $\sqrt{n}\frac{(X_n - \bar\mu)}{\bar\sigma} \dconv N(0, 1)$.
+\end{theorem}
+
+\begin{definition}[Little-o notation]
+Let $\{ C_n\}$ be a sequence of constants. We say that: \begin{itemize}
+\item $C_n$ is $o(1)$ if $\lim_{n\to\infty} C_n = 0$, we write: $C_n = o(1)$.
+\item $C_n$ is $o(n^k)$ if $\frac{C_n}{n^k}=o(1)$, we write: $C_n = o(n^k)$.
+\end{itemize}
+\end{definition} The intuition behind this notation is to convey the meaning that the sequence $C_n$ converges to $0$ faster that the function inside the operator ($1$ or $n^k$). In words, we could say that $C_n$ is ultimately smaller than $1$ or $n^k$. There exists an equivalent definition for a random variable, related to the convergence in probability.
+\begin{definition}[Convergence in probability]
+Let $\{ X_n\}$ be a sequence of random variables. $X_n = o_p(1)$ if, for all $\varepsilon >0$ and $\delta >0$, there exists an $N$ for which $n>N$ implies $\operatorname{Pr}(\lvert X_n\rvert > \varepsilon)<\delta$. Because it is basically the definition of having a $\plim$ of $0$, we can say that: \begin{itemize}
+\item $X_n$ is $o_p(1)$ if $\plim_{n\to\infty} X_n = 0$, we write: $X_n = o_p(1)$.
+\item $X_n$ is $o_p(n^k)$ if $\frac{X_n}{n^k}=o_p(1)$, we write: $X_n = o_p(n^k)$.
+\end{itemize}
+\end{definition}
+This means that, in the limit, the set of values $X_n$ or $\frac{X_n}{n^k}$ will converge to $0$ in probability.
+
+\begin{definition}[Big-O notation] 
+Let $\{ C_n\}$ be a sequence of constants. We say that: \begin{itemize}
+\item $C_n$ is $O(1)$ if $\lvert\lim_{n\to\infty} C_n\rvert \leq c$, we write: $C_n = O(1)$.
+\item $C_n$ is $O(n^k)$ if $\frac{C_n}{n^k} = O(1)$, we write: $C_n = O(n^k)$.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Stochastic boundedness]
+Let $\{ X_n\}$ be a sequence of random variables. $X_n=O_p(1)$ if for all $\delta >0$ and associated $K_{\delta}>0$, there exists a $\tilde{n}$ such that $n>\tilde{n}$ implies that $$\operatorname{Pr}(\lvert X_n\rvert > K_{\delta})<\delta$$ $X_n=O_p(n^k)$ if $\frac{X_n}{n^k}=O_p(1)$.
+\end{definition}
+
+\begin{remark}
+If $X_n = o_p(1)$, then $X_n = O_p(1)$. Trivially, this also means that if $X_n = o_p(n^k)$, then $X_n = O_p(n^k)$.
+\end{remark} This is an equivalent statement that saying that a converging sequence must be bounded.
+\begin{proof}
+
+\end{proof}
+
+\begin{definition}[Influence function]
+Let $\hat\theta$ be a function of random variables $F(Z_1, ..., Z_n)$. Suppose there exists $R_i = r_i(Z_1, ..., Z_n, \theta_0)$ and $S_n = o_p(1)$ such that $$\sqrt{n}(\hat\theta - \theta_0) = \sqrt{n}\bar R + S_n $$We can simplify by writing $S_n = o_p(1)$ and then, $$\hat\theta = \theta_0 + \bar R + O_p(n^{-\frac{1}{2}}) $$Now suppose that $\sqrt{n}\bar R\dconv N(0, \Omega)$, then $\sqrt{n}(\hat\theta - \theta_0) = O_p(1)$. We say that $\hat\theta$ is a root-n-consistent estimator.
+\end{definition}
+
+
+\begin{theorem}
+Consider an extremum estimator $\hat\theta$ such that  $\hat\theta \in \operatorname{arg}\max_{\theta} Q_n(\theta)$. Define $Q_0(\theta)$ as the limit in probability of $Q_n(\theta)$.
+Next, we assume:\begin{itemize}
+\item[\textbf{A1.}] \textbf{Identification:} $Q_0(\theta)$ exists and is maximized at the true value of the parameter $\theta = \theta_0$
+\item[\textbf{A2.}] \textbf{Continuity:} $Q_n(\theta)$ is differentiable.
+\item[\textbf{A3.}] \textbf{Compactness:} The domain of $Q_n(\theta)$ is compact (i.e. there exists $\theta_L$ and $\theta_U$ such that $\theta_L\leq \theta\leq\theta_U$).
+\item[\textbf{A4.}] \textbf{Stochastic equicontinuity:} $\lvert \frac{\partial Q_n(\theta)}{\partial \theta}\rvert = O_p(1)$ where $\delta$ and $K_{\delta}$ do not depend on $\theta$.
+\end{itemize}
+If these four axioms are satisfied, then $\hat\theta$ is a consistent estimator of $\theta_0$, that is, it converges in probability to the true value $\theta_0$.
+\end{theorem}
+
+\begin{bclogo}[couleur=blue!10, arrondi=0.1, logo=,ombre=false]{ Consistency of the OLS estimator} 
+\begin{small}
+Define a model as $$Y = b_0W + e$$ such that $\E{Y^2}$ and $\E{W^2}$ are finite and different from $0$. Moreover, assume that $(Y_i,W_i)$ are iid and $\E{eW}=0$. Finally, we'll assume that while $b_0$ is unknown, it is smaller in absolute value than a huge number $M$.
+
+Is $\hat b_{OLS}$ a consistent estimator of $b_0$?
+
+Recall that $$\hat b_{OLS} \in \operatorname{arg}\max_b -\sum_{i=1}^{n} (Y_i - bW)^2 $$ We define the sum of squared residuals as our $Q_n(b)$ function.
+
+A1. Does $\operatorname{plim}Q_n$ exist? It might not be clear in the form we just defined since increasing $n$ will make the sum of squares larger and larger. However, we could define $Q_n$ to be the average of the sum of squared residuals. Then, from the law of large numbers, we can be sure that $Q_n$ will converge to its expectation: $$\lim_{n\to\infty} Q_n(b) = Q_0(b) = \E{-(Y - bW)^2}$$ Now, is $Q_0$ maximized at $b_0$?
+
+By the FOC: \begin{align*}
+\frac{\partial Q_0(b)}{\partial b} = 0 & \Leftrightarrow -2\E{WY} + 2b\E{W^2} = 0 \\
+& \Leftrightarrow  b = \frac{\E{WY}}{\E{W^2}} \\
+& \Leftrightarrow  b = \frac{\E{W(bW+e)}}{\E{W^2}} \\
+& \Leftrightarrow  b = \frac{b_0\E{W^2}}{\E{W^2}} + \frac{\E{We}}{\E{W^2}} \\
+& \Leftrightarrow  b = b_0\\
+\end{align*}
+A2. Since $Q_n$ is a quadratic function, we know for sure that it is smooth.
+
+A3. By assumption $\lvert b_0\rvert < M$, therefore the domain of $Q_n$ is compact.
+
+A4. Finally, \begin{align*}
+\lvert \frac{\partial Q_n(b)}{\partial b} \rvert & = \lvert -\frac{1}{n} \sum_{i=1}^{n} 2(Y_i - bW_i)(-W_i)\rvert \\
+& \pconv \lvert\E{2(Y_i - bW_i)(-W_i)}\rvert \Rightarrow \lvert \frac{\partial Q_n(b)}{\partial b} \rvert = O_p(1)
+\end{align*}
+We can conclude, by theorem 3.8 that $\hat b_{OLS}$ is a consistent estimator of $b_0$.
+\end{small}
+\end{bclogo}
+
+\begin{theorem}[Glevenko-Cantelli Theorem]
+Let $\{ Z_n\}$ be any sequence of iid random variables with cdf $F(\cdot)$. The observed cumulative distribution $$\hat F(z) = \avg{1}{n}\operatorname{I}(Z_i \leq z)$$ is a consistent estimator of the true cdf $F(\cdot)$.
+\end{theorem}

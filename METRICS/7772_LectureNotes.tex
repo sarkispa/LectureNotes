@@ -1,0 +1,103 @@
+\documentclass[12pt]{report} %Police
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{microtype}
+\usepackage{libertine} %Palatino
+\usepackage[expert]{mathdesign}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{enumitem}
+\usepackage[open,openlevel=1]{bookmark}
+\usepackage{todonotes}
+\usepackage[tikz]{bclogo}
+
+\setcounter{tocdepth}{1}
+
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1em}%Espacement des par
+
+\setlist[itemize]{topsep=-5pt}
+\setlist[enumerate]{topsep=0pt}
+
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{remark}{Remark}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+
+\newcommand{\E}[1]{\operatorname{E}\left[#1\right]}
+\newcommand{\V}[1]{\operatorname{Var}\left[#1\right]}
+\newcommand{\cov}[1]{\operatorname{Cov}\left(#1\right)}
+\newcommand{\Prob}[1]{\operatorname{Pr}\left[#1\right]}
+\newcommand{\plim}{\operatorname{plim}}
+\newcommand{\pconv}{\overset{\text{p}}{\to}}
+\newcommand{\dconv}{\overset{\text{d}}{\to}}
+\newcommand{\msconv}{\overset{\text{ms}}{\to}}
+\newcommand{\avg}[2]{\frac{#1}{#2} \sum_{i=#1}^{#2}}
+\def\D{\mathrm{d}}
+
+
+\begin{document}
+
+\date{}
+\title{\textbf{\huge{ECON7772 - Econometric Methods}}\\ \textit{Lecture Notes from Arthur Lewbel's lectures}}
+\author{Paul Anthony Sarkis\\ Boston College} 
+ 
+\maketitle
+
+\tableofcontents
+
+\chapter{Regression, Correlation and Causes}
+
+\chapter{Finite Sample Properties of Estimators}
+
+\input{Chapters/c01_estimatorproperties}
+
+\chapter{Asymptotic Properties of Estimators} 
+
+\input{Chapters/c02_asympestimatorproperties}
+
+\chapter{Classical Regression}
+
+\input{Chapters/c03_classicalregression}
+
+\chapter{Specification issues}
+
+\input{Chapters/c04_specificationissues}
+
+\chapter{Maximum Likelihood Estimation}
+
+\input{Chapters/c05_mlestimation}
+
+\chapter{Inference and Hypothesis tests}
+
+\input{Chapters/c06_inferencehyptests}
+
+\chapter{Generalized Least-Squares and non-iid errors}
+
+\input{Chapters/c07_generalizedls}
+
+\chapter{Dynamic models and Time Series models}
+
+\input{Chapters/c08_dynamicmodels}
+
+\chapter{Instrumental Variables, 2SLS, Endogeneity and Simultaneity}
+
+\input{Chapters/c09_ivreg2sls}
+
+\chapter{Non-linear models, GMM and extremum estimators}
+
+\input{Chapters/c10_gmm}
+
+\chapter{Non-parametric estimators}
+
+\input{Chapters/c11_nonparamreg}
+
+\chapter{Program Evaluation and Treatment Effects}
+
+\input{Chapters/c12_policyeval}
+
+\chapter{Regression Discontinuity Design}
+
+\input{Chapters/c13_regdiscontinuity}
+
+
+\end{document}

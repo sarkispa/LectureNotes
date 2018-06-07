@@ -1,0 +1,175 @@
+\section{Correlation between errors and regressors}
+
+We have discussed many ways that our data could not satisfy Gauss-Markov assumptions for OLS. Now, we'll study the case of $\E{Xe} \neq 0$. How can this be? There are three main reasons why:\begin{enumerate}
+\item The specification is different from the true model. For example, if a variable is omitted from the model.
+\begin{itemize}
+\item[ex.] Let the true model be $y_i = a + bx_i + cz_i + e_i$ but we regress the model without $z_i$. Then, if $\cov{x_i, z_i}\neq 0$ putting $z_i$ in the error term will imply that $\cov{X,e}\neq 0$.
+\end{itemize}
+\item The true model suffers from simultaneity of equations. This issue will be discussed later in the course but we'll show a quick example here.
+\begin{itemize}
+\item[ex.] Let the true model be $y_i = a + bx_i + e_i$ and $x_i = c + dy_i + u_i$. Then, because $x_i$ both determines $y_i$ and is determined by it, we'll have that $\E{Xe} \neq 0$.
+\end{itemize}
+\item Finally, if there is measurement error in $X$ this could also lead to a non-null covariance between the errors and the regressors.
+\begin{itemize}
+\item[ex.] Suppose the true model be $Y = \beta X^* + u$. However, suppose that $X^*$ is not observed and instead we only have $X = X^* + v$. Assuming that $u$ and $v$ have nice properties (namely $\E{uX^*} = \E{vX^*} = \E{u} = \E{v} = \E{uv} = 0$), then you could regress $Y = \beta X + e$ and get $e = u - \beta v$. Hence, $\E{Xe} = -\beta\E{v^2} \neq 0$.
+\end{itemize}
+\end{enumerate}
+
+In general, suppose the model is $y = a + bx + e$, then $\hat b = b + \frac{\widehat{\cov{x,e}}}{\widehat{\V{x}}}$. Therefore, $$\E{Xe}\neq 0\Rightarrow \lim_{n\to\infty} \widehat{\cov{x,e}} \neq 0 \Rightarrow \plim \hat b\neq b $$
+
+\section{Measurement errors}
+
+We have seen that under measurement errors of the form $X = X^* + v$ where $X^*$ is the true value of the variable, $\cov{X,e} = -\beta\E{v^2}$. Moreover, it is trivial to show that $\V{X} = \V{X^*} + \V{v}$. Hence, we can show that, $$\plim\hat\beta = \beta + \frac{-\beta\V{v}}{\V{X^*}+\V{v}} $$ There are two important issues about this result: first, it shows an asymptotic bias of our OLS estimator ; second, the bias is leans strongly towards 0 and is positively correlated with $\beta$ (the bigger $\beta$ is, the bigger the bias).
+
+This problem quickly becomes more important as more variables are subject to measurement errors. Indeed, while the direction of the bias is straightforward on the mismeasured variable's coefficient, the effect on other variables can go any direction! Hence, when multiple variables are mismeasured, then it is impossible to identify the direction of the bias for any of the coefficients.
+
+\section{Instrumental variables}
+
+\subsection{Intuition}
+
+Suppose we find a variable $Z$ such that $\cov{Z,Y} = b\cov{X,Z} + \cov{Z,e}$. Then, if $\cov{Z,e}=0$, we have that: $$b = \frac{\cov{Z,Y}}{\cov{X,Z}} \Rightarrow \hat b = \frac{\widehat{\cov{Z,Y}}}{\widehat{\cov{X,Z}}} $$ This estimator is called the IV estimator (for Instrumental Variable) while Z is called the instrument. This result shows two important facts:\begin{itemize}
+\item OLS estimation is a special of IV estimation when $Z = X$.
+\item In order to get a consistent $\hat b_{IV}$, we need that:\begin{enumerate}
+\item $\cov{Z,e} = 0$: this requirement is described as the validity (or exogeneity) of the instrument $Z$.
+\item $\cov{Z,X} \neq 0$: this requirement is the relevance of the instrument.
+\end{enumerate}
+Together, these two requirements mean that a valid instrument has to affect $Y$ only through its effect on $X$.
+\end{itemize}
+
+\subsection{Generalization}
+
+We can generalize IV estimation in matrix form. Suppose the true model is $Y = X\beta + e$. We need that $Z$ is the exact same dimensions of $X$ (in practice, we do not have to instrument every column of $X$). Then, $$Z'Y = Z'X\beta + Z'e \Leftrightarrow (Z'X)^{-1}Z'Y = \beta + (Z'X)^{-1}Z'e $$ We'll define $\hat\beta_{IV} = (Z'X)^{-1}Z'Y$.
+
+Hence, we can rewrite the previous equation as: $$\hat\beta_{IV} = \beta + \left(\frac{Z'X}{n}\right)^{-1}\left(\frac{Z'e}{n}\right) $$
+This estimator is consistent if $\plim \frac{Z'X}{n}$ is non-singular and $\plim \frac{Z'e}{n} = 0$.
+
+Notice that we have $\sqrt{n}(\hat{\beta} - \beta) = \sqrt{n}\left(\frac{Z'X}{n}\right)^{-1}\left(\frac{Z'e}{n}\right)$. We can therefore try to prove root-n consistency and asymptotic normality ($\sqrt{n}$-CAN). First, using CLT, we'll show that $\sqrt{n}\left(\frac{Z'e}{n}\right)\dconv N(0,\sigma^2\E{\frac{Z'Z}{n}})$:
+
+Then, using the law of large numbers (LLN), we can show that $\frac{Z'X}{n}\pconv \E{\frac{Z'X}{n}}$. Hence, by the properties of convergence, we have that: $$ \sqrt{n}(\hat{\beta} - \beta) \dconv N\left(0, \sigma^2 \underbrace{\E{\frac{Z'X}{n}}^{-1}}_{\Sigma_{ZX}}\underbrace{\E{\frac{Z'Z}{n}}}_{\Sigma_{ZZ}}\underbrace{\E{\frac{X'Z}{n}}^{-1}}_{\Sigma_{XZ}}\right)$$And hence, $\hat\beta_{IV}\dconv N\left(\beta, \frac{\sigma}{n}\Sigma_{ZX}^{-1}\Sigma_{ZZ}\Sigma_{XZ}^{-1}\right)$.
+
+\section{Multiple IVs and 2SLS}
+
+Now, suppose that our true model is: $Y = a + bX + e$ as before but this time you observe two valid instruments $Q$ and $R$... From what we know, we could either estimate by IV $\hat b_Q$, $\hat b_R$ or even any $\hat b_{QR}$ which would be a any linear combination of both instruments. Indeed, because $Z = \alpha_0 + \alpha_1 Q + \alpha_2 R$ is also a valid instrument (however not always relevant), we have at our disposition a continuum of valid instruments. The obvious question that we'll answer in this section is how do we choose between all those instruments.
+
+The intuition for how to choose our instrument relies on the probability limit of $b$ when instrumenting with $Z$. We have seen in the previous section that this value is: $$\hat b_{IV} = b + \frac{\widehat{\cov{Z, e}}}{\widehat{\cov{Z,X}}} $$ From this equation we see that we want the covariance of $Z$ and $X$ being the highest possible while maintaining a small covariance with the error term. This boils down to finding $Z$ such that its correlation with $X$ is the highest. Hence we'll use an OLS estimation.
+
+The OLS regression performed here will be of $X$ on $Q$ and $R$: $$X = \alpha_0 + \alpha_1 Q + \alpha_2 R + u \Rightarrow Z = \hat X$$ Then we use $Z$ as the instrument for an IV regression in the true model. This process is called two-stage least-squares or 2SLS (even though the second stage is not an OLS regression). Then we can rewrite our 2SLS estimator as: $$\hat b_{2SLS} = \frac{\cov{\hat X, Y}}{\cov{\hat X, X}} = \frac{\cov{\hat X, Y}}{\V{\hat X}} $$ which is seemingly close to the OLS estimator using $\hat X$ but it is not.
+
+In matrix form, let our true model be: $$ \underbrace{Y}_{n\times 1} = \underbrace{X}_{n\times k}\cdot \underbrace{\beta}_{k\times 1} + \underbrace{e}_{n\times 1} $$ and let our instruments matrix be $Q$, a $n\times l$ matrix where $l\geq k$ (i.e. there are more instruments than regressors). Then, the 2SLS process follows the following two steps:\begin{enumerate}
+\item We estimate $Z = \hat X = Q(Q'Q)^{-1}Q'X$ by OLS.
+\item We estimate $\beta_{2SLS} = (Z'X)^{-1}Z'Y$ by IV.
+\end{enumerate}
+Notice that all issues regarding inference, the values of $\alpha_j$ do not matter because $Z$ is as valid as a single instrument (same inference) and any combination will do the job.
+
+\section{Testing IVs}
+
+The testing of instrumental variables revolves around two main questions:\begin{itemize}
+\item Does the model need instruments? We can test this statement by looking at $\E{Xe}$ and verifying how it compares to 0.
+\item Are the instruments provided valid? This question is equivalent to looking at $\E{Qe} =0$
+\end{itemize}
+In order to perform those tests, you need an over-identified model (more instruments than regressors).
+
+\subsection{Hausman test}
+
+The Hausman test is the name of the procedure done to test if $\E{Xe} =0$ or not. In order to perform this test, we will assume that regardless of the need for instruments, the instruments are valid (i.e. $\E{Qe} = 0$). Then, by assumption, if the model does not need any instrument, the results of OLS and 2SLS should be the same. In order to compare the two models, we'll separate $X$ in two partitions: the potentially endogenous regressors $\tilde X$ and the rest. Then we estimate $\hat{\tilde X} = Q(Q'Q)^{-1}Q'\tilde X$.
+
+Under the null hypothesis (the model does not need any instruments) the OLS regression on $$Y = X\beta + \hat{\tilde X}\gamma + u $$ should give $\hat\gamma = 0$. Notice that $\hat{\tilde X}\gamma$ actually represents the error term that would be included in $u$ if there were no instruments.
+
+To test $\hat\gamma = 0$ we can use a F-test (or a t-test if $\gamma$ is unidimensional). However, the test power is very low, hence non-rejection does not mean that the model without instrument is perfect.
+
+\subsection{Hansen-Sargan test}
+
+The Hansen-Sargan test procedure has the goal of determining if $\E{Qe} = 0$. The procedure is divided in three steps:\begin{enumerate}
+\item Estimate by 2SLS the residuals $\hat e = Y - X\hat\beta_{2SLS}$.
+\item Regress the estimated residuals on $Q$ the matrix containing the instruments: $\hat e = Q\delta + v $.
+\item Test the value of $\delta$ with the statistic: $$J = nR^2 \sim \chi_{l-k}^2 $$
+\end{enumerate}
+
+Notice that the residuals estimated by 2SLS use only $k$ regressors while $Q$ provides $l$; this is why we need that $l>k$ to test the validity of instruments: $k$ regressors are used in estimating $\hat e$, $l-k$ are left to test the validity of our instruments.
+
+\section{Simultaneity}
+
+\subsection{IV/2SLS}
+
+The issue of simultaneity arises when two equations to estimate depend on each other as a system. For example, it could be that $Y = X\beta + e$ and $X = y\gamma + u$ and GM assumptions would be violated because of the non-zero covariance between the error terms and the regressors.
+
+We'll see how to deal with this issue by working on a frequent example in IO: estimating a demand-supply system. Let the supply and demand equations be: $$S : Q = \alpha_2 P + \varepsilon $$ $$D: Q = \beta_2 P + \beta_3 Y + u $$ These two equations together are called the structural model, they are directly derived from theory and can contain relations with each other. As we've seen, because of simultaneity, this model cannot be estimated by OLS.
+
+We could try and solve for $P$. From the supply function, we have that $P = \frac{Q - \varepsilon}{\alpha_2} $. Plugging it into the demand function we get $Q = Q \frac{\beta_2}{\alpha_2} - \frac{\beta_2}{\alpha_2}\varepsilon + \beta_3 Y + u$ which gives: $$\left[1 - \frac{\beta_2}{\alpha_2}\right]Q = \beta_3 Y + u - \frac{\beta_2}{\alpha_2}\varepsilon $$ $$ Q = \frac{\beta_3\alpha_2}{\alpha_2 - \beta_2} Y + \frac{\alpha_2 u -\beta_2\varepsilon}{\alpha_2 - \beta_2} $$ $$P = \frac{\beta_3}{\alpha_2 - \beta_2} Y + \frac{ u - \varepsilon}{\alpha_2 - \beta_2}$$ 
+
+Notice here that the new system does not rely on any endogenous variable and hence can be estimated by OLS, although the parameters will not be consistent. This new system is called the reduced-form and can serve the purpose of forecasting variables.
+
+Now, going back to our structural model, we have seen that OLS cannot be performed because of the covariance between the regresssor and the error term. Indeed, $$\plim \hat \alpha_2 = \alpha_2 + \frac{\cov{P,\varepsilon}}{\V{P}} \neq \alpha_2 $$
+
+Hence we need to use an instrumental variable to estimate the supply properly. It turns out that in this setting $Y_i$ makes a perfect instrument because it is related to supply uniquely via it correlation with $P_i$. This variable is what we call a demand-shifter. Because it shifts demand and demand only, it allows us to identify the slope of the supply curve. Notice that $Y_i$ is a valid instrument because it appears only in the structural equation of the demand function. Consequently, we can guess that we cannot estimate the slope of demand (there is no supply-shifter in the supply equation).
+
+
+\subsection{Seemingly unrelated regression}
+
+Suppose that we have two different models for $n$ individuals, represented as: $$Y_{1i} = a + b X_{1i} + u_{1i}$$
+$$Y_{2i} = c + d X_{2i} + u_{2i}$$ where the two models both satisfy all Gauss-Markov assumptions. Nevertheless, both error terms are correlated across models for a given individual only, i.e. $\cov{u_{1i},u_{2i}}\neq 0$ for all $i$. Why not use OLS then? Of course, OLS estimation is actually interesting because both models separately respect GM assumptions, thus yielding $\sqrt{n}$-CAN estimators. However, the last point about correlation across models can help us achieve a more efficient estimator (it is indeed additional information, why not use it?). Consider stacking the two equations as:\begin{align*}
+\begin{bmatrix}
+Y_{11} \\
+\vdots \\
+Y_{1n} \\
+Y_{21} \\
+\vdots \\
+Y_{2n}
+\end{bmatrix} = a  \begin{bmatrix}
+1 \\
+\vdots \\
+1\\
+0 \\
+\vdots \\
+0
+\end{bmatrix} + c  \begin{bmatrix}
+0 \\
+\vdots \\
+0\\
+1 \\
+\vdots \\
+1
+\end{bmatrix}
++ b \begin{bmatrix}
+X_{11} \\
+\vdots \\
+X_{1n}\\
+0 \\
+\vdots \\
+0
+\end{bmatrix} + d \cdot \begin{bmatrix}
+0 \\
+\vdots \\
+0\\
+X_{21} \\
+\vdots \\
+X_{2n}
+\end{bmatrix} +
+\begin{bmatrix}
+u_{11} \\
+\vdots \\
+u_{1n} \\
+u_{21} \\
+\vdots \\
+u_{2n}
+\end{bmatrix}
+\end{align*}
+where the variance matrix is:\begin{align*}
+\Omega = 
+\begin{bmatrix}
+\sigma_{1}^2 & \hdots & 0 & \sigma_{12} & \hdots & 0 \\
+\vdots	& \ddots & \vdots & \vdots & \ddots & \vdots \\
+0 & \hdots & \sigma_1^2 & 0 & \hdots & \sigma_{12} \\
+\sigma_{12} & \hdots & 0 & \sigma_{2}^{2} & \hdots & 0 \\
+\vdots	& \ddots & \vdots & \vdots & \ddots & \vdots \\
+0 & \hdots & \sigma_{12} & 0 & \hdots & \sigma_{2}^2
+\end{bmatrix}
+\end{align*}
+We can then design a feasible GLS estimator on that system:\begin{enumerate}
+\item Start with regressing both models separately by OLS to get the estimates $\hat u_1$ and $\hat u_2$. Construct $\hat\Omega $ using $\hat \sigma_1^2 = \widehat{\V{\hat u_1}}$, $\hat \sigma_2^2 = \widehat{\V{\hat u_2}}$ and $\hat \sigma_{12} = \widehat{\cov{\hat u_1, \hat u_2}}$.
+\item Use the matrix $\hat\Omega^{-1}$ in the GLS estimator: $$\hat \beta_{GLS} = (X'\hat\Omega^{-1}X)^{-1}X'\hat\Omega^{-1}Y$$
+\end{enumerate}
+
+\subsubsection{3-stage least-squares}
+
+Now, further suppose that your system of SUR does not satisfy Gauss-Markov assumptions, then you could instrument it to estimate the residuals. This method is called 3SLS, as it requires that you estimate the residuals $\hat u_1$ and $\hat u_2$ by 2SLS, and then do GLS with the covariance matrix calculated then.

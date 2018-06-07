@@ -1,0 +1,95 @@
+\section{Nonlinear Least Squares}
+
+\subsection{Model}
+
+Suppose our model is $Y_i = g(X_i, \theta)$ where $g(\cdot)$ is a nonlinear function of parameters $\theta$. With what we know, we could still use a least-squares approach to find the best estimator, that is: $$\hat\theta = \arg\max_{\theta} \sum_{i=0}^{n} \hat e_i^2 = \arg\max_{\theta} \sum_{i=0}^{n} [Y_i - g(X_i, \theta)]^2 $$ We take the first-order condition: $$\frac{\partial \mathcal{L}}{\partial \theta} = 0 \Leftrightarrow \sum_{i=0}^{n} \left(2[Y_i - g(X_i, \hat\theta)]\frac{\partial g(X_i, \hat\theta)}{\partial  \theta}\right) = 0 $$ But the issue becomes finding $\hat\theta$ such that this condition is satisfied (a harder problem that will be treated in the following section). For the time being, we can ask ourselves what are the properties of this estimator.
+
+By looking at minimizing the average sum of squared residuals instead, we find that the FOC is: $$ \avg{1}{n} \left([Y_i - g(X_i, \hat\theta)]\frac{\partial g(X_i, \hat\theta)}{\partial  \theta}\right) = 0 $$ Hence, by the law of large numbers, $$\E{(Y - g(X, \hat\theta))\frac{\partial g(X, \hat\theta)}{\partial  \theta}} = 0$$ By expanding $Y$ and iterated expectations: $$\E{\E{(g(X, \theta_0) + e - g(X, \hat\theta))\frac{\partial g(X, \hat\theta)}{\partial  \theta}\vert X}} = 0$$ which gives, when you notice that $\E{e\vert X} = 0 $: $$\E{(g(X, \theta_0) - g(X, \hat\theta))\frac{\partial g(X, \hat\theta)}{\partial  \theta}} = 0 $$ Therefore, two types of estimators might be unbiased: the obvious $\hat \theta = \theta_0$ but also the undesired $\hat\theta$ such that $\frac{\partial g(X,\hat\theta)}{\partial \theta} = 0$. For a perfect identification of the parameters $\theta$ we need the assumption that there is a unique value $\theta_0$ for which $\frac{\partial g(X,\theta_0)}{\partial \theta} = 0$ (i.e. a similar assumption to the one we made about extremum estimators).
+
+\subsection{Estimation}
+
+Let's go back to the question of how to estimate $\hat\theta$. By using a first-order Taylor expansion of $g(X, \theta_0)$ around $\hat\theta$, we have that: $$g(X, \theta_0)\approx g(X,\hat\theta) + \left(\frac{\partial g(X,\hat\theta)}{\partial \theta}\right)'(\theta_0 - \hat\theta) $$ implying that we could rewrite the true model as: $$Y_i \approx g(X_i,\hat\theta) + \left(\frac{\partial g(X_i,\hat\theta)}{\partial \theta}\right)'(\theta_0 - \hat\theta) + e_i $$ $$ Y_i - g(X_i,\hat\theta) + \left(\frac{\partial g(X_i,\hat\theta)}{\partial \theta}\right)'\hat\theta \approx \left(\frac{\partial g(X_i,\hat\theta)}{\partial \theta}\right)'\theta_0 + e_i $$ This last equation is essentially a linear model now, with $\theta_0$ being the coefficient that could be estimated by simple OLS. However, you do not have the first value of $\hat\theta$, hence you cannot do this regression, there are many ways to find suitable values for $\hat\theta$, two of them being interesting and useful enough to discuss here: the gradient method and the grid search.
+
+\subsubsection{Gradient method}
+
+
+
+\subsubsection{Grid-search method}
+
+
+
+\section{Extremum Estimators}
+
+
+
+\section{Generalized Method of Moments}
+
+\subsection{Method of moments}
+
+Moment equation models are models where the population parameters solve a system of moment equations. This class of models is much broader than the model that we have considered so far, and we will see how OLS, IV or MLE fall into the GMM estimation class.
+
+Let $g_i(\theta)$ be a $l$-dimensional observed function of a $k$-dimensional parameter vector $\theta$. A moment equation model is summarized by the moment equations: $$\E{g_i(\theta)} = 0$$ which is a $l\times k$ equation system. Hence, all properties of equation systems hold here: $l\geq k$ implies the model is just (or over) identified, leading to potentially unique solutions for $\theta$ ; $l<k$ implies underidentification. In this chapter, we will only consider the first case.
+
+\subsubsection{Estimation}
+
+Define the sample estimator for our moment equation as: $$ \bar g_n(\theta) = \avg{1}{n} g_i(\theta) $$ The method of moments estimator (MME), denoted $\hat\theta_{MM}$ for $\theta$ is the value for which $\bar g_n(\hat\theta) = 0 $. This last equation system is named the estimating equation system.
+
+Although this estimator seems very simple to use, it is not guaranteed that a (unique) solution can be found analytically, or even numerically. Before going further in the topic of GMM, we will look at its estimators in known cases.
+
+\subsubsection{Mean and variance of a population}
+
+Here, set $g_i(\mu) = y_i - \mu$, we clearly have that $\E{g_i(\mu)} = 0$. Hence, the MME is $\hat\mu$ for which $$\avg{1}{n} (y_i - \hat\mu) = 0 \Leftrightarrow \hat\mu = \avg{1}{n} y_i $$ In the more complex case where we want to estimate the mean and variance of a population, then \begin{align*}g_i(\mu,\sigma^2) = \begin{pmatrix}
+y_i - \mu \\
+(y_i - \mu)^2 - \sigma^2
+\end{pmatrix}
+\end{align*} which also gives $\E{g_i(\mu, \sigma^2)} = 0$. Here the MME would be $(\hat\mu,\hat\sigma^2)$ such that: \begin{align*}\avg{1}{n}g_i(\hat\mu,\hat\sigma^2) & = 0 \\
+\avg{1}{n} \begin{pmatrix}
+y_i - \hat\mu \\
+(y_i - \hat\mu)^2 - \hat\sigma^2
+\end{pmatrix} & = 0 \\
+\begin{pmatrix}
+\hat\mu \\
+\hat\sigma^2
+\end{pmatrix} & = \begin{pmatrix}
+\avg{1}{n} y_i \\
+\avg{1}{n}(y_i - \hat\mu)^2
+\end{pmatrix}
+\end{align*}
+
+\subsubsection{OLS}
+
+In the OLS case, the population distribution of variables follow the simple following model: $$Y_i = X_i\beta + e_i \text{ where } e_i \sim N(0,\sigma^2) \text{ and } e_i\perp X_i $$ There are $k$ parameters to estimate in this regression (i.e. the $k$ lines in the $\beta$ vector). Thus, we require at least $k$ moment conditions to identify these parameters. Let's try and find what those moments can be. From our model, a good condition could be that $e_i\perp X_i$, implying the condition $\E{X_ie_i} = \E{X_i(Y_i - X_i\beta)} = 0$. Here, $g_{i}(\beta) = X_i(Y_i - X_i\beta)$. This is a $k\times 1$ vector, meaning that it contains in fact $k$ conditions: the model is exactly identified.
+
+Hence the MME is $\hat\beta$ that satisfies: $$\avg{1}{n}X_i(Y_i - X_i'\hat\beta) = 0 $$ $$\avg{1}{n}[X_iY_i - X_iX_i'\hat\beta] = 0 $$ $$\avg{1}{n}X_iY_i = \avg{1}{n}X_iX_i'\hat\beta $$ $$\sum_{i=1}^{n}X_iY_i = \sum_{i=1}^{n}X_iX_i'\hat\beta $$ which finally gives: $\hat\beta = \left(\sum_{i=1}^{n}X_iX_i'\right)^{-1}\left(\sum_{i=1}^{n}X_iY_i\right) $, the OLS estimator that we know.
+
+\subsubsection{IV}
+
+In an instrumental variables setting, the moment condition we used in the OLS case is not valid anymore. Indeed, $\E{Xe}\neq 0$, and it's exactly for that reason that we are using the $l$ instruments $Z$. Nevertheless, recall that $\E{Z_ie_i} = 0$ for instruments to be valid, or alternatively $\E{Z_i(Y_i - X_i\beta)} = 0$. Again, this implies that $g_i(\beta) =  Z_i(Y_i - X_i\beta)$, a $l\times 1$ vector, thus a $l$-moment conditions vector. If by chance $l=k$, the model is then exactly identified and we get the following method of moments estimator: $$\hat\beta_{IV} = \left(\sum_{i=1}^{n}Z_iX_i'\right)^{-1}\left(\sum_{i=1}^{n}Z_iY_i\right) $$
+
+\subsection{Generalized Method of Moments}
+
+Using the previous example of instrumental variables regression, it might be the case that the number of instruments provided is actually greater than the number of parameters to estimate. In this case, it means that we are trying to find the value of $k$ parameters that solve $l>k$ equations: the solution might not be unique. Then we need to find another way to estimate the parameters.
+
+Recall that our estimation process relied on finding $\beta$ such that $\bar g_n(X_i, \beta) = 0$. But now, this value of $\beta$ might not exist. Using the IV case as a motivating example, think of $\bar g_n(X_i, \beta)$ as being equal to $\frac{1}{n} (Z'Y - Z'X\beta)$. Further define $\mu = Z'Y$ and $G = Z'X$. Then, $Z'Y - Z'X\beta = \mu - G\beta \equiv \eta$ which we'll call the error term. Because this $\eta$ represents the difference that we are trying to set the closest possible to 0, we might want to use a well-known technique to minimize distance: the least-squares method. Write our model as $\mu = G\beta + \eta$, a simple estimate would then be: $$\hat\beta = (G'G)^{-1}G'\mu $$ However, we might have that $\eta$ is not well-behaved enough for a classical least-squares regression. In particular, it could be that $\E{\eta\eta'}\neq \sigma^2 I_n$. In this case, it might be better to use the generalized least-squares estimators. For a given weight matrix $W$, \begin{align*}\hat\beta & = (G' W G)^{-1}G' W\mu \\ & = ((Z'X)' W (Z'X))^{-1}(Z'X)' W Z'Y \\ & = (X'Z W Z'X)^{-1} X'Z W Z'Y
+\end{align*}
+This estimator minimizes the weighted sum-of-squares: $\eta' W\eta$. Now, recall that $\eta = \bar g_n(X_i, \beta)$ and hence we can rewrite our estimator $\hat\beta$ as: $$\hat \beta\in \arg\min_{\beta} [\bar g_n(X_i, \beta)]'W[\bar g_n(X_i, \beta)] $$ for a given weight matrix $W$.
+
+\subsection{GMM Estimator properties}
+
+
+
+\subsection{Efficient GMM}
+
+
+
+\subsection{Estimation of the Efficient Weight Matrix}
+
+
+
+\subsection{Variance Estimation}
+
+
+
+
+
+

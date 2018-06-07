@@ -1,0 +1,73 @@
+Throughout this section, we'll define $\mathbf{X}$ and $\mathbf{Z}$ as random vectors of size $j$ and $k$ resp. while $a,b$ will be (following the context) either scalars or vectors and $A$ a matrix. Also, we assume a perfect knowledge of moments of distribution ; this chapter only constitutes a quick review. If you find yourself needing anymore information on these definitions and properties, you should go back to the first semester class notes.
+
+\begin{definition}
+A random vector $\mathbf{X}$ of size $j$ is a vector consisting of $j$ random variables $(X_1, ..., X_j)$. Its expectation, $\E{\mathbf{X}}$ is the vector consisting of the expectations of all its elements, namely $(\E{X_1}, ..., \E{X_j})$.
+\end{definition}
+
+\begin{definition}
+The variance matrix of a random vector $\mathbf{X}$, denoted $\V{\mathbf{X}}$ is the $j\times j$ matrix equal to $\E{(\mathbf{X} - \E{\mathbf{X}})(\mathbf{X} - \E{\mathbf{X}})'}$
+\end{definition}
+\begin{definition}
+The covariance $\cov{\mathbf{X},\mathbf{Z}}$ between two vectors $\mathbf{X}$ and $\mathbf{Z}$ is equal to $E\big[ (\mathbf{X} - \E{\mathbf{X}})(\mathbf{Z} - \E{\mathbf{Z}})'\big]$
+\end{definition}
+
+\begin{remark}
+The variance of the vector $A\mathbf{X} + b$ is $$\V{A \mathbf{X} + b} = A \V{\mathbf{X}}A'$$ The covariance between vectors $A\mathbf{X} + b$ and $C\mathbf{Z} + d$ is $$\cov{A \mathbf{X} + b,C\mathbf{Z} + d} = A \cov{\mathbf{X},\mathbf{Z}} C'$$
+\end{remark}
+
+\begin{definition}
+If $\mathbf{X} \sim N(\mu, \Omega)$, we say that that $\mathbf{X}$ follows a joint distribution. This distribution is a multi-variate normal distribution of mean $\mu$ and variance $\Omega$.
+\end{definition}
+\begin{remark} 
+The vector $A\mathbf{X}+b$ also follows a joint multi-variate normal distribution, of mean $A\mu+b$ and variance $A\Omega A'$.\\
+The vector $(\mathbf{X} - \mu)'\Omega^{-1}(\mathbf{X}-\mu)$ follows a chi-squared distribution with $j$ degrees of freedom; we write $(\mathbf{X} - \mu)'\Omega^{-1}(\mathbf{X}-\mu)\sim\chi_j^2$
+\end{remark}
+
+Differentiation
+
+Differentiating a vector by another is equivalent to taking the gradient of the first vector, wrt the second.
+* $\frac{\partial a'\mathbf{X}}{\partial a} = \Big(\frac{\partial a'\mathbf{X}}{\partial a_1}, ..., \frac{\partial a'\mathbf{X}}{\partial a_j}\Big)'$
+* $\frac{\partial a'\mathbf{X}a}{\partial a} = (\mathbf{X}+\mathbf{X}')a$, for any square matrix $\mathbf{X}$.
+* $\frac{\partial \E{g(a\mathbf{X})}}{\partial a} = E\Big[\frac{\partial g(a\mathbf{X})}{\partial a}\Big]$
+
+Law of iterated expectations
+
+$\E{\mathbf{X}} = E\big[\E{\mathbf{X}|\mathbf{Z}}\big]$
+
+Independence(s) and correlation
+
+Let $\mathbf{X}$ and $\mathbf{Z}$ be any two random vectors with means $\mu_\mathbf{X}$ and $\mu_Z$ resp.
+
+Def: $\mathbf{X}$ and $\mathbf{Z}$ are said to be independent, $\mathbf{X} \bot \mathbf{Z}$, if nothing can be said about $\mathbf{X}$'s distribution from $\mathbf{Z}$.
+
+Def: $\mathbf{X}$ and $\mathbf{Z}$ are said to be mean-independent if $\E{\mathbf{X}|\mathbf{Z}} = \mu_X$
+
+Def: $\mathbf{X}$ and $\mathbf{Z}$ are said to be uncorrelated, or linearly independent, if $\E{\mathbf{X}\mathbf{Z}} = \mu_X\mu_Z \Leftrightarrow cov(\mathbf{X},\mathbf{Z}) = 0$
+
+These definitions are ranked from the strongest to the weakest.
+
+Proofs
+
+Proposition : Let $Z_1, Z_2, ...$ be a sequence of random variables such that, for all $i$, $E[Z_i] = \mu$. Let $X_n$ be the sample average over the $n$ first variables. The expectation of the sample average is equal to the expectation of each variable : $$ E[X_n] = E[Z_i] = \mu $$
+
+Proof : $E\big[\frac{\sum_{i=1}^{n} Z_i}{n}\big] = \frac{1}{n}\sum_{i=1}^{n} E[Z_i] = \frac{n\mu}{n} = \mu $
+
+The sample average is said to be an **unbiased estimator** of the random variable $Z$'s expectation.
+
+Definition : Let $\theta_0$ be the true value of a parameter from any distribution. Let $\hat{\theta}$ be an estimator of $\theta_0$. We define the **bias of an estimator** to be the absolute deviation between the true value of the parameter and the expectation of its estimator. $$\text{Bias}(\hat{\theta}) = | \theta_0 - E[\hat{\theta}] | $$
+
+We say that an estimator is unbiased iff its bias is equal to 0.
+
+Proposition : Proposition : Let $Z_1, Z_2, ...$ be a sequence of **i.i.d. random variables** such that, for all $i$, $E[Z_i] = \mu$ and $Var[Z_i] = \sigma^2$. Let $X_n$ be the sample average over the $n$ first variables. The variance of the sample average is equal to the variance of each variable, divided by the sample size : $$ Var[X_n] = \frac{Var[Z_i]}{n} = \frac{\sigma^2}{n} $$
+
+Proof : $Var[X_n] = E\big[\big(X_n - E[X_n]\big)^2\big] = E\big[\big(X_n - \mu\big)^2\big] = E\big[\big(\frac{1}{n}\sum_{i=0}^{n} Z_i - \mu\big)^2\big] = \frac{1}{n^2}E\big[\big(\sum_{i=0}^{n} Z_i - \mu\big)\big(\sum_{j=0}^{n} Z_j - \mu\big)\big]=\frac{1}{n^2}E\big[\sum_{i=0}^{n}\sum_{j=0}^{n} (Z_i - \mu)( Z_j - \mu)\big] $
+
+$=\frac{1}{n^2}E\big[\sum_{i=0}^{n}(Z_i - \mu)^2 + \sum_{i=0}^{n}\sum_{j\neq i}^{n} (Z_i - \mu)( Z_j - \mu)\big] = \frac{1}{n^2}\big(\sum_{i=0}^{n}Var[Z_i] + \sum_{i=0}^{n}\sum_{j\neq i}^{n}Cov[Z_i, Z_j] \big) = \frac{Var[Z_i]}{n} = \frac{\sigma^2}{n}$
+
+Proposition : Let $Z_1, Z_2, ...$ be a sequence of **i.i.d. random variables** such that, for all $i$, $E[Z_i] = \mu$ and $Var[Z_i] = \sigma^2$. Let $\hat{\sigma}_n$ be the sample variance, adjusted for the degrees of freedom, over the $n$ first variables. The sample variance is an unbiased estimator of $\sigma^2$.
+
+Proof : 
+
+2.7 Efficiency of estimators
+
+Definition : Among a number of estimators of the same class, the estimator having the least variance is called an **efficient estimator**. Let $\hat{\theta}_1$ and $\hat{\theta}_2$ be two estimators of the same parameter $\theta$, then if $Var[\hat{\theta}_1] < Var[\hat{\theta}_2]$, we say that $\hat{\theta}_1$ is a more efficient estimator than $\hat{\theta}_2$. The estimator with the least possible variance (Cramer-Rao bound at the minimum) is called the **most efficient estimator**.

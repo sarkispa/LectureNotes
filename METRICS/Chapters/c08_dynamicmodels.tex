@@ -1,0 +1,53 @@
+In this chapter we will cover a number of models and concepts related to estimation of temporal relationships in the data. The reasoning behind this kind of models is that sometimes, variables do not respond only to contemporaneous variables but also to previous realizations of these variables (i.e. their own past realizations or other variables' past realizations).
+
+\section{Dynamic Regression Models}
+
+\subsection{Lagged effects in a dynamic model}
+
+Consider the following model: $$y_t = a + b_0 x_t + b_1 x_{t-1} + ... + e_t $$ In this model, a one-time change in the variable $x$ will affect the expectation of $y$ in all subsequent periods. This is what we call a lagged effect. We consider two types of lagged effects: those which continue to effect $y$ for an infinite amount of periods but with fading impact are called infinite lag models, those which cease to have an effect after a finite amount of periods are called finite lag models.
+
+In such dynamic models, we measure the effect of a change in $x_t$ by the variation on the equilibrium value of $y_t$. Assuming that there exists such an equilibrium, we define it as: $$\bar y = a + \sum_{i=0}^{\infty} b_i\bar x = a + \bar x\sum_{i=0}^{\infty} b_i $$ Here you can clearly see that for this value to exist we need that the sum of $b_i$ be finite.
+
+\begin{definition}[Short-run effect]
+In a dynamic model, we define the short-run effect or impact effect as the current-time coefficient of the model: $b_0$.
+\end{definition}
+
+\begin{definition}[Cumulated effect]
+The cumulated effect of a dynamic model after $T$ periods is defined as the sum of the first $T$ coefficients of the model: $\sum_{i=0}^{T} b_i$.
+\end{definition}
+
+\begin{definition}[Long-run effect]
+Finally, we define the long-run effect or equilibrium effect as the sum of all coefficients of the model: $\sum_{i=0}^{\infty} b_i$.
+\end{definition}
+
+\begin{definition}[Lag weight]
+The lag weight $w_i$ of a lag coefficient $b_i$ is defined as: $$w_i = \frac{b_i}{\sum_{j=0}^{\infty} b_j} $$
+\end{definition}
+
+Hence, we can rewrite our model as: $$y_i = a + b\sum_{i=0}^{\infty} w_i x_{t-i} + e_t $$ Two other useful statistics of the lag weights are the median lag and the mean lag. They are defined respectively as: $$t_{1/2} = \inf \left\lbrace t : \sum_{i=0}^{t} w_i \geq 0.5\right\rbrace \text{ and } \bar t = \sum_{i=0}^{\infty} iw_i $$ $$t_{1/2} = \inf \left\lbrace t : \frac{\sum_{i=0}^{t} b_i}{\sum_{i=0}^{\infty} b_i}  \geq 0.5\right\rbrace \text{ and } \bar t = \frac{\sum_{i=0}^{\infty} ib_i}{\sum_{i=0}^{\infty} b_i} $$ 
+
+\subsection{Lag and difference operators}
+
+A convenient tool for manipulating lagged variables is the lag operator, denoted $L$. Placing $L$ before a variable means taking its lag of one period. As an example, $Lx_t = x_{t-1}$. It is useful to define some properties of this operator:\begin{itemize}
+\item The lag of a constant is the constant: $La = a$.
+\item The lag of a lag is the second lag: $L(Lx_t) = L^2 x_t = x_{t-2}$.
+\item Thus, it works like a power: $L^px_t = x_{t-p}$, $L^q(L^px_t) = L^{q+p}x_t = x_{t-p-q}$, $(L^p + L^q)x_t = x_{t-p} + x_{t-q}$. Finally, $L^0 x_t = x_t$.
+\end{itemize}
+
+A related useful operation is the difference operator $\Delta$ such that: $$\Delta x_t = (1 - L)x_t = x_t - x_{t-1}$$
+
+
+\section{Simple Distributed Lag Models}
+
+
+
+\section{Autoregressive Distributed Lag Models}
+
+
+
+\section{Issues with Dynamic Models}
+
+
+
+
+

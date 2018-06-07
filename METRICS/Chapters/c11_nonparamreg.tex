@@ -1,0 +1,72 @@
+\section{Introduction}
+
+The goal of this whole chapter is to understand the implications of non and semi parametric methods in typical econometrics models. For the rest of this chapter, we will assume that observations in the data are i.i.d.
+
+First, let's review the differences between what those concepts mean:\begin{itemize}
+\item As we have seen, a parametric regression is exactly what we have done since the beginning of the class: you presuppose a model that is fully specified in its parameters. This includes of course the linear model, but also more general distributions of parameters (GMM). In this type of regressions, the parameters have finite dimensions.
+\item A nonparametric regression would imply a model of infinite dimensional parameters: $Y_i = m(X_i) + e_i$ where $m(\cdot)$ is a function that could basically be anything.\begin{itemize}
+\item[$\checkmark$] A nonparametric regression does not require a fully specified model for estimation: this can be useful if the particular distribution of a variable is not given (i.e. who says errors are i.i.d. normal)
+\item[x] The extremely high dimensionality of nonparametric models can make them very hard to compute.
+\end{itemize}
+\item A semiparametric regression is between both, restricting parameters of interest to finite dimensions while allowing other parameters to have infinite dimensions.\begin{itemize}
+\item[$\checkmark$] A semiparametric regression can overcome the high-dimensionality issue of nonparametric models.
+\item[$\checkmark$] A semiparametric regression only focuses on variables of interest, allowing free movements of other variables.
+\item[$\checkmark$] A semiparametric regression is increasingly popular among econometricians.
+\end{itemize}
+\end{itemize}
+
+Let $X$ be a random variable (a scalar for now), $x$ is a realization of $X$. As before, $X_i$ and $x_i$ are respectively iid random variables and their realizations. Suppose $X\sim F(X)$ for a given $F(\cdot)$ and each $X_i$ has the distribution $F$.
+
+\begin{definition}[Empirical distribution fucntion]
+Define $\hat F(x)$, the empirical distribution function, evaluated at $x$ as: $$\hat F(x) = \avg{1}{n}\mathbb{I}[X_i\leq x]$$ where $\mathbb{I}$ is the indicator function, taking the value $1$ if the condition inside the bracket is met, $0$ else. In words, empirical distribution function is the sample proportion of observations lower than or equal to $x$.
+\end{definition}
+
+Graphically, if we plot $\hat F(x)$ against $x$, we can see it representing an step-wise approximation of the true distribution $F$. Below is an example of this for a random sample of 100 observations drawn from the standard normal distribution.
+
+%%
+
+
+\section{Estimation of the EDF}
+
+From what the graph in the previous section showed us, it seems natural to consider the EDF as a nonparametric estimator for $F(x)$. What are its properties?
+
+For any real number $x$,\begin{align*}
+\E{\hat F(x)} & = \E{\avg{1}{n}\mathbb{I}[X_i\leq x]} \\
+& = \avg{1}{n}\E{\mathbb{I}[X_i\leq x]} \\ & = \E{\mathbb{I}[X\leq x]} \\
+& = \int_{-\infty}^{\infty} \mathbb{I}[X\leq x]f(X)\D X \\
+& = \int_{-\infty}^{x} f(X)\D X \\ & = F(x)
+\end{align*}
+Hence the EDF estimator is unbiased. In the same way, we have: \begin{align*}
+\V{\hat F(x)} = \E{(\hat F(x) - F(x))^2} & = \E{\left(\avg{1}{n}\mathbb{I}[X_i\leq x] - F(x)\right)^2} \\
+& = \frac{F(x)(1 - F(x))}{n}
+\end{align*} implying that the EDF estimator is also consistent. Finally, since $\hat F(x)$ is also an average, we can apply the CLT and show that it is $\sqrt{n}$-consistent and asymptotically normal: $$\sqrt{n}\left(\hat F(x) - F(x)\right) \dconv N[0,F(x)(1 - F(x))] $$ 
+
+\section{Estimation of the empirical pdf}
+
+Now suppose we want to estimate $f(x)$, the probability density function instead. We have seen the parameterized equivalent of this problem with Maximum likelihood estimators. Without any parameters, we can use an approximation by a histogram. Let $h$ represent half of the width of each bin, the histogram of our data can be represented by: $$\avg{1}{n}\mathbb{I}[x - h \leq x_i \leq x +h] $$ Note that this is equivalent to the following equation:\begin{align*}
+\hat F(x+h) - \hat F(x-h) & = \avg{1}{n}\mathbb{I}[X_i\leq x+h] - \avg{1}{n}\mathbb{I}[X_i\leq x-h] \\
+& = \avg{1}{n}\left(\mathbb{I}[X_i\leq x+h] - \mathbb{I}[X_i\leq x-h]\right) \\
+& = \avg{1}{n}\mathbb{I}[x-h\leq X_i\leq x+h] \\
+& = \avg{1}{n}\mathbb{I}\left[\left\vert\frac{x - X_i}{h}\right\vert\leq 1\right]
+\end{align*}
+
+The probability at the exact point $x$ is the value of the proportion when the bin width tends to 0. This gives: $$\hat f(x) = \lim_{h\to 0} \frac{\hat F(x+h) - \hat F(x-h)}{2h} = \lim_{h\to 0} \frac{1}{h}\avg{1}{n}\frac{1}{2}\mathbb{I}\left[\left\vert\frac{x - X_i}{h}\right\vert\leq 1\right] $$ But since we cannot compute a zero binwidth, we will allow for our estimator to vary depending on $h$, we get formally that: $$\hat f_h(x) \equiv \frac{1}{nh}\sum_{i=1}^{n}\left(\frac{1}{2}\mathbb{I}\left[\left\vert\frac{x - X_i}{h}\right\vert\leq 1\right]\right) $$ The part in the sum can in fact be written as a function of $\frac{x - X_i}{h}$, call it $K(\cdot)$ where $$K(u) = \frac{\mathbb{I}\left[\left\vert u\right\vert\leq 1\right]}{2}$$ so that $K(u)$ is in fact the pdf of a uniform distribution on the interval $[-1, 1]$. It turns out that this function $K(\cdot)$ is called a kernel. This particular one has simple properties as it gives the same weight to any observations in the $h$-neighborhood of $x$ and a zero weight to those outside of the $h$-neighborhood. There are many other existing kernels that might give more information about a pdf. Let's look at a few of them.
+
+The Gaussian kernel estimator has the following kernel: $$K(u) = \frac{1}{\sqrt{2\pi}} e^{-\frac{u^2}{2}}$$
+
+The Epanechikov kernel estimator has the following kernel: $$K(u) = \frac{3}{4} (1 - u^2)\cdot\mathbb{I}[\vert u \vert \leq 1] $$
+
+\subsection{Properties of the kernel estimator}
+
+The kernel estimator is unfortunately biased. In particular, we can show that: $$\E{\hat f_h(x)} = f(x) + h^2b(x) $$ Nevertheless, the estimator's variance will tend to 0 for a constant $h$ as: $$\V{\hat f_h(x)} \approx \frac{1}{nh} v(x) $$ The two previous properties introduce a typical issue in nonparametric models: the MSE trade off. In fact, we can see that choosing a small $h$ will reduce the bias, but increase the variance. The opposite is true as well, a great $h$ will make the estimator more biased while it will reduce its variance. The MSE equation is given by $$\operatorname{MSE} \approx h^4b^2(x) + \frac{1}{nh} v(x) $$ The $h$ that minimizes the MSE satisfies the following FOC: $$4h^3b^2(x) - \frac{1}{nh^2} v(x) = 0 $$ $$ h^5 = \frac{v(x)}{4b^2(x)}\cdot \frac{1}{n} $$ $$ h =\left[\frac{v(x)}{4b^2(x)}\right]^{1/5} n^{-1/5} $$ This shows an interesting feature: the bigger the number of observations $n$, the smaller the best $h$ gets. This means that for huge datasets, we can get away with setting $h$ really small to get unbiased estimates.
+
+
+\section{Kernel regressions}
+
+
+
+\section{Series regressions}
+
+
+
+\section{Semiparametric regressions}

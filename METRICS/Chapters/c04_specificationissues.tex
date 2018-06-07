@@ -1,0 +1,95 @@
+\section{Non-randomness of X}
+
+Starting with the usual model: $$Y = X\beta + e$$ We assume that:\begin{itemize}
+\item $(y_i, x_i)$ are independent but not identically distributed.
+\item $\E{e_ix_i} = 0$, which, if $X$ contains a constant, implies that $\E{e} = 0$.
+\item For all $i,j: i\neq j$, $\E{e_ie_j} = 0$ so that off-diagonal elements of $\Omega$ are zero.
+\item $\E{\sigma^2\vert x_i} = \sigma^2(x_i)$
+\end{itemize}
+
+The assumption that $\E{e_i\vert X} = 0 $ is not made here, implying that $X$ is now a random variable. The implication of this statement can be visible from the new mean of $\hat\beta_{OLS}$:\begin{align*}
+\E{\hat\beta} = \E{(X'X)^{-1}X'Y} & = \E{(X'X)^{-1}X'(X\beta + e)} \\ & = \E{(X'X)^{-1}X'X\beta + (X'X)^{-1}X'e} \\
+& = \beta + \E{(X'X)^{-1}X'e}
+\end{align*} Using our definition of $Q_n = \frac{X'X}{n}$, we can write: $$ \E{\hat\beta} = \beta + \E{Q_n^{-1}\frac{X'e}{n}} $$ Note that, even if $\E{e_iX_i} = 0$ we cannot cancel out the expectation term since it might be correlated to $Q_n^{-1}$.
+
+The same issue arises for $\V{\hat\beta}$:\begin{align*}
+\V{\hat\beta} = \V{(X'X)^{-1}X'e} & = \E{(X'X)^{-1}X'ee'X(X'X)^{-1}} \\
+& = \E{Q_n^{-1}\frac{(X'e)(X'e)'}{n^2} Q_n^{-1}}
+\end{align*}
+
+We now want to check if $\hat\beta$ is consistent. We have:\begin{align*}
+\plim \hat\beta = \plim\beta + \plim\left[Q_n^{-1}\frac{X'e}{n}\right] & = \beta + \plim Q_n^{-1} + \plim \frac{X'e}{n}
+\end{align*} If $\V{\frac{X'e}{n}} \to 0$, we have that $\plim \frac{X'e}{n} = \frac{1}{n}\E{X'e} = 0$ by assumption 2.
+
+Note that the last part allows us to write: $$\sqrt{n}(\hat\beta - \beta) = Q_n^{-1}\sqrt{n}\frac{X'e}{n} \dconv N(0, \V{Q_n^{-1}\sqrt{n}\frac{X'e}{n}})$$ Since $Q_n^{-1}$ is a constant, the problem reduces to finding $\V{\sqrt{n}\frac{X'e}{n}}$:\begin{align*}
+\V{\sqrt{n}\frac{X'e}{n}} = \frac{1}{n}\E{(X'e)(e'X)} = 
+\end{align*}
+
+
+
+\section{Non-stationarity of X}
+
+\section{High correlation in the error term}
+
+\section{Collinearity}
+
+\begin{definition}[Strict multicollinearity]
+Strict multicollinearity is a consequence of the columns of matrix $X$ being linearly dependent. In particular, there is at least one column (or row) of $X$ which is a linear combination of any other column (row). Algebraically, $$\exists \alpha\neq 0 : X\alpha = 0$$
+\end{definition}
+
+\begin{remark}[Singularity of strictly multicollinear matrices]
+If the matrix $X$ is strictly collinear, then its quadratic form $X'X$ is singular and $\hat{\beta}_{OLS}$ is not defined.
+\end{remark}
+
+\begin{definition}[Near multicollinearity]
+A matrix $X$ is said to be near multicollinearity (or simply multicollinear) if the matrix $X'X$ is near singular.
+\end{definition}
+
+The issue with near multicollinearity resides in the definition of what is "near" or in other words, what is "collinear enough"? We can work out a few examples to check for this problem.
+
+\begin{bclogo}[couleur=blue!10, arrondi=0.1, logo=,ombre=false]{ Multicollinearity in examples} 
+\begin{small}
+Let $x$ be the average hourly wage and $z$ the average daily wage. Then, it could be that $x$ and $z$ are strictly multicollinear if everyone in the population worked 8 hours exactly ($z = 8x$). In practice, the number of hours worked per day may vary slightly but the correlation between $x$ and $y$ will be very close to 1, leading to near multicollinearity.
+
+Let $h$ be the number of hours worked in a week and $w$ be the total weekly wage. We have that $w = xh$ so $x$ and $w$ are not strictly multicollinear. However, in logs, $\ln(w) = \ln(xh) = \ln(x) + \ln(h)$ implying that $\ln(w)$ and $\ln(x)$ are strictly multicollinear.
+
+Finally, if we use both $x$ and $x^2$ in a regression, we increase chances of finding near multicollinearity.
+\end{small}
+\end{bclogo}
+
+
+\section{Coefficient interpretation}
+
+\subsection{Linear vs. log specification}
+
+Let us compare two different specifications: $$Y = a + bX + e \text{ and } \ln(Y) = \alpha + \beta \ln(X) + \varepsilon $$
+We know that coefficients should be interpreted as the derivative of the regressed term with respect to the regressor. In this case,\begin{itemize}
+\item $b = \frac{dY}{dX}$ is the derivative of $Y$ w.r.t. $X$.
+\item $\beta = \frac{d\ln(Y)}{d\ln(X)} = \frac{dY}{dX}\frac{X}{Y}$ is the elasticity of $Y$ w.r.t. $X$.
+\end{itemize}
+However, whether you want to estimate an elasticity or a derivative should not affect what model you should use. One should only care about the true specification of a model, then make the computations necessary to find a certain variable.
+
+\subsection{Measurement units}
+Now, consider two models $$Y = a + bX + e \text{ and } Y = a^* + b^*X^* + e^* $$ where $X$ is measured in thousands of dollars while $X^*$ is directly measured in dollars. We have $X^* = 1000 X$. Notice that we can rewrite the second model as: $$Y = a^* + b^*\cdot(1000 X) + e^* $$Therefore it must be that $a^* = a$, $b = 1000 b^*$ and $e = e^*$. This also implies that each $t$-statistic will be the exact same. Hence, a change of unit in a linear model does not change the fit of the model.
+
+If the change of units happens on a logarithmic model, then the result above is different. In particular, \begin{align*}
+\ln(Y) & = \alpha^* + \beta^*\ln(1000X) + e^* \\ 
+& = \underbrace{\alpha^* + \beta^*\ln(1000)}_{\text{new constant}} + \beta^*\ln(X) + e^*
+\end{align*} Here, the constant term will change (and its $t$-statistic too).
+
+\subsection{Percent change}
+One should always use a log specification for a percent change variable ($\ln(\frac{X_{t}}{X_{t-1}})$) instead of computing the actual period percent change ($\frac{X_t - X_{t-1}}{X_{t-1}}$).
+
+\subsection{Interaction variables}
+
+Consider the following model, $$Y_i = \beta_1 + \beta_2 X_i + \beta_3 Z_i + \beta_4 \underbrace{X_iZ_i}_{\textit{interaction term}} + e_i $$ This specification allows for variables to interact with each other so that $\frac{\partial Y}{\partial X} = \beta_2 + \beta_4 Z$ and $\frac{\partial Y}{\partial Z} = \beta_3 + \beta_4 X$. This means that the effect of $X$ (or $Z$) on $Y$ also depends on the value that $Z$ (or $X$) takes. This model is close to the analysis performed in a diff-in-diff model since having this specification almost implies having two models to estimate.
+
+A similar model would be one including a polynomial function of one variable such as, $$Y_i = \beta_1 + \beta_2 X_i + \beta_3 X_i^2 + \beta_4 X_i^3 + e_i $$
+
+Both these models do not violate any assumptions among the Gauss-Markov assumptions. However, one should consider the fact that interacting variables increase the likelihood of multicollinearity in the variables (since there will be a strong correlation between single and interacted variables).
+
+\begin{bclogo}[couleur=blue!10, arrondi=0.1, logo=,ombre=false]{ Predicting sales revenue at CVS} 
+\begin{small}
+
+\end{small}
+\end{bclogo}

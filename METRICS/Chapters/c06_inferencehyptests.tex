@@ -1,0 +1,116 @@
+\section{Recap}
+
+In the case of a linear regression model with normal errors $e_i \sim N(0,\sigma^2)$, it is possible to compute the exact distribution of OLS coefficients $\hat\beta_{OLS}$ and OLS residuals $\hat e_i$.
+
+First, recall that $\hat{\beta} - \beta = (X'X)^{-1}X'e$, a linear projection of the error $e$. Hence, we can get:\begin{align*}
+\hat\beta - \beta & \sim (X'X)^{-1}X'N(0,\sigma^2 I_n)\\
+& \sim N(0, \sigma^2 (X'X)^{-1}X'X(X'X)^{-1}) \\ & \sim N(0,\sigma^2(X'X)^{-1})
+\end{align*}
+
+Second, with help of $\hat e = Me$, we have that $$\hat e \sim N(0, \sigma^2 MM) \sim N(0, \sigma^2 M) $$
+
+The first two points lead to a result on the joint distribution of $\hat \beta$ and $\hat e$:\begin{align*}
+\begin{bmatrix}
+    \hat\beta - \beta \\
+    \hat e
+\end{bmatrix}
+= \begin{bmatrix}
+    (X'X)^{-1}X'e \\
+    Me
+\end{bmatrix}
+= \begin{bmatrix}
+    (X'X)^{-1}X' \\
+    M
+\end{bmatrix}
+e
+\end{align*} Again, this is a linear projection of e, we can guess its mean (0) and covariance matrix. The covariance is 0 since $(X'X)^{-1}X'M = 0$.
+
+Finally, consider the adjusted sample variance estimator $s^2$. We have that $(n-k)s^2 = \hat e'\hat e = e'Me$. We can use the spectral decomposition of $M$, namely $H\Lambda H'$ where $H'H=I_n$ and $\Lambda$ is a diagonal matrix with the first $n-k$ terms equal to $1$, the rest to $0$.
+
+Let $u=H'e\sim N(0,I_n\sigma^2)$ and partition it as $u=(u_1, u_2)$. Then,\begin{align*}
+(n-k)s^2 = e'Me = e'H\Lambda H'e & = u'\Lambda u \\
+& = u_1'u_1 \\
+& \sim \sigma^2 \chi_{n-k}^2
+\end{align*}
+
+The main results are:\begin{itemize}
+\item $\hat{\beta} \sim N(\beta,\sigma^2(X'X)^{-1}$, and in particular $\hat{\beta}_j \sim N(\beta_j,\sigma^2\left[(X'X)^{-1}\right]_{jj})$.
+\item $\hat e \sim N(0, \sigma^2M)$
+\item $\hat\beta$ and $\hat e$ are independent
+\item $\frac{(n-k)s^2}{\sigma^2}\sim \chi_{n-k}^2$
+\item $\hat\beta$ and $s^2$ are independent
+\end{itemize}
+
+\section{T-statistic}
+
+We can use all results of the last section to derive two data statistics.
+
+\begin{definition}[Standardized statistic]
+Define the standardized statistic as:$$\frac{\hat{\beta}_j - \beta_j}{\sqrt{\sigma^2\left[(X'X)^{-1}\right]_{jj}}} \sim N(0,1) $$
+\end{definition}
+
+The issue with this last statistic is that $\sigma^2$ is unknown. If we use $s^2$, the adjusted variance estimator, we can design a more useful statistic (that will be used for hypothesis testing).
+
+\begin{definition}[T-statistic]
+Define the T-statistic as: $$ \frac{\hat{\beta}_j - \beta_j}{\sqrt{s^2\left[(X'X)^{-1}\right]_{jj}}} = \frac{\hat{\beta}_j - \beta_j}{s(\hat\beta_j)} \sim t_{n-k} $$ where $s(\hat\beta_j)$ is the square root of the $j\times j$-th element of the adjusted variance matrix, and $t_{n-k}$ represents the Student's $t$-distribution of $(n-k)$ degrees of freedom.
+\end{definition}
+
+Consider a classical linear regression where $e$ is assumed to follow a normal distribution $N(0,\sigma^2)$. Using Student's $t$-statistic, we can design a test to assess whether the estimated coefficient $\hat\beta$ is equal to a specific value $\beta$ (we are interested in $\beta_0$, the true value of the regression).
+
+\begin{proposition}[Student's $t$-test]
+Define the null hypothesis as $H_0 : \hat\beta = \beta$ while the alternative hypothesis will be $H_1:\hat\beta \neq \beta$.
+
+The statistic used to test $H_0$ against $H_1$ is the absolute value of Student's $t$-statistic: $$\vert T\vert = \left\vert \frac{\hat{\beta}_j - \beta_j}{s(\hat\beta_j)} \right\vert $$ We reject $H_0$ if $\vert T\vert > c$. 
+\end{proposition}
+
+We call $c$ the critical value of the test. We have seen that it is defined as the threshold for the test but its value is in fact determined to control the probability of type-I error. For a given value of $c$, the probability of type-I is:\begin{align*}
+\Prob{\text{Reject }H_0\vert H_0\text{ is true}} & = \Prob{\vert T\vert >c\vert H_0} \\
+& = \Prob{T>c\vert H_0} + \Prob{T<c\vert H_0} \\
+& = 1 - t_{n-k}(c) + t_{n-k}(-c) \\
+& = 2(1 - t_{n-k}(c))
+\end{align*} We call this probability $\alpha$, the significance level of the test and hence we choose $c$ such that $t_{n-k}(c) = 1 - \alpha /2$.
+
+\section{Confidence intervals}
+
+We have seen $\hat\beta$ as a point estimate for the true parameter $\beta$. We could also consider a set of values that have a certain probability of containing the true value $\beta$.
+
+\begin{definition}[Interval estimate]
+An interval estimate $\hat C$ is a set $\left[\hat L, \hat U\right]$ which goal is to contain the true value of the parameter $\beta$. 
+\end{definition}
+
+\begin{definition}[Coverage probability]
+The coverage probability is defined as $\Prob{\beta\in\hat C} = 1 -\alpha $
+\end{definition}
+
+\begin{proposition}[Normal regression confidence interval]
+Consider the interval based on Student's $t$-statistic defined as the set of values $\beta$ such that the $t$-statistic is smaller than $c$, the critical value of the associated $t$-test. Formally, $$\hat C = \{x : \vert T(x)\vert \leq c\} = \left\lbrace x : -c\leq \frac{\hat{\beta} - x}{s(\hat\beta)} \leq c\right\rbrace $$
+\end{proposition}
+
+\section{Wald tests}
+
+We know that $\hat\beta$ is asymptotically normal around $\beta$. In particular, if we want to test the null hypothesis $H_0:A\beta - C = 0$, we can use: $$ A\hat\beta - C \overset{a}{\sim} N(0,\Omega) $$ 
+
+\subsection{Linear Regression model}
+
+This also means that:\begin{align*}
+\left(A\hat\beta - C\right)'\V{A\hat\beta - C}^{-1}\left(A\hat\beta - C\right) & \sim \chi_q^2 \\
+\left(A\hat\beta - C\right)'\left(A\V{\hat\beta}A'\right)^{-1}\left(A\hat\beta - C\right) & \sim \chi_q^2 \\
+\left(A\hat\beta - C\right)'\left(A\sigma^2(X'X)^{-1}A'\right)^{-1}\left(A\hat\beta - C\right) & \sim \chi_q^2 \\
+\frac{\left(A\hat\beta - C\right)'\left(A(X'X)^{-1}A'\right)^{-1}\left(A\hat\beta - C\right)}{\sigma^2} & \sim \chi_q^2 \\
+\end{align*} However, $\sigma^2$ is unknown so we have to use the adjusted sample variance $s^2$: $$ \frac{\left[\left(A\hat\beta - C\right)'\left(A(X'X)^{-1}A'\right)^{-1}\left(A\hat\beta - C\right)\right]/q}{\sigma^2\left[\frac{(n-k)s^2}{\sigma^2}\right]/(n-k)} \sim F_{q, n-k} $$
+
+\subsection{General Case}
+
+\section{Likelihood Ratio tests}
+
+The section on $t$-tests introduced how to assess the validity of a hypothesis on one single estimated coefficient. However, it may be useful to test the validity of a set of estimated coefficients at once. For that purpose, you might already know the popular $F$-test which can be derived from the Likelihood Ratio (LR) test discussed in this section.
+
+Consider a partition of the regressor $X$ as $X = (X_1, X_2)$ and in a similar way the partition of $\beta = (\beta_1, \beta_2)$. The new regression model is: $$ Y = X_1\beta_1 + X_2\beta_2 + e $$ Suppose we want to test the significance of the set of parameters $\beta_2$, define the null hypothesis as $H_0 : \beta_2 = 0$.
+
+If $H_0$ is true, then the "restricted" model is $Y = X_1\beta_1 + e$. Under the alternative hypothesis $H_1:\beta_2 \neq 0$, we keep our "unrestricted" model.
+
+\begin{proposition}[Likelihood Ratio test]
+The statistic used to test the validity of $H_0$ against $H_1$ under the LR test is: $$LR = -2\ln\frac{L(\hat\beta_1)}{L(\hat\beta)} \sim \chi_q^2 $$ where $L(\cdot)$ is the value of the likelihood function and $q$ is the number of linear restrictions.
+\end{proposition}
+
+\section{Lagrange Multiplier tests}
