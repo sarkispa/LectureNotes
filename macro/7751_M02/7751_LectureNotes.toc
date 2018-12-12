@@ -1,0 +1,202 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Consumption Theory}{7}{chapter.1}
+\contentsline {section}{\numberline {1.1}Introduction: the Fisher model}{7}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Preferences of the consumer}{7}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Market structure}{8}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.1.3}Budget constraint}{8}{subsection.1.1.3}
+\contentsline {subsection}{\numberline {1.1.4}Optimality}{9}{subsection.1.1.4}
+\contentsline {subsection}{\numberline {1.1.5}Intertemporal-substitution and wealth effects}{10}{subsection.1.1.5}
+\contentsline {section}{\numberline {1.2}Consumption under Certainty}{11}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Model}{11}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Optimality}{12}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Explicit solution: polynomial utility case}{12}{subsection.1.2.3}
+\contentsline {section}{\numberline {1.3}Consumption under Uncertainty}{14}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Model}{14}{subsection.1.3.1}
+\contentsline {subsubsection}{Rational Expectations}{15}{section*.2}
+\contentsline {subsubsection}{Optimal path \IeC {\`a} la Basu}{15}{section*.3}
+\contentsline {subsubsection}{Consumption as a random walk}{16}{section*.4}
+\contentsline {subsubsection}{Explicit solution}{17}{section*.5}
+\contentsline {subsection}{\numberline {1.3.2}Dynamics}{19}{subsection.1.3.2}
+\contentsline {subsubsection}{Shocks to the interest rates}{19}{section*.6}
+\contentsline {subsubsection}{Shocks to preferences}{20}{section*.7}
+\contentsline {subsubsection}{Shocks to income}{20}{section*.8}
+\contentsline {subsection}{\numberline {1.3.3}The Permanent Income Hypothesis}{21}{subsection.1.3.3}
+\contentsline {subsection}{\numberline {1.3.4}Assumptions used in the model}{21}{subsection.1.3.4}
+\contentsline {subsection}{\numberline {1.3.5}Variable interest rates and CES}{22}{subsection.1.3.5}
+\contentsline {section}{\numberline {1.4}Empirical evidence and deviations from the PIH}{23}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}Testing the PIH}{23}{subsection.1.4.1}
+\contentsline {subsection}{\numberline {1.4.2}Liquidity Constraints}{24}{subsection.1.4.2}
+\contentsline {subsection}{\numberline {1.4.3}Transaction Costs}{25}{subsection.1.4.3}
+\contentsline {subsection}{\numberline {1.4.4}Deviations from the PIH}{25}{subsection.1.4.4}
+\contentsline {subsection}{\numberline {1.4.5}Precautionary Saving}{26}{subsection.1.4.5}
+\contentsline {chapter}{\numberline {2}Asset Pricing}{27}{chapter.2}
+\contentsline {section}{\numberline {2.1}Consumption-based Asset Pricing}{27}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}From consumption to stock prices}{27}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}More on stock prices}{29}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Consumption beta}{30}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Stock prices under different utility functions}{30}{subsection.2.1.4}
+\contentsline {section}{\numberline {2.2}Testing the C-CAPM}{31}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Consumption beta or market beta?}{31}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Equity-premium puzzle}{31}{subsection.2.2.2}
+\contentsline {section}{\numberline {2.3}Solutions to the equity-premium puzzle}{33}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Selection Bias}{33}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Habit formation}{33}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Limited participation}{34}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}Disasters and risks}{34}{subsection.2.3.4}
+\contentsline {section}{\numberline {2.4}Stock Market Rationality}{34}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Arbitrage equation}{34}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Shiller's test}{35}{subsection.2.4.2}
+\contentsline {chapter}{\numberline {3}Real Business Cycle models: an introduction}{36}{chapter.3}
+\contentsline {section}{\numberline {3.1}Stylized facts: what we want from a business-cycle model}{36}{section.3.1}
+\contentsline {section}{\numberline {3.2}Setup of the model}{37}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Housedolds}{37}{subsection.3.2.1}
+\contentsline {subsubsection}{Assumptions}{37}{section*.9}
+\contentsline {subsubsection}{Solving the problem}{37}{section*.10}
+\contentsline {subsection}{\numberline {3.2.2}Firms}{38}{subsection.3.2.2}
+\contentsline {subsubsection}{Assumptions}{38}{section*.11}
+\contentsline {subsubsection}{Solving the problem}{38}{section*.12}
+\contentsline {subsubsection}{Technology}{39}{section*.13}
+\contentsline {subsection}{\numberline {3.2.3}Government}{39}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Equilibrium}{40}{subsection.3.2.4}
+\contentsline {subsubsection}{Equilibrium Conditions}{40}{section*.14}
+\contentsline {subsubsection}{Solving the problem}{40}{section*.15}
+\contentsline {section}{\numberline {3.3}Dynamics and results}{42}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Shocks to $G$}{42}{subsection.3.3.1}
+\contentsline {subsubsection}{Permanent positive shock to $G$}{42}{section*.16}
+\contentsline {subsubsection}{Temporary positive shock to $G$}{44}{section*.17}
+\contentsline {subsection}{\numberline {3.3.2}Shocks to $Z$}{44}{subsection.3.3.2}
+\contentsline {subsubsection}{Permanent shock to $Z$}{44}{section*.18}
+\contentsline {subsubsection}{Temporary shock to $Z$}{46}{section*.19}
+\contentsline {section}{\numberline {3.4}Interpretation of the model}{46}{section.3.4}
+\contentsline {subsubsection}{Summary of the results}{46}{section*.20}
+\contentsline {subsubsection}{Comovement of $C$ and $L$: the Barro-King problem}{47}{section*.21}
+\contentsline {subsubsection}{Technology shocks and labor supply}{47}{section*.22}
+\contentsline {section}{\numberline {3.5}Appendix}{48}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Fixed labor and capital: partial equilibrium RBC}{48}{subsection.3.5.1}
+\contentsline {subsubsection}{Productivity shock}{48}{section*.23}
+\contentsline {subsection}{\numberline {3.5.2}Capital shock}{48}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.3}News shocks}{48}{subsection.3.5.3}
+\contentsline {chapter}{\numberline {4}Advanced RBC models}{50}{chapter.4}
+\contentsline {section}{\numberline {4.1}Model}{50}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Households}{50}{subsection.4.1.1}
+\contentsline {subsubsection}{Assumptions}{50}{section*.24}
+\contentsline {subsubsection}{Solution}{51}{section*.25}
+\contentsline {subsection}{\numberline {4.1.2}Firms}{52}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Government shocks}{52}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}Technology shocks}{52}{subsection.4.1.4}
+\contentsline {subsection}{\numberline {4.1.5}Summary}{53}{subsection.4.1.5}
+\contentsline {subsubsection}{Household Optimization}{53}{section*.26}
+\contentsline {subsubsection}{Firm Optimization}{53}{section*.27}
+\contentsline {subsubsection}{Constraints}{53}{section*.28}
+\contentsline {subsubsection}{Exogenous Shocks}{53}{section*.29}
+\contentsline {section}{\numberline {4.2}Solving the model}{54}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Log-linearization}{54}{subsection.4.2.1}
+\contentsline {subsubsection}{Taylor expansion method}{54}{section*.30}
+\contentsline {subsubsection}{Basu's own method}{55}{section*.31}
+\contentsline {subsubsection}{Case 1: the Euler equation}{55}{section*.32}
+\contentsline {subsubsection}{Case 2: the Production function (CRS + PC)}{56}{section*.33}
+\contentsline {subsubsection}{Case 3: Labor demand}{57}{section*.34}
+\contentsline {subsection}{\numberline {4.2.2}Calibration}{57}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}System of log-linearized equations}{58}{subsection.4.2.3}
+\contentsline {subsubsection}{Optimal consumption path}{58}{section*.35}
+\contentsline {subsubsection}{Labor supply}{58}{section*.36}
+\contentsline {subsubsection}{Euler Equation}{58}{section*.37}
+\contentsline {subsubsection}{Capital demand}{59}{section*.38}
+\contentsline {subsubsection}{Labor demand}{59}{section*.39}
+\contentsline {subsubsection}{Aggregate resource constraint}{60}{section*.40}
+\contentsline {subsubsection}{Law of motion of capital}{60}{section*.41}
+\contentsline {subsubsection}{Production function}{60}{section*.42}
+\contentsline {subsubsection}{Shocks}{61}{section*.43}
+\contentsline {section}{\numberline {4.3}Dynamics and results}{61}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Shocks to $Z$}{61}{subsection.4.3.1}
+\contentsline {subsubsection}{Equilibrium in the labor market}{62}{section*.44}
+\contentsline {subsubsection}{Equilibrium in the capital market}{62}{section*.45}
+\contentsline {subsubsection}{Investment and Output}{62}{section*.46}
+\contentsline {subsubsection}{Impulse response functions}{62}{section*.47}
+\contentsline {subsection}{\numberline {4.3.2}Shocks to $G$}{64}{subsection.4.3.2}
+\contentsline {subsubsection}{Equilibrium in the labor market}{64}{section*.48}
+\contentsline {subsubsection}{Equilibrium in the capital market}{64}{section*.49}
+\contentsline {subsubsection}{Output}{64}{section*.50}
+\contentsline {subsubsection}{Impulse Response Functions}{65}{section*.51}
+\contentsline {section}{\numberline {4.4}Interpreting the results}{66}{section.4.4}
+\contentsline {section}{\numberline {4.5}Appendix}{67}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}Capital Shocks}{67}{subsection.4.5.1}
+\contentsline {subsection}{\numberline {4.5.2}Patience shocks}{67}{subsection.4.5.2}
+\contentsline {subsection}{\numberline {4.5.3}Laziness shocks}{68}{subsection.4.5.3}
+\contentsline {subsection}{\numberline {4.5.4}News shocks}{68}{subsection.4.5.4}
+\contentsline {subsection}{\numberline {4.5.5}Uncertainty shocks}{69}{subsection.4.5.5}
+\contentsline {chapter}{\numberline {5}Non-Walrasian RBC models}{70}{chapter.5}
+\contentsline {section}{\numberline {5.1}Externalities in production}{70}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Model}{70}{subsection.5.1.1}
+\contentsline {subsubsection}{Firms}{70}{section*.52}
+\contentsline {subsubsection}{Rest of the model}{73}{section*.53}
+\contentsline {subsection}{\numberline {5.1.2}Results}{74}{subsection.5.1.2}
+\contentsline {subsubsection}{Shocks to $G$}{74}{section*.54}
+\contentsline {subsubsection}{Shocks to $Z$}{76}{section*.55}
+\contentsline {subsection}{\numberline {5.1.3}Interpretation}{77}{subsection.5.1.3}
+\contentsline {section}{\numberline {5.2}Imperfect Competition: the Rotemberg-Woodford model}{78}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Model}{78}{subsection.5.2.1}
+\contentsline {subsubsection}{Demand for differentiated goods}{78}{section*.56}
+\contentsline {subsubsection}{Firms}{80}{section*.57}
+\contentsline {subsubsection}{Log-linearizing the new equations}{81}{section*.58}
+\contentsline {subsubsection}{Rest of the model}{82}{section*.59}
+\contentsline {subsection}{\numberline {5.2.2}Results}{83}{subsection.5.2.2}
+\contentsline {subsubsection}{Shocks to $G$}{83}{section*.60}
+\contentsline {subsubsection}{Shocks to $Z$}{84}{section*.61}
+\contentsline {subsection}{\numberline {5.2.3}Time-varying markups}{84}{subsection.5.2.3}
+\contentsline {subsubsection}{Exogenous markup variations}{84}{section*.62}
+\contentsline {subsubsection}{Endogenous markup variations}{85}{section*.63}
+\contentsline {subsubsection}{Implications of markup variations}{85}{section*.64}
+\contentsline {subsubsection}{Markup cyclicality}{85}{section*.65}
+\contentsline {chapter}{\numberline {6}New Keynesian models}{87}{chapter.6}
+\contentsline {section}{\numberline {6.1}NK model without K, flexible prices}{87}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Model}{87}{subsection.6.1.1}
+\contentsline {subsubsection}{Households}{87}{section*.66}
+\contentsline {subsubsection}{Firms}{89}{section*.67}
+\contentsline {subsubsection}{Goods market equilibrium}{91}{section*.68}
+\contentsline {subsubsection}{Labor market equilibrium and the supply curve}{92}{section*.69}
+\contentsline {subsubsection}{Money market}{93}{section*.70}
+\contentsline {subsection}{\numberline {6.1.2}Results}{94}{subsection.6.1.2}
+\contentsline {subsubsection}{Technology shocks: $Z$}{94}{section*.71}
+\contentsline {subsubsection}{Monetary shocks: $M$}{95}{section*.72}
+\contentsline {subsubsection}{Government shocks: $G$}{95}{section*.73}
+\contentsline {subsubsection}{Markup shocks: $\mu $}{96}{section*.74}
+\contentsline {subsubsection}{Laziness shocks: $\chi $}{96}{section*.75}
+\contentsline {subsubsection}{Patience shocks: $\beta $}{97}{section*.76}
+\contentsline {subsubsection}{News shocks: $Z_{t+1}$}{97}{section*.77}
+\contentsline {subsection}{\numberline {6.1.3}Interpretation}{97}{subsection.6.1.3}
+\contentsline {section}{\numberline {6.2}NK model without K, sticky prices}{98}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Model}{98}{subsection.6.2.1}
+\contentsline {subsubsection}{Calvo prices}{98}{section*.78}
+\contentsline {subsubsection}{Rewriting the NKIS}{99}{section*.79}
+\contentsline {subsection}{\numberline {6.2.2}Results}{100}{subsection.6.2.2}
+\contentsline {subsubsection}{Technology shocks: $Z$}{100}{section*.80}
+\contentsline {subsubsection}{Monetary shocks: $M$}{101}{section*.81}
+\contentsline {subsubsection}{Government shocks: $G$}{101}{section*.82}
+\contentsline {subsubsection}{Markup shocks: $\mu $}{102}{section*.83}
+\contentsline {subsubsection}{Laziness shocks: $\chi $}{102}{section*.84}
+\contentsline {subsubsection}{Patience shocks: $\beta $}{102}{section*.85}
+\contentsline {subsubsection}{News shocks: $Z_{t+1}$}{102}{section*.86}
+\contentsline {section}{\numberline {6.3}Three-equations NK model}{102}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Taylor Rule}{102}{subsection.6.3.1}
+\contentsline {subsubsection}{Natural rate of interest}{103}{section*.87}
+\contentsline {subsubsection}{Taylor principle}{103}{section*.88}
+\contentsline {subsection}{\numberline {6.3.2}Role of the monetary policy}{104}{subsection.6.3.2}
+\contentsline {subsection}{\numberline {6.3.3}Results}{104}{subsection.6.3.3}
+\contentsline {subsubsection}{Interest rate shock}{104}{section*.89}
+\contentsline {subsubsection}{Technology shock}{104}{section*.90}
+\contentsline {subsection}{\numberline {6.3.4}Interpretation}{104}{subsection.6.3.4}
+\contentsline {subsection}{\numberline {6.3.5}Demand block}{104}{subsection.6.3.5}
+\contentsline {subsubsection}{Goods market equilibrium}{104}{section*.91}
+\contentsline {subsubsection}{Money Market equilibrium}{105}{section*.92}
+\contentsline {subsection}{\numberline {6.3.6}Supply block}{105}{subsection.6.3.6}
+\contentsline {subsection}{\numberline {6.3.7}Taylor rule: a discussion on the optimal monetary policy}{106}{subsection.6.3.7}
+\contentsline {subsection}{\numberline {6.3.8}IRFs for NK models}{107}{subsection.6.3.8}
+\contentsline {subsubsection}{Interest Rate Shock}{107}{section*.93}
+\contentsline {subsubsection}{Technology shock}{109}{section*.94}
+\contentsline {subsection}{\numberline {6.3.9}Conclusions}{112}{subsection.6.3.9}
+\contentsline {section}{\numberline {6.4}NK model with investment}{112}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Model}{112}{subsection.6.4.1}
+\contentsline {subsection}{\numberline {6.4.2}IRFs for NKK models}{115}{subsection.6.4.2}
+\contentsline {subsubsection}{Money supply shocks}{115}{section*.95}
+\contentsline {subsubsection}{Technology and Government expenditures shocks}{115}{section*.96}

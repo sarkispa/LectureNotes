@@ -1,0 +1,48 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Normal-Form Games with Perfect information}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}Nash Equilibrium}{3}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Solving for a Nash equilibrium in pure strategies}{4}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Best response correspondences}{4}{subsection.1.1.2}
+\contentsline {section}{\numberline {1.2}Nash's existence theorem in pure strategies}{5}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Preliminaries}{5}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Kakutani's fixed-point theorem}{6}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Nash's existence proof}{7}{subsection.1.2.3}
+\contentsline {section}{\numberline {1.3}Nash equilibrium in mixed strategies}{8}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Mixed strategies}{8}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Nash's existence theorem in mixed strategies}{9}{subsection.1.3.2}
+\contentsline {subsection}{\numberline {1.3.3}Solving for a Nash equilibrium in mixed strategies}{9}{subsection.1.3.3}
+\contentsline {chapter}{\numberline {2}Solutions through Common Knowledge of Rationality}{10}{chapter.2}
+\contentsline {section}{\numberline {2.1}Knowledge operator and common knowledge}{10}{section.2.1}
+\contentsline {section}{\numberline {2.2}Strategic Dominance}{12}{section.2.2}
+\contentsline {section}{\numberline {2.3}Iterated elimination of dominated strategies}{14}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Definitions}{14}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Properties of iterated eliminations}{14}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}IESDS and Nash equilibria}{15}{subsection.2.3.3}
+\contentsline {chapter}{\numberline {3}Extensive-Form Games with Perfect information}{16}{chapter.3}
+\contentsline {section}{\numberline {3.1}Definitions and equilibrium}{16}{section.3.1}
+\contentsline {section}{\numberline {3.2}Subgame perfection}{20}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Definition and example}{20}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Existence theorem}{21}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}Stahl-Rubinstein bargaining game}{22}{section.3.3}
+\contentsline {chapter}{\numberline {4}Extensive-form games: Generalization}{23}{chapter.4}
+\contentsline {section}{\numberline {4.1}Introduction}{23}{section.4.1}
+\contentsline {section}{\numberline {4.2}Repeated games}{26}{section.4.2}
+\contentsline {section}{\numberline {4.3}Bayesian games}{27}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Introduction and definitions}{27}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Equilibrium}{28}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Two examples}{29}{subsection.4.3.3}
+\contentsline {subsubsection}{First-price auctions}{29}{section*.2}
+\contentsline {subsubsection}{Classic Bayesian game}{29}{section*.3}
+\contentsline {chapter}{\numberline {5}Information Theory}{33}{chapter.5}
+\contentsline {section}{\numberline {5.1}Adverse Selection}{33}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Introduction to the problem}{33}{subsection.5.1.1}
+\contentsline {subsubsection}{Full information solution}{34}{section*.4}
+\contentsline {subsubsection}{Asymmetric information solution}{34}{section*.5}
+\contentsline {subsection}{\numberline {5.1.2}Signalling solution}{35}{subsection.5.1.2}
+\contentsline {subsubsection}{Model}{35}{section*.6}
+\contentsline {subsubsection}{Perfect Bayesian Equilibria}{37}{section*.7}
+\contentsline {subsubsection}{Pooling PBE}{37}{section*.8}
+\contentsline {subsubsection}{Separating PBE}{37}{section*.9}
+\contentsline {subsubsection}{Intuitive criterion}{39}{section*.10}
+\contentsline {subsection}{\numberline {5.1.3}Screening solution}{39}{subsection.5.1.3}
+\contentsline {section}{\numberline {5.2}Moral Hazard}{39}{section.5.2}

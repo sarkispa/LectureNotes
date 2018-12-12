@@ -1,0 +1,125 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Solow Growth Model}{7}{chapter.1}
+\contentsline {section}{\numberline {1.1}Assumptions}{7}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Inputs and Outputs}{7}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Production Function}{8}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.1.3}Evolution of Inputs}{9}{subsection.1.1.3}
+\contentsline {section}{\numberline {1.2}Solving the model}{9}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Dynamics of $k$}{10}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Balanced growth path}{11}{subsection.1.2.2}
+\contentsline {section}{\numberline {1.3}Impact of a change in $s$}{12}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Impact on output}{12}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Impact on consumption}{12}{subsection.1.3.2}
+\contentsline {section}{\numberline {1.4}Quantitative Implications}{14}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}Effect on Output in the Long Run}{14}{subsection.1.4.1}
+\contentsline {subsection}{\numberline {1.4.2}Speed of Convergence}{15}{subsection.1.4.2}
+\contentsline {section}{\numberline {1.5}Empirical applications}{16}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}Growth Accounting}{16}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}Convergence}{17}{subsection.1.5.2}
+\contentsline {chapter}{\numberline {2}Ramsey Model with infinitely-lived agents}{18}{chapter.2}
+\contentsline {section}{\numberline {2.1}Assumptions}{18}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Firms}{18}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Households}{19}{subsection.2.1.2}
+\contentsline {section}{\numberline {2.2}Behavior of Households and Firms}{20}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Firm's problem}{20}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Household's budget constraint}{21}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Household's problem}{22}{subsection.2.2.3}
+\contentsline {subsubsection}{Euler equation for consumption}{22}{section*.2}
+\contentsline {subsubsection}{Transversality Condition}{23}{section*.3}
+\contentsline {subsubsection}{Consumption function}{23}{section*.4}
+\contentsline {section}{\numberline {2.3}Equilibrium}{23}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Dynamics of $c$}{24}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Dynamics of $k$}{25}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Phase diagram}{27}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}Initial value of $c$}{28}{subsection.2.3.4}
+\contentsline {section}{\numberline {2.4}Welfare and the BGP}{29}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}First Welfare Theorem}{29}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Properties of the BGP}{29}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}Social Optimum and Golden-rule}{29}{subsection.2.4.3}
+\contentsline {section}{\numberline {2.5}Impact of a change in the discount rate}{29}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Unexpected shock}{30}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Expected shock}{31}{subsection.2.5.2}
+\contentsline {subsection}{\numberline {2.5.3}Temporary vs. Permanent shocks}{31}{subsection.2.5.3}
+\contentsline {section}{\numberline {2.6}Impact of Government purchases}{32}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}The role of government}{32}{subsection.2.6.1}
+\contentsline {subsubsection}{Lump-sum taxes}{32}{section*.5}
+\contentsline {subsubsection}{Distortionary taxes}{32}{section*.6}
+\contentsline {chapter}{\numberline {3}Overlapping Generations Model}{33}{chapter.3}
+\contentsline {section}{\numberline {3.1}Assumptions}{33}{section.3.1}
+\contentsline {section}{\numberline {3.2}Household behavior}{34}{section.3.2}
+\contentsline {section}{\numberline {3.3}Dynamics of the economy}{36}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Equilibrium conditions}{36}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Evolution of the economy}{37}{subsection.3.3.2}
+\contentsline {subsubsection}{General case}{37}{section*.7}
+\contentsline {subsubsection}{Log-utility and Cobb-Douglas economy}{37}{section*.8}
+\contentsline {section}{\numberline {3.4}Fiscal policies}{38}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Lump-sum financed government expenditures}{38}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Bond-financed government expenditures}{38}{subsection.3.4.2}
+\contentsline {section}{\numberline {3.5}Social security}{39}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Fully-funded system}{40}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Pay-as-you-go system}{41}{subsection.3.5.2}
+\contentsline {section}{\numberline {3.6}Welfare properties}{43}{section.3.6}
+\contentsline {section}{\numberline {3.7}Intergenerational altruism}{43}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}Simple OLG with Bequests}{43}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.7.2}OLG with bequests and government expenditures}{44}{subsection.3.7.2}
+\contentsline {subsection}{\numberline {3.7.3}OLG with bequests and social security}{44}{subsection.3.7.3}
+\contentsline {chapter}{\numberline {4}Introduction to endogenous growth: One-sector models}{45}{chapter.4}
+\contentsline {section}{\numberline {4.1}AK model}{45}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Household behavior}{46}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Firms behavior}{47}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Equilibrium}{47}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}Phase diagram}{48}{subsection.4.1.4}
+\contentsline {subsection}{\numberline {4.1.5}Conclusion}{49}{subsection.4.1.5}
+\contentsline {section}{\numberline {4.2}One-sector model with two types of capital}{49}{section.4.2}
+\contentsline {section}{\numberline {4.3}Learning by doing and Knowledge Spillovers}{50}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Model}{50}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Equilibrium}{51}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Pareto nonoptimality}{51}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Scale effects}{52}{subsection.4.3.4}
+\contentsline {section}{\numberline {4.4}Public goods model}{53}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Basic model}{53}{subsection.4.4.1}
+\contentsline {subsubsection}{Distortionary taxes}{54}{section*.9}
+\contentsline {subsubsection}{Optimal public spending}{54}{section*.10}
+\contentsline {subsection}{\numberline {4.4.2}Congestion model}{55}{subsection.4.4.2}
+\contentsline {subsubsection}{Pareto optimality}{56}{section*.11}
+\contentsline {section}{\numberline {4.5}Kremer model}{56}{section.4.5}
+\contentsline {chapter}{\numberline {5}Two-sectors model}{58}{chapter.5}
+\contentsline {section}{\numberline {5.1}One-sector model with physical and human capital}{58}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Assumptions}{58}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Equilibrium}{59}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Two-sectors model}{60}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Basic Model}{60}{subsection.5.2.1}
+\contentsline {subsubsection}{Assumptions}{60}{section*.12}
+\contentsline {subsubsection}{Equilibrium}{61}{section*.13}
+\contentsline {subsection}{\numberline {5.2.2}Uzawa-Lucas Model}{61}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.3}Summary}{61}{section.5.3}
+\contentsline {chapter}{\numberline {6}Endogeneizing Technological Change}{62}{chapter.6}
+\contentsline {section}{\numberline {6.1}Expanding variety of products models}{62}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Producers of final output}{63}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Research Firms}{64}{subsection.6.1.2}
+\contentsline {subsubsection}{Step 2: Profit if a new product is developed}{64}{section*.14}
+\contentsline {subsubsection}{Step 1: Will they make the new product?}{65}{section*.15}
+\contentsline {subsubsection}{Free-entry condition}{66}{section*.16}
+\contentsline {subsection}{\numberline {6.1.3}Households}{66}{subsection.6.1.3}
+\contentsline {subsection}{\numberline {6.1.4}Equilibrium}{66}{subsection.6.1.4}
+\contentsline {subsection}{\numberline {6.1.5}Determinants of the growth rate}{67}{subsection.6.1.5}
+\contentsline {subsection}{\numberline {6.1.6}Pareto Optimality}{67}{subsection.6.1.6}
+\contentsline {section}{\numberline {6.2}Quality Ladder models}{67}{section.6.2}
+\contentsline {section}{\numberline {6.3}Models with technology diffusion}{67}{section.6.3}
+\contentsline {chapter}{\numberline {7}Explaining cross-country income differences}{68}{chapter.7}
+\contentsline {section}{\numberline {7.1}Extended Solow model}{68}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Model}{68}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Steady-state}{69}{subsection.7.1.2}
+\contentsline {subsubsection}{Physical capital steady-state}{69}{section*.17}
+\contentsline {subsubsection}{Human capital steady-state}{70}{section*.18}
+\contentsline {subsubsection}{General steady-state}{70}{section*.19}
+\contentsline {section}{\numberline {7.2}Empirical evaluation}{70}{section.7.2}
+\contentsline {section}{\numberline {7.3}Social infrastructure}{70}{section.7.3}
+\contentsline {section}{\numberline {7.4}Beyond social infrastructure}{70}{section.7.4}
+\contentsline {chapter}{\numberline {8}Stochastic Dynamic Programming}{71}{chapter.8}
+\contentsline {section}{\numberline {8.1}Investment with adjustment costs}{71}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Euler equation for $K$}{72}{subsection.8.1.1}
+\contentsline {subsection}{\numberline {8.1.2}Q model of investment}{73}{subsection.8.1.2}
+\contentsline {section}{\numberline {8.2}Consumption with stochastic returns}{74}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}Hall (1978)}{76}{subsection.8.2.1}
+\contentsline {subsection}{\numberline {8.2.2}Hansen and Singleton (1983)}{76}{subsection.8.2.2}

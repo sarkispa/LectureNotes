@@ -1,0 +1,131 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Nonparametrics}{5}{chapter.1}
+\contentsline {section}{\numberline {1.1}Quick refresh}{5}{section.1.1}
+\contentsline {section}{\numberline {1.2}Kernel Density Estimation}{5}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Introductory examples}{6}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Density estimation}{7}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Properties of Kernel Density Estimators}{8}{subsection.1.2.3}
+\contentsline {subsubsection}{Bias of the KDE}{9}{section*.2}
+\contentsline {subsubsection}{Bias-variance trade-off}{11}{section*.3}
+\contentsline {subsubsection}{Asymptotics}{11}{section*.4}
+\contentsline {subsection}{\numberline {1.2.4}Going beyond the univariate, first-order KDE}{11}{subsection.1.2.4}
+\contentsline {subsubsection}{Density derivatives}{12}{section*.5}
+\contentsline {subsubsection}{Multivariate Density estimation}{12}{section*.6}
+\contentsline {section}{\numberline {1.3}Kernel Regression Estimation}{12}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Nadaraya-Watson Estimator}{13}{subsection.1.3.1}
+\contentsline {subsubsection}{Nadaraya-Watson and OLS}{14}{section*.7}
+\contentsline {subsection}{\numberline {1.3.2}Local OLS estimator}{15}{subsection.1.3.2}
+\contentsline {subsection}{\numberline {1.3.3}Bias and Variance}{15}{subsection.1.3.3}
+\contentsline {subsection}{\numberline {1.3.4}General considerations}{16}{subsection.1.3.4}
+\contentsline {subsubsection}{Asymptotic normality}{16}{section*.8}
+\contentsline {subsubsection}{Curse of dimensionality}{16}{section*.9}
+\contentsline {subsubsection}{Higher-order bias reduction}{16}{section*.10}
+\contentsline {subsubsection}{Order of local polynomial}{17}{section*.11}
+\contentsline {subsubsection}{Selection of bandwidth}{17}{section*.12}
+\contentsline {subsubsection}{Choice of kernel}{18}{section*.13}
+\contentsline {subsection}{\numberline {1.3.5}Series/sieve regression}{18}{subsection.1.3.5}
+\contentsline {subsection}{\numberline {1.3.6}Testing}{18}{subsection.1.3.6}
+\contentsline {subsubsection}{Omission of variables test}{18}{section*.14}
+\contentsline {subsection}{\numberline {1.3.7}Applications}{18}{subsection.1.3.7}
+\contentsline {subsubsection}{Binary Dependent Variable}{18}{section*.15}
+\contentsline {chapter}{\numberline {2}Treatment Effects}{20}{chapter.2}
+\contentsline {section}{\numberline {2.1}Intuition}{20}{section.2.1}
+\contentsline {section}{\numberline {2.2}Identification}{21}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Joint full independence}{22}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Unconfoundedness}{23}{subsection.2.2.2}
+\contentsline {subsubsection}{Estimation}{23}{section*.16}
+\contentsline {subsubsection}{Practical issues}{24}{section*.17}
+\contentsline {subsection}{\numberline {2.2.3}Regression Discontinuity Design (RDD)}{25}{subsection.2.2.3}
+\contentsline {subsubsection}{Model}{26}{section*.18}
+\contentsline {subsection}{\numberline {2.2.4}Endogeneity}{27}{subsection.2.2.4}
+\contentsline {subsubsection}{Model}{27}{section*.19}
+\contentsline {subsubsection}{Binary IV}{28}{section*.20}
+\contentsline {subsubsection}{Continuous IV}{31}{section*.21}
+\contentsline {section}{\numberline {2.3}Distributional effects}{32}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Distributional tests}{32}{subsection.2.3.1}
+\contentsline {subsubsection}{Comparing distributions}{33}{section*.22}
+\contentsline {subsubsection}{Kolmogorov-Smirnov Test}{34}{section*.23}
+\contentsline {subsection}{\numberline {2.3.2}Quantile regression}{35}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Including Instruments}{37}{subsection.2.3.3}
+\contentsline {subsubsection}{Distributional tests}{37}{section*.24}
+\contentsline {subsubsection}{Quantile regression}{37}{section*.25}
+\contentsline {section}{\numberline {2.4}IV models with covariates}{37}{section.2.4}
+\contentsline {section}{\numberline {2.5}Differences-in-Differences (DiD)}{37}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Setup}{38}{subsection.2.5.1}
+\contentsline {subsubsection}{Before = after identification}{38}{section*.26}
+\contentsline {subsubsection}{Treated = control identification}{39}{section*.27}
+\contentsline {subsubsection}{DiD identification}{39}{section*.28}
+\contentsline {subsection}{\numberline {2.5.2}Estimation by sample means}{40}{subsection.2.5.2}
+\contentsline {subsubsection}{Panel data}{40}{section*.29}
+\contentsline {subsubsection}{Repeated cross-sections}{40}{section*.30}
+\contentsline {subsection}{\numberline {2.5.3}Estimation by regression}{40}{subsection.2.5.3}
+\contentsline {subsubsection}{Panel data}{40}{section*.31}
+\contentsline {subsubsection}{Repeated cross-sections}{40}{section*.32}
+\contentsline {subsection}{\numberline {2.5.4}Threats to validity}{40}{subsection.2.5.4}
+\contentsline {subsubsection}{Compositional differences}{40}{section*.33}
+\contentsline {subsubsection}{Non-parallel dynamics}{40}{section*.34}
+\contentsline {chapter}{\numberline {3}Qualitative Dependent Variables}{41}{chapter.3}
+\contentsline {section}{\numberline {3.1}Motivation}{41}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Probit}{42}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Logit}{42}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Nonparametric regression}{43}{subsection.3.1.3}
+\contentsline {section}{\numberline {3.2}Estimation}{43}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Maximum Likelihood}{43}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Interpretation}{44}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Testing}{45}{subsection.3.2.3}
+\contentsline {subsubsection}{Individual parameter testing}{45}{section*.35}
+\contentsline {subsubsection}{Multiple parameter testing}{45}{section*.36}
+\contentsline {section}{\numberline {3.3}Ordered Dependent Variable}{46}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Ordered Probit}{46}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Censored Regression (Tobit)}{47}{subsection.3.3.2}
+\contentsline {section}{\numberline {3.4}Nonparametric Estimation of RC models}{47}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Motivation}{47}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Identification}{47}{subsection.3.4.2}
+\contentsline {subsubsection}{Characteristic functions}{47}{section*.37}
+\contentsline {subsubsection}{Identifying $f_{AB}(\cdot )$}{48}{section*.38}
+\contentsline {subsection}{\numberline {3.4.3}Estimation}{48}{subsection.3.4.3}
+\contentsline {subsection}{\numberline {3.4.4}Application}{48}{subsection.3.4.4}
+\contentsline {chapter}{\numberline {4}Panel Data}{49}{chapter.4}
+\contentsline {section}{\numberline {4.1}Multivariate Linear Model}{49}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Setup}{49}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Random Effects approach}{50}{subsection.4.1.2}
+\contentsline {subsubsection}{Recap of GLS}{51}{section*.39}
+\contentsline {subsubsection}{FGLS in the RE model}{51}{section*.40}
+\contentsline {subsection}{\numberline {4.1.3}Fixed Effects approach}{53}{subsection.4.1.3}
+\contentsline {subsubsection}{First-differences}{53}{section*.41}
+\contentsline {subsubsection}{Fixed-effects transformation}{54}{section*.42}
+\contentsline {subsubsection}{1D vs. FE}{54}{section*.43}
+\contentsline {subsection}{\numberline {4.1.4}Which approach to choose?}{55}{subsection.4.1.4}
+\contentsline {section}{\numberline {4.2}Nonseparable Model}{55}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Setup}{56}{subsection.4.2.1}
+\contentsline {subsubsection}{Assumption 1}{56}{section*.44}
+\contentsline {subsection}{\numberline {4.2.2}Binary Choice model}{56}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Application}{56}{subsection.4.2.3}
+\contentsline {chapter}{\numberline {5}Big Data and Machine Learning}{57}{chapter.5}
+\contentsline {section}{\numberline {5.1}Introduction}{57}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Some definitions}{57}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Statistical Decision Theory}{58}{subsection.5.1.2}
+\contentsline {subsubsection}{Quantitative output}{58}{section*.45}
+\contentsline {subsubsection}{Categorical output}{59}{section*.46}
+\contentsline {subsection}{\numberline {5.1.3}Dimensionality Curse}{59}{subsection.5.1.3}
+\contentsline {section}{\numberline {5.2}Linear Methods for Regression}{59}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Least-squares}{60}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Extensions of Linear regression}{60}{subsection.5.2.2}
+\contentsline {subsubsection}{Polynomial regression}{61}{section*.47}
+\contentsline {subsubsection}{Step functions}{61}{section*.48}
+\contentsline {subsubsection}{Regression Splines}{62}{section*.49}
+\contentsline {subsubsection}{Natural Splines}{62}{section*.50}
+\contentsline {subsubsection}{Smoothing Splines}{63}{section*.51}
+\contentsline {subsection}{\numberline {5.2.3}Shrinkage methods}{64}{subsection.5.2.3}
+\contentsline {subsubsection}{Hoderlein's presentation of the Ridge regression}{64}{section*.52}
+\contentsline {subsubsection}{Ridge regression as a shrinkage method}{64}{section*.53}
+\contentsline {subsubsection}{Ridge regression optimization problem}{65}{section*.54}
+\contentsline {subsubsection}{Lasso regression}{66}{section*.55}
+\contentsline {section}{\numberline {5.3}Tree-based methods}{68}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Introduction}{68}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Formal definition}{69}{subsection.5.3.2}
+\contentsline {subsubsection}{Greedy algorithm}{69}{section*.56}
+\contentsline {subsubsection}{Growing the tree}{70}{section*.57}
+\contentsline {subsection}{\numberline {5.3.3}Bagging}{71}{subsection.5.3.3}
+\contentsline {subsection}{\numberline {5.3.4}Random Forests}{73}{subsection.5.3.4}
+\contentsline {subsection}{\numberline {5.3.5}Boosting}{73}{subsection.5.3.5}

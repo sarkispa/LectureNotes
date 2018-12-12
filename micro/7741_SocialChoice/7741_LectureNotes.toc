@@ -1,0 +1,45 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Arrow's Impossibility Theorem}{4}{chapter.1}
+\contentsline {section}{\numberline {1.1}Social aggregation of preferences}{4}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Arrow's criteria for social aggregation}{5}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}The Majority Rule and Arrow's criteria}{5}{subsection.1.1.2}
+\contentsline {section}{\numberline {1.2}Arrow's impossibility theorem}{6}{section.1.2}
+\contentsline {section}{\numberline {1.3}Extensions of Arrow's impossibility theorem}{8}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Which axiom should go?}{8}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Restricting the type of preferences}{8}{subsection.1.3.2}
+\contentsline {subsection}{\numberline {1.3.3}Liberalism and Sen's impossibility theorem}{10}{subsection.1.3.3}
+\contentsline {chapter}{\numberline {2}Expected Utility Theory}{11}{chapter.2}
+\contentsline {section}{\numberline {2.1}Introduction to Expected Utility}{11}{section.2.1}
+\contentsline {section}{\numberline {2.2}Axioms of EU Theory}{13}{section.2.2}
+\contentsline {section}{\numberline {2.3}Expected Utility Theorem}{15}{section.2.3}
+\contentsline {section}{\numberline {2.4}Harsanyi's theorem}{17}{section.2.4}
+\contentsline {section}{\numberline {2.5}Criticisms of Harsanyi's theory}{18}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Voting Paradox under Harsanyi's theorem}{19}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Egalitarian paradox}{19}{subsection.2.5.2}
+\contentsline {subsection}{\numberline {2.5.3}Role of structural assumptions}{20}{subsection.2.5.3}
+\contentsline {subsection}{\numberline {2.5.4}Diamond's criticism}{21}{subsection.2.5.4}
+\contentsline {chapter}{\numberline {3}Risk}{22}{chapter.3}
+\contentsline {section}{\numberline {3.1}Risk-aversion}{22}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Attitudes towards risk}{22}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Degree of risk-aversion}{24}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Optimal Portfolio Selection}{26}{section.3.2}
+\contentsline {chapter}{\numberline {4}Insurance and asymmetric information}{28}{chapter.4}
+\contentsline {section}{\numberline {4.1}Insurance}{28}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}General definitions under uncertainty}{28}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Setting up the insurance problem}{30}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Different attitudes towards risk}{31}{subsection.4.1.3}
+\contentsline {subsubsection}{Risk-neutrality}{31}{section*.2}
+\contentsline {subsubsection}{Risk-loving}{32}{section*.3}
+\contentsline {section}{\numberline {4.2}Asymmetric information}{33}{section.4.2}
+\contentsline {chapter}{\numberline {5}Stochastic dominance}{35}{chapter.5}
+\contentsline {chapter}{\numberline {6}Alternatives to EU theory}{39}{chapter.6}
+\contentsline {section}{\numberline {6.1}Allais Paradox}{39}{section.6.1}
+\contentsline {section}{\numberline {6.2}Common Ratio Effect}{40}{section.6.2}
+\contentsline {section}{\numberline {6.3}Sure Thing Principle}{40}{section.6.3}
+\contentsline {section}{\numberline {6.4}Prospect Theory}{41}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Issues with prospect theory}{42}{subsection.6.4.1}
+\contentsline {section}{\numberline {6.5}Rank Dependent Probabilities}{42}{section.6.5}
+\contentsline {section}{\numberline {6.6}Marschak-Machina Probability Triangle}{45}{section.6.6}
+\contentsline {subsection}{\numberline {6.6.1}Machina triangle applied to the Allais paradox}{46}{subsection.6.6.1}
+\contentsline {chapter}{\numberline {7}Preference reversals and violations of transitivity}{48}{chapter.7}
+\contentsline {section}{\numberline {7.1}Violations of transitivity}{48}{section.7.1}

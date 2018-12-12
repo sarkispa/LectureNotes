@@ -1,0 +1,49 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}Choice, Preferences and Utility}{4}{chapter.1}
+\contentsline {section}{\numberline {1.1}From Choice to Preference}{4}{section.1.1}
+\contentsline {section}{\numberline {1.2}Preference and Utility}{6}{section.1.2}
+\contentsline {chapter}{\numberline {2}Consumer Theory}{10}{chapter.2}
+\contentsline {section}{\numberline {2.1}Utility Maximization Problem (UMP)}{10}{section.2.1}
+\contentsline {section}{\numberline {2.2}Expenditure Minimization Problem}{14}{section.2.2}
+\contentsline {section}{\numberline {2.3}Comparative Statics}{16}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Comparative statics of the EMP}{16}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Comparative statics of the UMP}{17}{subsection.2.3.2}
+\contentsline {section}{\numberline {2.4}Welfare effects of price changes}{18}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Equivalent variation}{19}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Compensating variation}{19}{subsection.2.4.2}
+\contentsline {chapter}{\numberline {3}Theory of the firm}{20}{chapter.3}
+\contentsline {section}{\numberline {3.1}Production}{20}{section.3.1}
+\contentsline {section}{\numberline {3.2}Cost}{22}{section.3.2}
+\contentsline {section}{\numberline {3.3}Duality in Production}{23}{section.3.3}
+\contentsline {section}{\numberline {3.4}Competitive firm}{24}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Profit maximization}{24}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Profit function}{25}{subsection.3.4.2}
+\contentsline {chapter}{\numberline {4}Introduction to GE: Robinson-Crusoe economy}{27}{chapter.4}
+\contentsline {section}{\numberline {4.1}Model}{27}{section.4.1}
+\contentsline {section}{\numberline {4.2}Centralized equilibrium}{28}{section.4.2}
+\contentsline {section}{\numberline {4.3}Decentralized equilibrium}{28}{section.4.3}
+\contentsline {chapter}{\numberline {5}General equilibrium in exchange economies}{30}{chapter.5}
+\contentsline {section}{\numberline {5.1}Exchange economy: Walrasian model}{30}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Model}{30}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Equilibrium}{31}{subsection.5.1.2}
+\contentsline {subsection}{\numberline {5.1.3}Pareto Optimality}{31}{subsection.5.1.3}
+\contentsline {section}{\numberline {5.2}Edgeworth boxes}{32}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Geometry of the Edgeworth box}{32}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Calculating an efficient allocation}{35}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Competitive market solution}{37}{subsection.5.2.3}
+\contentsline {section}{\numberline {5.3}Welfare theorems}{38}{section.5.3}
+\contentsline {chapter}{\numberline {6}Existence of GE}{40}{chapter.6}
+\contentsline {section}{\numberline {6.1}Excess demand correspondences}{41}{section.6.1}
+\contentsline {chapter}{\numberline {7}Core of an economy}{42}{chapter.7}
+\contentsline {section}{\numberline {7.1}Core of an exchange economy}{42}{section.7.1}
+\contentsline {section}{\numberline {7.2}Competitive equilibrium and the core}{44}{section.7.2}
+\contentsline {section}{\numberline {7.3}Large economies and the core: replication}{45}{section.7.3}
+\contentsline {subsection}{\numberline {7.3.1}Equal Treatment property}{45}{subsection.7.3.1}
+\contentsline {subsection}{\numberline {7.3.2}Core convergence}{46}{subsection.7.3.2}
+\contentsline {chapter}{\numberline {8}GE in production economies}{47}{chapter.8}
+\contentsline {section}{\numberline {8.1}Firms and production technoloogy}{47}{section.8.1}
+\contentsline {section}{\numberline {8.2}Market Equilibrium}{48}{section.8.2}
+\contentsline {chapter}{\numberline {9}Uncertainty in complete/incomplete markets}{50}{chapter.9}
+\contentsline {section}{\numberline {9.1}Economy with uncertainty}{50}{section.9.1}
+\contentsline {section}{\numberline {9.2}Arrow-Debreu equilibrium}{51}{section.9.2}
+\contentsline {section}{\numberline {9.3}Sequential Trade, Asset Markets and the Radner equilibrium}{54}{section.9.3}
