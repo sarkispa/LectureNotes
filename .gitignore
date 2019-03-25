@@ -1,0 +1,11 @@
+*.out
+*.synctex.gz
+*.aux
+*.log
+*.bbl
+*.blg
+*.nav
+*.toc
+*.snm
+*.opt
+/io/io2/articles/
