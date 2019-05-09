@@ -1,73 +1,466 @@
-Throughout this section, we'll define $\mathbf{X}$ and $\mathbf{Z}$ as random vectors of size $j$ and $k$ resp. while $a,b$ will be (following the context) either scalars or vectors and $A$ a matrix. Also, we assume a perfect knowledge of moments of distribution ; this chapter only constitutes a quick review. If you find yourself needing anymore information on these definitions and properties, you should go back to the first semester class notes.
+\section{Review}
+
+\subsection{Definitions}
+
+Throughout this section, we'll define $X$ and $Z$ as random vectors of size $j$ and $k$ resp. while $a,b$ will be (following the context) either scalars or vectors and $A$ a matrix. Also, we assume a perfect knowledge of moments of distribution ; this chapter only constitutes a quick review. If you find yourself needing anymore information on these definitions and properties, you should go back to the first semester class notes.
 
 \begin{definition}
-A random vector $\mathbf{X}$ of size $j$ is a vector consisting of $j$ random variables $(X_1, ..., X_j)$. Its expectation, $\E{\mathbf{X}}$ is the vector consisting of the expectations of all its elements, namely $(\E{X_1}, ..., \E{X_j})$.
+A random vector $X$ of size $j$ is a vector consisting of $j$ random variables $(X_1, ..., X_j)$. Its expectation, $\E{X}$ is the vector consisting of the expectations of all its elements, namely $(\E{X_1}, ..., \E{X_j})$.
 \end{definition}
 
 \begin{definition}
-The variance matrix of a random vector $\mathbf{X}$, denoted $\V{\mathbf{X}}$ is the $j\times j$ matrix equal to $\E{(\mathbf{X} - \E{\mathbf{X}})(\mathbf{X} - \E{\mathbf{X}})'}$
+The variance matrix of a random vector $X$, denoted $\V{X}$ is the $j\times j$ matrix equal to $\E{(X - \E{X})(X - \E{X})'}$
 \end{definition}
 \begin{definition}
-The covariance $\cov{\mathbf{X},\mathbf{Z}}$ between two vectors $\mathbf{X}$ and $\mathbf{Z}$ is equal to $E\big[ (\mathbf{X} - \E{\mathbf{X}})(\mathbf{Z} - \E{\mathbf{Z}})'\big]$
+The covariance $\cov{X,Z}$ between two vectors $X$ and $Z$ is equal to $E\big[ (X - \E{X})(Z - \E{Z})'\big]$
 \end{definition}
 
-\begin{remark}
-The variance of the vector $A\mathbf{X} + b$ is $$\V{A \mathbf{X} + b} = A \V{\mathbf{X}}A'$$ The covariance between vectors $A\mathbf{X} + b$ and $C\mathbf{Z} + d$ is $$\cov{A \mathbf{X} + b,C\mathbf{Z} + d} = A \cov{\mathbf{X},\mathbf{Z}} C'$$
-\end{remark}
+\begin{proposition}
+The expectation of the vector $AX + b$ is $$\E{AX + b} = A\E{X}+b $$
+The variance of the vector $AX + b$ is $$\V{A X + b} = A \V{X}A'$$ The covariance between vectors $AX + b$ and $CZ + d$ is $$\cov{A X + b,CZ + d} = A \cov{X,Z} C'$$
+\end{proposition}
 
 \begin{definition}
-If $\mathbf{X} \sim N(\mu, \Omega)$, we say that that $\mathbf{X}$ follows a joint distribution. This distribution is a multi-variate normal distribution of mean $\mu$ and variance $\Omega$.
+The vector $X$ follows a joint distribution denoted $F(\cdot)$. If $F(\cdot) = N(\mu, \Omega)$, we say that that $X$ follows a multi-variate normal distribution of mean $\mu$ and variance matrix $\Omega$.
+
+The mean $\mu$ is the vector $\E{X}$ while the variance matrix $\Omega$ is the matrix containing variances and covariances of all elements of $X$, such that: $$\Omega = \begin{bmatrix}
+\V{X_1} & \cov{X_1, X_2} & \hdots & \cov{X_1, X_j} \\
+\cov{X_2, X_1} & \V{X_2} & \hdots & \cov{X_2, X_j} \\
+\vdots & \vdots & \ddots & \vdots \\
+\cov{X_j, X_1} & \hdots & \hdots & \V{X_j}
+\end{bmatrix} $$
 \end{definition}
-\begin{remark} 
-The vector $A\mathbf{X}+b$ also follows a joint multi-variate normal distribution, of mean $A\mu+b$ and variance $A\Omega A'$.\\
-The vector $(\mathbf{X} - \mu)'\Omega^{-1}(\mathbf{X}-\mu)$ follows a chi-squared distribution with $j$ degrees of freedom; we write $(\mathbf{X} - \mu)'\Omega^{-1}(\mathbf{X}-\mu)\sim\chi_j^2$
-\end{remark}
 
-Differentiation
+\begin{proposition} 
+If $X$ follows a multi-variate normal distribution of mean $\mu$ and variance matrix $\Omega$, then the vector $AX+b$ also follows a joint multi-variate normal distribution, of mean $A\mu+b$ and variance $A\Omega A'$.
+\end{proposition}
 
-Differentiating a vector by another is equivalent to taking the gradient of the first vector, wrt the second.
-* $\frac{\partial a'\mathbf{X}}{\partial a} = \Big(\frac{\partial a'\mathbf{X}}{\partial a_1}, ..., \frac{\partial a'\mathbf{X}}{\partial a_j}\Big)'$
-* $\frac{\partial a'\mathbf{X}a}{\partial a} = (\mathbf{X}+\mathbf{X}')a$, for any square matrix $\mathbf{X}$.
-* $\frac{\partial \E{g(a\mathbf{X})}}{\partial a} = E\Big[\frac{\partial g(a\mathbf{X})}{\partial a}\Big]$
+\begin{proposition}
+If $X$ follows a multi-variate normal distribution of mean $\mu$ and variance matrix $\Omega$, then the ``standardized'' vector $(X - \mu)'\Omega^{-1}(X-\mu)$ follows a chi-squared distribution with $j$ degrees of freedom; we write $$(X - \mu)'\Omega^{-1}(X-\mu)\sim\chi_j^2$$
+\end{proposition}
 
-Law of iterated expectations
+\subsection{Differentiation}
 
-$\E{\mathbf{X}} = E\big[\E{\mathbf{X}|\mathbf{Z}}\big]$
+\begin{definition}
+The derivative of a vector $X$ by a scalar $a$, denoted $\frac{\partial X}{\partial a}$, is the vector consisting of element-wise derivatives with respect to $a$: $$\frac{\partial X}{\partial a} = \begin{bmatrix}
+\frac{\partial X_1}{\partial a} & \frac{\partial X_2}{\partial a} & \hdots & \frac{\partial X_j}{\partial a}
+\end{bmatrix}' $$
+\end{definition}
 
-Independence(s) and correlation
+\begin{definition}
+The derivative of a vector $X$ by a vector $\mathbf{Y}$, denoted $\frac{\partial X}{\partial \mathbf{Y}}$, is a matrix consisting of element-wise derivatives such that: $$\frac{\partial X}{\partial \mathbf{Y}} = \begin{bmatrix}
+\frac{\partial X_1}{\partial Y_1} & \frac{\partial X_1}{\partial Y_2} & \hdots & \frac{\partial X_1}{\partial Y_k} \\
+\frac{\partial X_2}{\partial Y_1} & \frac{\partial X_2}{\partial Y_2} & \hdots & \frac{\partial X_2}{\partial Y_k} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial X_j}{\partial Y_1} & \frac{\partial X_j}{\partial Y_2} & \hdots & \frac{\partial X_j}{\partial Y_k} \\
+\end{bmatrix} $$
+\end{definition}
 
-Let $\mathbf{X}$ and $\mathbf{Z}$ be any two random vectors with means $\mu_\mathbf{X}$ and $\mu_Z$ resp.
+\subsubsection{Some properties of derivatives}
 
-Def: $\mathbf{X}$ and $\mathbf{Z}$ are said to be independent, $\mathbf{X} \bot \mathbf{Z}$, if nothing can be said about $\mathbf{X}$'s distribution from $\mathbf{Z}$.
+If $A$ is a matrix and not a function of the vector $X$, then: $$ \frac{\partial AX}{\partial X} = A $$ $$ \frac{\partial X'AX}{\partial X} = 2AX $$
 
-Def: $\mathbf{X}$ and $\mathbf{Z}$ are said to be mean-independent if $\E{\mathbf{X}|\mathbf{Z}} = \mu_X$
+If $a$ is a vector and not a function of the vector $X$, then:
+$$\frac{\partial a'X}{\partial X} = a $$
+$$\frac{\partial X'aX}{\partial X} = (X+X')a $$
+$$ \frac{\partial \E{g(a'X)}}{\partial X} = \E{\frac{\partial g(a'X)}{\partial X}} $$
 
-Def: $\mathbf{X}$ and $\mathbf{Z}$ are said to be uncorrelated, or linearly independent, if $\E{\mathbf{X}\mathbf{Z}} = \mu_X\mu_Z \Leftrightarrow cov(\mathbf{X},\mathbf{Z}) = 0$
+\subsection{Law of iterated expectations}
 
-These definitions are ranked from the strongest to the weakest.
+For any two random variables $X$ and $Z$, we have that: $$\E{X} = \E{\E{X|Z}} $$
 
-Proofs
+\subsection{Independence(s) and correlation}
 
-Proposition : Let $Z_1, Z_2, ...$ be a sequence of random variables such that, for all $i$, $E[Z_i] = \mu$. Let $X_n$ be the sample average over the $n$ first variables. The expectation of the sample average is equal to the expectation of each variable : $$ E[X_n] = E[Z_i] = \mu $$
+Let $X$ and $Z$ be any two random vectors with means $\mu_X$ and $\mu_Z$ resp.
 
-Proof : $E\big[\frac{\sum_{i=1}^{n} Z_i}{n}\big] = \frac{1}{n}\sum_{i=1}^{n} E[Z_i] = \frac{n\mu}{n} = \mu $
+\begin{definition}[Independence]
+$X$ and $Z$ are said to be independent, denoted $X \perp Z$, if nothing can be said about $X$'s distribution from $Z$. This also implies that: $$f(x, z) = f_X(x)\cdot f_Z(z) $$
+\end{definition}
 
-The sample average is said to be an **unbiased estimator** of the random variable $Z$'s expectation.
+\begin{definition}[Mean-independence]
+$X$ and $Z$ are said to be mean-independent if $$\E{X|Z} = \E{X} = \mu_X $$
+\end{definition}
 
-Definition : Let $\theta_0$ be the true value of a parameter from any distribution. Let $\hat{\theta}$ be an estimator of $\theta_0$. We define the **bias of an estimator** to be the absolute deviation between the true value of the parameter and the expectation of its estimator. $$\text{Bias}(\hat{\theta}) = | \theta_0 - E[\hat{\theta}] | $$
+\begin{proposition}[Independence to mean-independence]
+If $X$ and $Z$ are independent, then they are mean-independent. The converse is not true.
+\end{proposition}
+\begin{proof}
+\begin{align*}
+\E{X|Z} = \int xf_{X|Z}(x) \D x = \int x\frac{f_{XZ}(x, z)}{f_Z(z)} \D x & = \int x\frac{f_{X}(x)f_{Z}(z)}{f_Z(z)} \D x \\ & = \int x f_{X} \D x \\ &  = \mu_X
+\end{align*}
+\end{proof}
 
-We say that an estimator is unbiased iff its bias is equal to 0.
+\begin{definition}[Linear independence]
+$X$ and $Z$ are said to be uncorrelated, or linearly independent, if $\E{XZ} = \mu_X\mu_Z \Leftrightarrow cov(X,Z) = 0$
+\end{definition}
 
-Proposition : Proposition : Let $Z_1, Z_2, ...$ be a sequence of **i.i.d. random variables** such that, for all $i$, $E[Z_i] = \mu$ and $Var[Z_i] = \sigma^2$. Let $X_n$ be the sample average over the $n$ first variables. The variance of the sample average is equal to the variance of each variable, divided by the sample size : $$ Var[X_n] = \frac{Var[Z_i]}{n} = \frac{\sigma^2}{n} $$
+\begin{proposition}[Mean-independence to linear independence]
+If $X$ and $Z$ are mean-independent, then they are linearly independent. The converse is not true.
+\end{proposition}
+\begin{proof}
+\begin{align*}
+\E{XZ} = \E{\E{XZ|Z}} & = \E{Z\E{X|Z}} = \E{Z\E{X}} \\
+& = \E{Z}\E{X} = \mu_X\mu_Z
+\end{align*}
+\end{proof}
 
-Proof : $Var[X_n] = E\big[\big(X_n - E[X_n]\big)^2\big] = E\big[\big(X_n - \mu\big)^2\big] = E\big[\big(\frac{1}{n}\sum_{i=0}^{n} Z_i - \mu\big)^2\big] = \frac{1}{n^2}E\big[\big(\sum_{i=0}^{n} Z_i - \mu\big)\big(\sum_{j=0}^{n} Z_j - \mu\big)\big]=\frac{1}{n^2}E\big[\sum_{i=0}^{n}\sum_{j=0}^{n} (Z_i - \mu)( Z_j - \mu)\big] $
+\section{Finite Sample Properties of Estimators}
 
-$=\frac{1}{n^2}E\big[\sum_{i=0}^{n}(Z_i - \mu)^2 + \sum_{i=0}^{n}\sum_{j\neq i}^{n} (Z_i - \mu)( Z_j - \mu)\big] = \frac{1}{n^2}\big(\sum_{i=0}^{n}Var[Z_i] + \sum_{i=0}^{n}\sum_{j\neq i}^{n}Cov[Z_i, Z_j] \big) = \frac{Var[Z_i]}{n} = \frac{\sigma^2}{n}$
+An estimator is a rule used for calculating an estimate of a given moment of a population (say the mean, the effect of a variable on another, etc) using only observed data. A good estimator is one that is ``close'' to the real moment underlying the data. What we mean by ``close'' is not a set-in-stone definition, as we will see later. 
 
-Proposition : Let $Z_1, Z_2, ...$ be a sequence of **i.i.d. random variables** such that, for all $i$, $E[Z_i] = \mu$ and $Var[Z_i] = \sigma^2$. Let $\hat{\sigma}_n$ be the sample variance, adjusted for the degrees of freedom, over the $n$ first variables. The sample variance is an unbiased estimator of $\sigma^2$.
+\subsection{Bias}
 
-Proof : 
+One straightforward ``closeness'' relationship is bias. The definition of bias relies on the distance between the expected value of an estimator and the true value of the parameter.
 
-2.7 Efficiency of estimators
+\begin{definition}[Bias of an estimator] 
+Let $\theta_0$ be the true value of a parameter from any distribution. Let $\hat{\theta}$ be an estimator of $\theta_0$. We define the bias of an estimator to be the absolute deviation between the true value of the parameter and the expectation of its estimator. $$\operatorname{Bias}(\hat{\theta}) = \lvert \theta_0 - \E{\hat{\theta}} \rvert $$
 
-Definition : Among a number of estimators of the same class, the estimator having the least variance is called an **efficient estimator**. Let $\hat{\theta}_1$ and $\hat{\theta}_2$ be two estimators of the same parameter $\theta$, then if $Var[\hat{\theta}_1] < Var[\hat{\theta}_2]$, we say that $\hat{\theta}_1$ is a more efficient estimator than $\hat{\theta}_2$. The estimator with the least possible variance (Cramer-Rao bound at the minimum) is called the **most efficient estimator**.
+We say that an estimator is unbiased if and only if its bias is equal to 0.
+\end{definition}
+
+For example, if one wanted to estimate the expected value of a sequence of random variables, one would look at the average realization of these variables. But is this a good estimator in terms of bias, as it turns out, it is.
+
+\begin{proposition}[Sample average as an unbiased estimator for the unconditional mean] 
+Let $Z_1, Z_2, ...$ be a sequence of $n$ i.i.d. random variables such that, for all $i$, $\E{Z_i} = \mu$. Consider $X_n$, the sample average of all $n$ $Z_i$ variables, or formally, $$X_n = \avg{1}{n} Z_i $$
+The sample average is an unbiased estimator of the mean of $Z_i$.
+\end{proposition}
+\begin{proof}
+$E{\frac{\sum_{i=1}^{n} Z_i}{n}} = \frac{1}{n}\sum_{i=1}^{n} \E{Z_i} = \frac{n\mu}{n} = \mu $
+\end{proof}
+
+\subsection{Variance}
+
+We might also be interest in estimating the variance of the sequence of variables. If one takes the sample variance, could that also be an unbiased estimator? In this case, it is not. However, by considering the ``adjusted'' sample variance, then we get an unbiased estimator.
+
+\begin{proposition}[Sample variance as a biased estimator for the variance]  
+Consider the previously defined sequence of i.i.d. random variables $\{Z_i\}$ such that, for all $i$, $E[Z_i] = \mu$ and $Var[Z_i] = \sigma^2$. Let $\hat{\sigma}_n$ be the sample variance and $\hat s_n$ be the ``adjusted'' sample variance. Formally, $$\hat\sigma_n = \frac{1}{n}\sum_{i=1}^{n}(Z_i - X_n)^2 $$ $$ \textit{ and } \hat s_n = \frac{1}{n-1}\sum_{i=1}^{n}(Z_i - X_n)^2 $$
+The regular sample variance is a biased estimate for the population variance $\sigma^2$. In contrast, the ``adjusted'' sample variance is an unbiased estimator of $\sigma^2$.
+\end{proposition}
+
+\begin{proof}
+
+\end{proof}
+
+Bias might not be a complete description of the performance of an estimator. In fact, while in expectation an unbiased estimator is a good estimate, the actual realizations of the estimator might not be close enough. In order to measure how far, on average, the collection of estimates are from their expected value, we define the variance of an estimator.
+
+\begin{definition}[Variance of an estimator]
+Let $\theta_0$ be the true value of a parameter from any distribution. Let $\hat{\theta}$ be an estimator of $\theta_0$. We define the variance of an estimator to be the expected value of the squared sampling deviations. $$\V{\hat{\theta}} = \E{\left(\hat\theta - \E{\hat\theta}\right)^2} $$
+\end{definition}
+
+\begin{proposition}
+Let $Z_1, Z_2, ...$ be a sequence of i.i.d. random variables such that, for all $i$, $E[Z_i] = \mu$ and $Var[Z_i] = \sigma^2$. Let $X_n$ be the sample average over the $n$ first variables. The variance of the sample average is equal to the variance of $Z$, divided by the sample size : $$ Var[X_n] = \frac{Var[Z]}{n} = \frac{\sigma^2}{n} $$
+\end{proposition}
+
+\begin{proof}
+\begin{align*}
+\V{X_n} & = \E{(X_n - E[X_n])^2} = \E{(X_n - \mu)^2} = \E{\left(\frac{1}{n}\sum_{i=0}^{n} Z_i - \mu\right)^2} \\
+& = \frac{1}{n^2}\E{\left(\sum_{i=0}^{n} Z_i - \mu\right)\left(\sum_{j=0}^{n} Z_j - \mu \right)} \\
+& = \frac{1}{n^2}\E{\sum_{i=0}^{n}\sum_{j=0}^{n} (Z_i - \mu)( Z_j - \mu)} \\
+& = \frac{1}{n^2}\E{\sum_{i=0}^{n}(Z_i - \mu)^2 + \sum_{i=0}^{n}\sum_{j\neq i}^{n} (Z_i - \mu)( Z_j - \mu)} \\
+& = \frac{1}{n^2}\left(\sum_{i=0}^{n}\V{Z_i} + \sum_{i=0}^{n}\sum_{j\neq i}^{n}\cov{Z_i, Z_j} \right)\\
+& = \frac{n\V{Z}}{n^2} = \frac{\sigma^2}{n}
+\end{align*}
+\end{proof}
+
+\subsection{Efficiency}
+
+Using the variance of estimators, we can compare different unbiased estimators based on how far we can expect them to be from their expected value.
+
+\begin{definition}[Efficiency of estimators]
+Among a number of estimators of the same class, the estimator having the least variance is called an efficient estimator. The lower bound of the variance of an estimator is called the Cramer-Rao bound.
+
+Let $\hat{\theta}_1$ and $\hat{\theta}_2$ be two estimators of the same parameter $\theta$, then if $Var[\hat{\theta}_1] < Var[\hat{\theta}_2]$, we say that $\hat{\theta}_1$ is a more efficient estimator than $\hat{\theta}_2$. 
+\end{definition}
+
+As an alternative to simple variance, one can use the mean squared error as a measure of efficiency.
+
+\begin{definition}[Mean Squared Error] 
+Let $\theta_0$ be the true value of a parameter and $\hat\theta$ be an estimator of this value. We define the mean squared error, or MSE, as the expectation of the squared deviation between the estimator and the true value of the estimand. Formally, $$ \operatorname{MSE}(\hat{\theta}) = \E{(\hat{\theta} - \theta)^2} $$
+
+Among estimators of the same class, an estimator with low MSE is more efficient than an estimator with high MSE.
+\end{definition}
+
+\begin{proposition}[MSE as a trade-off between bias and variance]
+For any estimator $\hat\theta$, we have that: $$\operatorname{MSE}(\hat\theta) = \V{\hat\theta} + [\operatorname{Bias}(\hat\theta)]^2 $$
+\end{proposition}
+
+\begin{proof}
+\begin{align*}
+\operatorname{MSE}(\hat{\theta}) & = \E{(\hat{\theta} - \theta)^2} \\ & = \E{\left(\hat{\theta} - \E{\hat{\theta}} + \E{\hat{\theta}} - \theta\right)^2} \\ 
+& = \E{\left(\hat{\theta} - \E{\hat{\theta}}\right)^2 + \left(\E{\hat{\theta}} - \theta\right)^2 + 2\left(\hat{\theta} - \E{\hat{\theta}}\right)\left(\E{\hat{\theta}} - \theta\right)} \\
+& = \V{\hat\theta} + \E{[\operatorname{Bias}(\hat\theta)]^2} + 2\cdot \E{\left(\hat{\theta} - \E{\hat{\theta}}\right)\left(\E{\hat{\theta}} - \theta\right)} \\
+& = \V{\hat\theta} + [\operatorname{Bias}(\hat\theta)]^2 + 2\cdot \E{\hat{\theta}\E{\hat{\theta}} - \hat{\theta}\theta - \E{\hat{\theta}}^2 +\E{\hat{\theta}}\theta} \\
+& = \V{\hat\theta} + [\operatorname{Bias}(\hat\theta)]^2
+\end{align*}
+\end{proof}
+
+\section{Asymptotic Properties of Estimators}
+
+\subsection{Convergence}
+
+\subsubsection{Convergence in Mean Square}
+
+\begin{definition}[Convergence in MSE] 
+Let $\{X_n\}$ denote a sequence of random variables such that $\E{X_i} = \mu_i$ and $Var[X_i] = \sigma_i^2$, and $c$ a real number. If $$ \lim_{n\to\infty} \operatorname{MSE}(X_n) = \lim_{n\to\infty} \E{(X_n - c)^2} = 0, $$ we say that the sequence $\{X_n\}$ converges in mean squared error to $c$ and we write $$ X_n\msconv c $$
+\end{definition}
+
+\begin{proposition}[Sample average convergence in MSE] 
+Let $\{Z_n\}$ be a sequence of i.i.d. random variables with mean $\E{Z_i} = \mu$ and variance $\V{Z_i} = \sigma^2$, for all $i$. Consider $X_n$, the sample average as defined in the previous sections. We have that $$ X_n \msconv \E{Z_i} = \mu $$ In words, the sample average converges in mean squared error to its expected value.
+\end{proposition} 
+
+\begin{proof}
+Recall from the previous sections that $\E{X_n} = \mu$ since it is an unbiased estimator, and that $\V{X_n} = \frac{\sigma^2}{n}$. \begin{align*}
+\lim_{n\to\infty} \E{(X_n - \mu)^2} & = \lim_{n\to\infty} \E{(X_n - \E{X_n})^2} \\ & = \lim_{n\to\infty} \V{X_n} \\ & = \lim_{n\to\infty} \frac{\sigma^2}{n} = 0
+\end{align*}
+\end{proof}
+
+\subsubsection{Convergence in Probability}
+
+\begin{definition}[Convergence in probability]
+Let $\{X_n\}$ denote a sequence of random variables and $c$ a real number. If for all $\epsilon > 0$, $$ \lim_{n\to\infty} \Prob{\lvert X_n - c \rvert > \epsilon} = 0 $$
+we say that $X_n$ converges in probability to c and we write $$ X_n \pconv c $$
+Moreover, we say that $X_n$ converges in probability to a random variable $X$ if $(X_n - X)\pconv 0$.
+\end{definition}
+
+\begin{proposition} If a sequence of random variables converges in MSE to a variable $c$, then it also converges in probability to $c$. The converse is not true.
+\end{proposition}
+\begin{proof}
+From Chebychev's inequality, we can write that $ \operatorname{Pr}[\lvert X_n - \mu_n \rvert > \epsilon ] \leq \frac{\sigma_n^2}{\epsilon} $, for all $\epsilon >0$. Therefore, we have that $$0\leq \lim_{n\to\infty} \operatorname{Pr}[\lvert X_n - \mu_n \rvert > \epsilon] \leq \lim_{n\to\infty} \frac{\sigma_n^2}{\epsilon} $$ and from the assumption of convergence in MSE, we know that $\lim_{n\to\infty} \frac{\sigma_n^2}{\epsilon} = 0$.
+
+We indeed have that $\lim_{n\to\infty} \operatorname{Pr}[\lvert X_n - c \rvert > \epsilon] = 0$
+\end{proof}
+
+This definition allows us to define a useful characteristic of estimators, namely consistency. An estimator that converges in probability to the true value of its estimand is said to be a consistent estimator.
+
+\subsubsection{Convergence in Distribution}
+
+\begin{definition}[Convergence in distribution]
+Let $\{X_n\}$ denote a sequence of random variables following distribution $F_{X_n}$ and $X$ a random variable with distribution $F_X$. If, $$ \lim_{n\to\infty} F_{X_n}(x) = F_X(x) \text{ for all } x, $$
+we say that $X_n$ converges in distribution to $X$ and we write $$ X_n \dconv X $$
+\end{definition}
+
+\begin{proposition}
+If a sequence of random variables converges in probability to a random variable $X$, then it also converges in distribution to $X$. The converse is not true.
+\end{proposition}
+
+\subsection{Consistency}
+
+As we have seen in the previous section, convergence can be used to show how close to a parameter a sequence can get. This type of measurement can be interesting to compare estimators and their estimand.
+
+\begin{definition}[Consistent estimator]
+Let $\hat\theta$ be an estimator of a parameter $\theta$, we say that $\hat\theta$ is a consistent estimator if $\hat\theta\pconv \theta$.
+\end{definition}
+
+Note that this definition of consistency has no relationship whatsoever to bias. In fact, it is possible to find unbiased and consistent estimator, as it is possible to find biased and consistent estimators or unbiased and inconsistent estimators. Thus, while consistency might be an interesting property, it need to be treated independently of bias.
+
+\subsection{Law of Large Numbers}
+
+\begin{theorem}[Weak Law of Large Numbers]
+Let $\{Z_n\}$ denote a sequence of i.i.d. random variables such that $\E{Z_i} = \mu$ and $\V{Z_i} = \sigma^2$. Let $X_n$ be the sample average of $Z_1, ..., Z_n$, then $$ X_n \pconv \mu $$
+\end{theorem}
+\begin{proof}
+We already proved that $X_n \msconv \mu$. Moreover, we showed that m.s. convergence implied convergence in probability, thus we also have that $X_n \pconv \mu$.
+\end{proof}
+
+\begin{theorem}[Khinchin's WLLN]
+Let $\{Z_n\}$ denote a sequence of i.i.d. random variables such that $\E{Z_i} = \mu$ and $\E{\lvert Z_i \rvert}$ is finite. Let $X_n$ be the sample average of $Z_1, ..., Z_n$, then $$ X_n \pconv \mu $$
+\end{theorem}
+
+These two theorems are pretty powerful in the sense that they show that for any sequence of i.i.d. random variables having a finite variance or finite expected absolute value, the sample average associated will converge in probability to the true mean of the random variables. Nonetheless, these theorems need that the sequence of $\{Z_n\}$ is i.i.d..
+
+\begin{theorem}
+Let $\{Z_n\}$ denote a sequence of random variables such that:\begin{itemize}
+\item $\E{Z_i} = \mu_i$,
+\item $\V{Z_i} = \sigma_i^2$ and
+\item $\cov{Z_i, Z_j} = \sigma_{i,j}$ for all $i\neq j$
+\end{itemize} 
+Let $X_n$ be the sample average of the first $n$ variables. We denote $\bar\mu_n = \frac{1}{n} \sum_{i=1}^{n} \mu_i$ and $\mu_0 = \lim_{n\to\infty} \mu_n$. If $\mu_0$ exists and $\lim_{n\to\infty} \V{X_n} = 0$, then $$ X_n\pconv \mu_0 $$
+\end{theorem}
+
+\begin{proof}
+It is trivial to show that $\E{X_n} = \avg{1}{n} \E{Z_i} = \avg{1}{n} \mu_i = \mu_n$ and therefore $\lim_{n\to\infty} \E{X_n} = \mu_0$; if $\mu_0$ exists. By assumption, $\lim_{n\to\infty} \V{X_n} = 0$, therefore, we have that $X_n \pconv \mu_0$.
+\end{proof}
+
+This last theorem relies on two (really) strong assumptions :\begin{enumerate}
+\item $\mu_0$ exists : this assumption is true if the sequence of random variables (which are not i.i.d.) somehow have convergent means, which is far from guaranteed.
+\item $\lim_{n\to\infty} \V{X_n} = 0$ : this assumption relies on the fact that $Z_i$s should tend to be more and more uncorrelated as well as having low variances. This can be shown by the fact that $\V{X_n} = \frac{1}{n^2} \sum \V{Z_i} +  \frac{1}{n^2} \sum \sum \cov{Z_i, Z_j}$
+\end{enumerate}
+
+\subsection{Slutsky's Theorems}
+
+\begin{theorem}[Slutsky's Theorem for convergence in probability]
+For any continuous function $g(\cdot)$ that does not depend on the sample size $n$, we have: $$\text{plim } g(X_n) = g(\text{plim }X_n)$$
+\end{theorem}
+
+\begin{theorem}[Slutsky's Theorem for convergence in distribution]
+For any continuous function $g(\cdot)$ that does not depend on the sample size $n$ and can be used to represent a distribution, we have: $$X_n \dconv X \Rightarrow g(X_n)\dconv g(X)$$
+\end{theorem}
+
+\begin{proposition}[Properties of convergence]
+Let $X_n\dconv X$ and $Y_n \pconv c$ where $X$ is a random variable and $c$ a constant. We have : \begin{itemize}
+\item $X_nY_n \dconv Xc$
+\item $X_n + Y_n \dconv X + c$
+\end{itemize}
+\end{proposition}
+
+Using Slutsky's theorem is quite useful to prove consistency of estimators.
+
+\begin{proposition}[Consistency of the OLS estimator]
+The OLS estimate, as defined by: $$\hat b_{OLS} = \frac{\sum_{i=1}^{n} x_iy_i}{\sum_{i=1}^{n} x_i^2} $$ is a consistent estimate of $b$ in the model $y_i = b\cdot x_i + e_i$.
+\end{proposition}
+
+\begin{proof}
+\begin{align*}
+\plim \hat b_{OLS} = \plim \frac{\sum_{i=1}^{n} x_i(b\cdot x_i + e_i)}{\sum_{i=1}^{n} x_i^2} & = \plim \frac{\sum_{i=1}^{n} b\cdot x_i^2}{\sum_{i=1}^{n} x_i^2} + \plim \frac{\sum_{i=1}^{n}x_ie_i}{\sum_{i=1}^{n} x_i^2}\\
+& = b + \frac{\plim 1/n\cdot \sum_{i=1}^{n}x_ie_i}{\plim 1/n\cdot \sum_{i=1}^{n} x_i^2}\\
+& = b
+\end{align*}
+\end{proof}
+
+
+\subsection{Central Limit Theorems}
+
+\begin{theorem}[Lindeberg-Lévy Central Limit Theorem]
+
+Suppose $\{Z_n\}$ is a sequence of i.i.d. random variables with $\E{Z_i} = \mu$ and $\V{Z_i} = \sigma^2 <\infty$ and $X_n$ is the sample average of the first $n$ elements of the sequence. Then, as $n$ approaches infinity, the random variable $\sqrt{n}(X_n - \mu)$ converges in distribution to a normal distribution $N(0,\sigma^2)$. We write $$\sqrt{n}(X_n - \mu) \dconv N(0, \sigma^2) $$ and say that $X_n$ asymptotically follows a normal distribution $N(0, \sigma^2)$.
+
+This theorem also holds if $\{Z_n\}$ is a sequence of random vectors of size $k$, then we'd have that $$\sqrt{n}(X_n - \mu) \dconv N_k(0, \Omega) $$ where $N_k$ denotes the multivariate normal distribution of size $k$ and $\Omega$ is the variance matrix of any vector $Z_i$.
+\end{theorem}
+
+\begin{theorem}[Lindeberg-Feller Central Limit Theorem]
+Let $\{Z_n\}$ denote a sequence of independent (but not necessarily identically distributed) random variables such that $\E{Z_i} = \mu_i$ and $\V{Z_i} = \sigma_i^2 <\infty$. Consider the sample average of $Z_i$ as $X_n$, and the sample average of the variances $\sigma_i^2$ as $\bar\sigma_n^2$. 
+
+If $$\lim_{n\to\infty} \max_{i} \frac{\sigma_i^2}{n\bar\sigma_n^2} = 0 \text{ and } \lim_{n\to\infty} \bar\sigma_n^2 = \bar\sigma^2 < \infty$$
+Then, $\frac{(X_n - \bar\mu)}{\bar\sigma/\sqrt{n}} \dconv N(0, 1)$.
+\end{theorem}
+
+\subsection{Delta Method}
+
+The delta method is a result concerning the asymptotic distribution of a function of an asymptotically normal estimator. In other words, it is used to recover the asymptotic distribution of a function of an estimator, provided that we know the asymptotic distribution of this estimator.
+
+\begin{proposition}[Univariate Delta Method]
+Consider a sequence of random variables $\{X_n\}$ such that: $$\sqrt{n}(X_n - \mu) \dconv N(0, \sigma^2), $$
+then, for any function $g(x)$ such that $g(x)$ is not a function of sample size $n$, its derivative $g'(x)$ exists and is non-zero valued, we have that: $$\sqrt{n}(g(X_n) - g(\mu)) \dconv N(0, \sigma^2\cdot [g'(\mu)]^2) $$
+\end{proposition}
+
+\begin{proposition}[Multivariate Delta Method]
+Consider a sequence of random vectors $\{X_n\}$ of size $k$ such that: $$\sqrt{n}(X_n - \mu) \dconv N_k(0, \Omega), $$
+then, for any scalar-valued function $h(x)$ such that $h(x)$ is not a function of sample size $n$, its derivative $h'(x)$ exists and is non-zero valued, we have that: $$\sqrt{n}(g(X_n) - g(\mu)) \dconv N_k\left(0, \frac{\partial h}{\partial \mu'}\Omega\frac{\partial h'}{\partial \mu}\right) $$
+\end{proposition}
+
+Next, we cover an example on how to use this method.
+
+Consider the estimator $X_n$ such that $\sqrt{n}(X_n - a) \dconv N(0, 1)$ and the function $g(x) = x^2$. First, by Slutsky's theorem, we can write that: $$\sqrt{n}(X_n - a) \cdot \sqrt{n}(X_n - a) \dconv X^2 $$ $$\text{ or equivalently } n(X_n - a)^2 \dconv \chi_1^2 $$ where $X\sim N(0,1)$.
+
+By the delta method, we have that: $$\sqrt{n}(X_n^2 - a^2)\dconv N(0, 1 \cdot (2a)^2) = N(0, 4a^2) $$ 
+
+
+\subsection{Asymptotic Notation}
+
+In order to go further in our discussion of convergence and other asymptotic properties, we need to define another type of notation called asymptotic notation. In particular, we will extend existing notation for asymptotic convergence and boundedness to allow for stochastic processes.
+
+\begin{definition}[Little-$o$ notation]
+Let $\{ C_n\}$ be a sequence of constants. 
+
+We say that: \begin{itemize}
+\item $C_n$ is $o(1)$ if $\lim_{n\to\infty} C_n = 0$, we write: $C_n = o(1)$.
+\item $C_n$ is $o(n^k)$ if $\frac{C_n}{n^k}=o(1)$, we write: $C_n = o(n^k)$.
+\end{itemize}
+\end{definition} 
+
+The intuition behind this notation is to convey the meaning that a sequence $C_n$ converges to $0$ at a rate equivalent to the function inside the operator ($1$ or $n^k$).
+
+\begin{definition}[Little-$o_p$ notation]
+Let $\{X_n\}$ be a sequence of random variables. 
+
+We say that $X_n = o_p(1)$ if, for all $\varepsilon >0$ and $\delta >0$, there exists an $N$ for which $n>N$ implies: $$\Prob{\lvert X_n\rvert > \varepsilon} < \delta $$
+
+One could be tempted to draw the parallel with the property of convergence in probability since, by taking a $\delta$ arbitrarily close to $0$, we can definitely say that: $$ \lim_{n\to\infty} \Prob{\lvert X_n\rvert > \varepsilon} < \delta $$ Thus, if $X_n\pconv 0$, we can always say that $X_n = o_p(1)$. 
+
+We can also extend the result to higher orders of $o_p$ convergence: \begin{itemize}
+\item $X_n$ is $o_p(1)$ if $\plim_{n\to\infty} X_n = 0$, we write: $X_n = o_p(1)$.
+\item $X_n$ is $o_p(n^k)$ if $\frac{X_n}{n^k}=o_p(1)$, we write: $X_n = o_p(n^k)$.
+\end{itemize}
+\end{definition}
+
+In this case the parallel with convergence in probability shows the extension of little-$o$ convergence clearly. In fact, $o_p$ notation defines the convergence at a rate equivalent to the function inside the operator, in probability only (not surely this time). In other words, it means that as $n$ increases, the probability that $X_n$ does not converge to 0 is getting lower and lower.
+
+\begin{definition}[Big-$O$ notation] 
+Let $\{ C_n\}$ be a sequence of constants. 
+
+We say that: \begin{itemize}
+\item $C_n$ is $O(1)$ if $\lvert\lim_{n\to\infty} C_n\rvert \leq c$, we write: $C_n = O(1)$.
+\item $C_n$ is $O(n^k)$ if $\frac{C_n}{n^k} = O(1)$, we write: $C_n = O(n^k)$.
+\end{itemize}
+\end{definition}
+
+The intuition behind this notation is not anymore about convergence but more about boundedness. Big-$O$ notation defines a sort of asymptotic boundedness, meaning that the sequence will be bounded after some point.
+
+\begin{definition}[Stochastic boundedness]
+Let $\{X_n\}$ be a sequence of random variables. 
+
+We say that $X_n=O_p(1)$ if for all $\delta >0$ and associated $K_{\delta}>0$, there exists a $N$ such that $n>N$ implies that: $$\operatorname{Pr}(\lvert X_n\rvert > K_{\delta})<\delta$$
+
+We can also extend the result to higher orders of $O_p$ convergence: $X_n$ is $O_p(n^k)$ if $\frac{X_n}{n^k}=O_p(1)$, and we write: $X_n = O_p(n^k)$.
+\end{definition}
+
+In the same way that $o_p$ extended $o$ notation, $O_p$ is the stochastic extension of $O$ notation. It means that, as $n$ increases, the probability that $X_n$ is not asymptotically bounded goes to 0.
+
+\begin{proposition}[Relation between $o_p$ and $O_p$ convergence]
+If $X_n = o_p(1)$, then $X_n = O_p(1)$. Trivially, this also means that if $X_n = o_p(n^k)$, then $X_n = O_p(n^k)$.
+\end{proposition}
+
+\begin{proof}
+This comes directly from the fact that a convergent sequence has to be bounded.
+\end{proof}
+
+\subsection{Extremum Estimators}
+
+\begin{definition}[Influence function]
+Let $\hat\theta$ be a function of random variables $F(Z_1, ..., Z_n)$. Suppose there exists $R_i = r_i(Z_1, ..., Z_n, \theta_0)$ and $S_n = o_p(1)$ such that $$\sqrt{n}(\hat\theta - \theta_0) = \sqrt{n}\bar R + S_n $$We can simplify by writing $S_n = o_p(1)$ and then, $$\hat\theta = \theta_0 + \bar R + O_p(n^{-\frac{1}{2}}) $$Now suppose that $\sqrt{n}\bar R\dconv N(0, \Omega)$, then $\sqrt{n}(\hat\theta - \theta_0) = O_p(1)$. We say that $\hat\theta$ is a root-n-consistent estimator.
+\end{definition}
+
+
+\begin{theorem}
+Consider an extremum estimator $\hat\theta$ such that  $\hat\theta \in \operatorname{arg}\max_{\theta} Q_n(\theta)$. Define $Q_0(\theta)$ as the limit in probability of $Q_n(\theta)$.
+Next, we assume:\begin{itemize}
+\item[\textbf{A1.}] \textbf{Identification:} $Q_0(\theta)$ exists and is maximized at the true value of the parameter $\theta = \theta_0$
+\item[\textbf{A2.}] \textbf{Continuity:} $Q_n(\theta)$ is differentiable.
+\item[\textbf{A3.}] \textbf{Compactness:} The domain of $Q_n(\theta)$ is compact (i.e. there exists $\theta_L$ and $\theta_U$ such that $\theta_L\leq \theta\leq\theta_U$).
+\item[\textbf{A4.}] \textbf{Stochastic equicontinuity:} $\lvert \frac{\partial Q_n(\theta)}{\partial \theta}\rvert = O_p(1)$ where $\delta$ and $K_{\delta}$ do not depend on $\theta$.
+\end{itemize}
+If these four axioms are satisfied, then $\hat\theta$ is a consistent estimator of $\theta_0$, that is, it converges in probability to the true value $\theta_0$.
+\end{theorem}
+
+\begin{bclogo}[couleur=blue!10, arrondi=0.1, logo=,ombre=false]{ Consistency of the OLS estimator} 
+\begin{small}
+Define a model as $$Y = b_0W + e$$ such that $\E{Y^2}$ and $\E{W^2}$ are finite and different from $0$. Moreover, assume that $(Y_i,W_i)$ are i.i.d. and $\E{eW}=0$. Finally, we'll assume that while $b_0$ is unknown, it is smaller in absolute value than a huge number $M$.
+
+Is $\hat b_{OLS}$ a consistent estimator of $b_0$?
+
+Recall that $$\hat b_{OLS} \in \operatorname{arg}\max_b -\sum_{i=1}^{n} (Y_i - bW)^2 $$ We define the sum of squared residuals as our $Q_n(b)$ function.
+
+A1. Does $\operatorname{plim}Q_n$ exist? It might not be clear in the form we just defined since increasing $n$ will make the sum of squares larger and larger. However, we could define $Q_n$ to be the average of the sum of squared residuals. Then, from the law of large numbers, we can be sure that $Q_n$ will converge to its expectation: $$\lim_{n\to\infty} Q_n(b) = Q_0(b) = \E{-(Y - bW)^2}$$ Now, is $Q_0$ maximized at $b_0$?
+
+By the FOC: \begin{align*}
+\frac{\partial Q_0(b)}{\partial b} = 0 & \Leftrightarrow -2\E{WY} + 2b\E{W^2} = 0 \\
+& \Leftrightarrow  b = \frac{\E{WY}}{\E{W^2}} \\
+& \Leftrightarrow  b = \frac{\E{W(bW+e)}}{\E{W^2}} \\
+& \Leftrightarrow  b = \frac{b_0\E{W^2}}{\E{W^2}} + \frac{\E{We}}{\E{W^2}} \\
+& \Leftrightarrow  b = b_0\\
+\end{align*}
+A2. Since $Q_n$ is a quadratic function, we know for sure that it is smooth.
+
+A3. By assumption $\lvert b_0\rvert < M$, therefore the domain of $Q_n$ is compact.
+
+A4. Finally, \begin{align*}
+\lvert \frac{\partial Q_n(b)}{\partial b} \rvert & = \lvert -\frac{1}{n} \sum_{i=1}^{n} 2(Y_i - bW_i)(-W_i)\rvert \\
+& \pconv \lvert\E{2(Y_i - bW_i)(-W_i)}\rvert \Rightarrow \lvert \frac{\partial Q_n(b)}{\partial b} \rvert = O_p(1)
+\end{align*}
+We can conclude, by theorem 3.8 that $\hat b_{OLS}$ is a consistent estimator of $b_0$.
+\end{small}
+\end{bclogo}
+
+\begin{theorem}[Glevenko-Cantelli Theorem]
+Let $\{ Z_n\}$ be any sequence of i.i.d. random variables with cdf $F(\cdot)$. The observed cumulative distribution $$\hat F(z) = \avg{1}{n}\operatorname{I}(Z_i \leq z)$$ is a consistent estimator of the true cdf $F(\cdot)$.
+\end{theorem}
