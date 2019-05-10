@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2019.1.21)  8 MAY 2019 13:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2019.1.21)  10 MAY 2019 12:11
 entering extended mode
 **./7772_LectureNotes.tex
 (7772_LectureNotes.tex
@@ -1341,7 +1341,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.39 ...imum Likelihood Estimation}{40}{chapter.4}
+l.46 ...imum Likelihood Estimation}{42}{chapter.4}
                                                   % [1
 
 ] [2] [3])
@@ -1407,39 +1407,25 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 Chapter 2.
 (Chapters/c03_classicalregression.tex [24
 
-] [25] [26] [27]
-Overfull \hbox (15.03299pt too wide) in paragraph at lines 147--149
+]
+LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 12.0pt on input line 60.
+ [25] [26] [27]
+Overfull \hbox (15.03299pt too wide) in paragraph at lines 103--105
 \T1/LinuxLibertineT-TLF/m/it/12 (-20) This prop-erty also means that there is n
 o au-to-cor-re-la-tion in the data $[] [] \OT1/cmr/m/n/12 =
  []
 
-[28] [29]
-Overfull \hbox (4.72037pt too wide) in paragraph at lines 191--193
-\T1/LinuxLibertineT-TLF/m/n/12 (-20) In the case of $[]$, we have $\OML/cmm/m/i
-t/12 []\OT1/cmr/m/n/12 ([][]) = \OML/cmm/m/it/12 []\OT1/cmr/m/n/12 ((\OML/cmm
-/m/it/12 X[]X\OT1/cmr/m/n/12 )[]\OML/cmm/m/it/12 X[]\OT1/cmr/m/n/12 ((\OML/cmm/
-m/it/12 X[]X\OT1/cmr/m/n/12 )[]\OML/cmm/m/it/12 X[]\OT1/cmr/m/n/12 )[]) = \OML/
-cmm/m/it/12 []\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 X[]X\OT1/cmr/m/n/12 )[]$
- []
-
-Package mdframed Info: mdframed detected package amsthm 
- changed the theorem header of amsthm
-(mdframed)              on input line 211.
-LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.95pt on input line 215.
-[30]
-Overfull \hbox (2.31442pt too wide) detected at line 239
+[28] [29] [30] [31]
+Overfull \hbox (2.31442pt too wide) detected at line 242
 []
  []
 
-[31] [32]) [33]
+[32] [33] [34]) [35]
 Chapter 3.
-(Chapters/c04_specificationissues.tex
-LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 4.
- [34
+(Chapters/c04_specificationissues.tex [36
 
-] [35]
+] [37]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 50.
@@ -1451,21 +1437,23 @@ Package mdframed Warning: You got a bad break
 (mdframed)                by changing the text, the space
 (mdframed)                or something else on input line 58.
 
-[36] [37]
+[38] [39]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 91.
- [38]
+ [40]
 Package mdframed Info: Not enough space on this page on input line 95.
-) [39]
+) [41]
 Chapter 4.
 (Chapters/c05_mlestimation.tex
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 1.
- [40
+LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 10.95pt on input line 6.
+ [42
 
-] [41] [42] [43]
+] [43] [44] [45]
 Overfull \hbox (8.35759pt too wide) in paragraph at lines 101--101
 []\T1/LinuxLibertineT-TLF/b/n/17.28 Application of ML es-ti-ma-tion to Bi-nary 
 Choice
@@ -1484,53 +1472,53 @@ Overfull \hbox (90.59479pt too wide) detected at line 112
 []
  []
 
-[44]) [45]
+[46]) [47]
 Chapter 5.
-(Chapters/c06_inferencehyptests.tex [46
+(Chapters/c06_inferencehyptests.tex [48
 
-] [47] [48] [49] [50]) [51]
+] [49] [50] [51] [52]) [53]
 Chapter 6.
 (Chapters/c07_generalizedls.tex
 Overfull \hbox (47.79688pt too wide) detected at line 11
 []
  []
 
-[52
+[54
 
-] [53]
+] [55]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 29.
- [54] [55] [56]
-<images/defcorrelogram.png, id=538, 1027.84pt x 727.71875pt>
+ [56] [57] [58]
+<images/defcorrelogram.png, id=553, 1027.84pt x 727.71875pt>
 File: images/defcorrelogram.png Graphic file (type png)
 <use images/defcorrelogram.png>
 Package pdftex.def Info: images/defcorrelogram.png  used on input line 64.
 (pdftex.def)             Requested size: 256.95937pt x 181.92923pt.
- [57 <./images/defcorrelogram.png (PNG copy)>] [58]
-[59] [60]) [61]
+ [59 <./images/defcorrelogram.png (PNG copy)>] [60]
+[61] [62]) [63]
 Chapter 7.
-(Chapters/c08_dynamicmodels.tex [62
+(Chapters/c08_dynamicmodels.tex [64
 
-] [63]) [64]
+] [65]) [66]
 Chapter 8.
-(Chapters/c09_ivreg2sls.tex [65
+(Chapters/c09_ivreg2sls.tex [67
 
-] [66] [67] [68] [69] [70] [71] [72]) [73]
+] [68] [69] [70] [71] [72] [73] [74]) [75]
 Chapter 9.
-(Chapters/c10_gmm.tex [74
+(Chapters/c10_gmm.tex [76
 
-] [75] [76] [77] [78]) [79] [80]
+] [77] [78] [79] [80]) [81] [82]
 Chapter 10.
-(Chapters/c11_nonparamreg.tex [81
+(Chapters/c11_nonparamreg.tex [83
 
-] [82] [83] [84]) [85] [86]
+] [84] [85] [86]) [87] [88]
 Chapter 11.
-(Chapters/c12_policyeval.tex [87
+(Chapters/c12_policyeval.tex [89
 
-] [88] [89] [90] [91] [92]) [93]
+] [90] [91] [92] [93] [94]) [95]
 Chapter 12.
-(Chapters/c13_regdiscontinuity.tex) [94
+(Chapters/c13_regdiscontinuity.tex) [96
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 97.
@@ -1538,18 +1526,14 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 97.
  (7772_LectureNotes.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 97.
 Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 97.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 97.
  ) 
 Here is how much of TeX's memory you used:
- 33048 strings out of 492946
- 638152 string characters out of 3135527
- 713836 words of memory out of 3000000
- 35793 multiletter control sequences out of 15000+200000
- 666179 words of font info for 278 fonts, out of 3000000 for 9000
+ 33046 strings out of 492946
+ 638011 string characters out of 3135527
+ 713285 words of memory out of 3000000
+ 35786 multiletter control sequences out of 15000+200000
+ 665906 words of font info for 276 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,16n,81p,1256b,1390s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/18579/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_nao
@@ -1579,9 +1563,9 @@ X 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
 public/amsfonts/symbols/msam10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
 lic/amsfonts/symbols/msbm10.pfb>
-Output written on 7772_LectureNotes.pdf (95 pages, 867240 bytes).
+Output written on 7772_LectureNotes.pdf (97 pages, 872580 bytes).
 PDF statistics:
- 1082 PDF objects out of 1200 (max. 8388607)
- 354 named destinations out of 1000 (max. 500000)
- 32306 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 1104 PDF objects out of 1200 (max. 8388607)
+ 362 named destinations out of 1000 (max. 500000)
+ 32314 words of extra memory for PDF output out of 35830 (max. 10000000)
 

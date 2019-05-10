@@ -1,12 +1,8 @@
-\section{Introduction, model and assumptions}
+\section{Introducing the OLS Estimator}
 
-\begin{definition}[Data sample]
-A data sample is a set of $n$ observations, denoted by the subscript $i$. Its elements are random variables $(Y_i, X_i)$ where $X_i$ can be a vector.
-\end{definition}
+\subsection{Linear Model}
 
-In econometrics, we commonly view these observations as iid draws from a common distribution called the data-generating process (or DGP). 
-
-Consider the a model of a variable $Y$ explained by $k$ regressors with $n$ observations: $$Y_i = \beta_1 + \beta_{2}X_{2i} + ... + \beta_kX_{ki} + e_i$$ which can be written in its matrix form:\[
+Consider the a model of a variable $Y$ explained by $k$ regressors with $n$ observations: $$Y = \beta_1 + \beta_{2}X_{2} + ... + \beta_kX_{k} + e$$ which can be written in its matrix form as:\[
 \begin{bmatrix}
     Y_{1}\\
     Y_{2}\\
@@ -34,106 +30,66 @@ Consider the a model of a variable $Y$ explained by $k$ regressors with $n$ obse
     e_{n}
 \end{bmatrix}
 \]
+$$\Leftrightarrow Y = X\beta + e $$
+
 \begin{definition}[OLS estimator]
 The OLS estimator $\hat\beta$ of the true parameter $\beta$ is the vector that minimizes the sum of squared residuals:\begin{align*}
 \hat\beta & \in \operatorname{arg}\min_{\beta} e'e\\
-& \in \operatorname{arg}\min_{\beta} (Y -  X\beta)'(Y -  X\beta)
+& \in \operatorname{arg}\min_{\beta} (Y -  X\beta)'(Y -  X\beta) \\
+& \in \operatorname{arg}\min_{\beta} Y'Y - Y'\beta X - \beta'X'Y + \beta'X'X\beta
 \end{align*} 
-\end{definition}
-
-\begin{proposition}
-If the matrix given by $X'X$ is invertible, then the value of the OLS estimator $\hat\beta$ is:$$\hat\beta=(X'X)^{-1}X'Y$$
-\end{proposition}
-\begin{proof}
-In order to solve the model, we can simplify the objective function to $Y'Y - Y'\beta X - \beta'X'Y + \beta'X'X\beta $ where each term is a $1\times 1$ matrix. The FOC gives:\begin{align*}
+The FOC of this optimization problem gives:\begin{align*}
 \frac{\partial }{\partial \beta} = 0 & \Leftrightarrow -2X'Y + 2X'X\hat\beta = 0 \\ & \Leftrightarrow X'Y=X'X\hat\beta \\ & \Leftrightarrow \hat\beta=(X'X)^{-1}X'Y
 \end{align*}
-\end{proof}
+The SOC is given by $2X'X$.
 
-\begin{proposition}
+Thus, if the matrix given by $X'X$ is invertible, then the value of the OLS estimator $\hat\beta$ is:$$\hat\beta=(X'X)^{-1}X'Y$$
+\end{definition}
+
+\subsection{Univariate OLS}
+
+\begin{proposition}[Univariate Linear Regression]
 In the particular case of $k=2$ so that $y = a + bx +e$. We have that: \begin{align*}
 \hat b & = \frac{\sum_{i=1}^{n}(x_i - \bar x)(y_i - \bar y)}{\sum_{i=1}^{n}(x_i - \bar x)^2}  = \frac{\cov{x,y}}{\V{x}}\\
 \hat a & = \bar y - \hat b \bar x
 \end{align*}
 \end{proposition}
 
-\begin{proof}
+Consider the univariate model described just above is $$y_i = a + bx_i + e_i$$
+Then, we can show that \begin{itemize}
+\item $\V{\hat b} = $
+\item $\V{\hat a} = $
+\item $\cov{\hat b, \hat a} = $
+\end{itemize}
+Analyzing the data we can find some interesting properties for our model.
 
-\end{proof}
+For example, if $\sigma^2$ is small, all three variances and covariance will be small as well. A lower $\sigma$ implies a more efficient model.
+
+Now, if $n$ is big, the effect is the same, since all variances will be smaller, our model will be more accurate.
+
+Again, the implications are the same with greater values of $x_i - \bar x$.
+
+Finally, we can see that the covariance between the two estimators indicate how their errors are related. If the covariance is high and positive, then a mistake in the estimation of $\hat b$ will lead to the same mistakes in $\hat a$.
+
+\subsection{Fit of the model}
 
 \begin{definition}[Fitted values and residuals]
-The fitted value $\hat{Y}$ is defined by:$$\hat{Y} = X\hat{\beta}$$ This variable is not a predictor of $Y$ since it is a function of the sample only. The residuals are $\hat{e} = Y - \hat{Y} = Y - X\hat{\beta}$. They are different from errors $e$ which are unobservable parameters of the regression.
-\end{definition}
+The fitted values of the model, denoted $\hat{Y}$ are defined by: $$\hat{Y} = X\hat{\beta}$$ These are not predictors of $Y$ since they utimately are a function of the sample only (not the population) but they allow us to compute the residuals, which are useful for variance estimation, as we'll see later. 
 
-\begin{proposition}
-In a linear regression context, we have: $$X'\hat e = 0$$ This implies that if $X$ contains a column of ones (i.e. there is a constant in the model), then $\avg{1}{n}\hat e_i = 0$.
-\end{proposition}
-
-\begin{proof}
-We can easily see that:\begin{align*}
-X'\hat e & = X'(Y - X\hat\beta) = X'Y - X'X\hat\beta = X'Y - X'X(X'X)^{-1}X'Y = 0 \\ & \Leftrightarrow
-\begin{bmatrix}
-    1 & 1 & \dots & 1 \\
-    X_{21} & X_{22} & \dots & X_{2n} \\
-    \vdots & \vdots & \ddots & \vdots \\
-   X_{k1} & X_{k2} & \dots & X_{kn}
-\end{bmatrix}
-\cdot 
-\begin{bmatrix}
-    \hat e_{1}\\
-    \hat e_{2}\\
-    \vdots\\
-    \hat e_{n}
-\end{bmatrix} = 0 \Leftrightarrow \begin{bmatrix}
-    \sum_{i=1}^{n}\hat e_{i}\\
-    \vdots\\
-\end{bmatrix} = 0
-\end{align*}
-\end{proof}
-
-\begin{definition}[Linear estimator]
-An estimator is linear in random variables if it can be written as linear transformation of a random vector. In words, it must be equal to a constant matrix multiplied by a random vector: $$\tilde{\beta} = \tilde{C}Y$$
-\end{definition}
-
-\begin{definition}[Projection matrix]
-The matrix $P = X\tilde{C}$ is a projection matrix. Its properties are that:\begin{itemize}
-\item $PX = X$
-\item $P=P'$
-\item $PP = P$
-\item $\operatorname{tr}(P) = k$
-\end{itemize} 
-\end{definition}
-
-\begin{proposition}
-The projection matrix $P$ can be used to recover the fitted values with $$PY = \hat Y$$
-\end{proposition}
-\begin{proof}
-We have $PY = X(X'X)^{-1}X'Y = X\hat\beta = \hat Y$
-\end{proof}
-
-\begin{definition}[Orthogonal projection matrix]
-Let $M = I_n - P$, $M$ is called the orthogonal projection matrix since $MX = 0$. Other properties of $M$ include:\begin{itemize}
-\item $MP = 0$
-\item $\operatorname{tr}(M) = n-k$
-\item $MY = Y - PY = Y - \hat Y = \hat e $
-\item $\hat e = MY = M(X\beta + e) = Me$
-\end{itemize}
-\end{definition}
-
-\begin{definition}[Estimator of the error variance]
-The moment estimator of the variance $\sigma^2$ would be: $$\tilde{\sigma}^2 = \frac{1}{n}\sum_{i=1}^n e_i^2 $$ However, $e_i$ is never observed and cannot be used. Let's substitute for $\hat{e_i}$ after OLS estimation. We get the feasible variance estimator:$$\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n \hat e_i^2 $$ Alternatively, we can write $\tilde{\sigma}^2 = n^{-1}e'e$ and $\hat{\sigma}^2 = n^{-1}\hat{e}'\hat{e} = n^{-1}Y'MMY = n^{-1}e'MMe = n^{-1}e'Me$. A nice property of this is that:\begin{align*}
-\tilde{\sigma}^2 - \hat{\sigma}^2 = n^{-1}e'e - n^{-1}e'Me & = n^{-1}e'(I_n - M)e \\
-& = n^{-1}e'Pe \\
-& \geq 0
-\end{align*}which means that $\tilde{\sigma}^2 \geq \hat{\sigma}^2$.
+The residuals of the model, denoted $\hat{e}$, are defined as the difference between the sample values and the fitted values, formally,
+$$\hat{e} = Y - \hat{Y} = Y - X\hat{\beta} $$ They are different from the errors $e$ which are unobservable parameters of the regression.
 \end{definition}
 
 \begin{definition}[$R^2$ and analysis-of-variance]
-We can measure the variance of the model with a variable called $R^2$. Write $$Y = PY + MY = \hat{Y} + \hat{e}$$ It follows that $$Y'Y = \hat{Y}'\hat{Y} + 2\hat{Y}'\hat{e} + \hat{e}'\hat{e} = \hat{Y}'\hat{Y} + \hat{e}'\hat{e} $$
-And hence $Y - \bar{Y} = \hat{Y} - \bar{Y} + \hat{e} \Rightarrow (Y - \bar{Y})'(Y - \bar{Y}) = (\hat{Y} - \bar{Y})'(\hat{Y} - \bar{Y}) + 2(\hat{Y} - \bar{Y})'\hat{e} + \hat{e}'\hat{e}$ which gives $$\V{Y} = \V{\hat{Y}} + \V{\hat{e}}$$ Finally, we define as $R^2$ the proportion of variation of $Y$ explained by a variation in $\hat{Y}$: $$R^2 = \frac{\V{\hat{Y}}}{\V{Y}} = 1 - \frac{\V{\hat{e}}}{\V{Y}} $$
+We can measure the variance of the model with a variable called $R^2$. Write $$Y = \hat{Y} + \hat{e}$$ It follows that $$Y'Y = \hat{Y}'\hat{Y} + 2\hat{Y}'\hat{e} + \hat{e}'\hat{e} = \hat{Y}'\hat{Y} + \hat{e}'\hat{e} $$
+And hence $Y - \bar{Y} = \hat{Y} - \bar{Y} + \hat{e} \Rightarrow (Y - \bar{Y})'(Y - \bar{Y}) = (\hat{Y} - \bar{Y})'(\hat{Y} - \bar{Y}) + 2(\hat{Y} - \bar{Y})'\hat{e} + \hat{e}'\hat{e}$ which gives $$\V{Y} = \V{\hat{Y}} + \V{\hat{e}}$$ Finally, we define as $R^2$ the proportion of variation of $Y$ that is also captured as a variation in $\hat{Y}$ (implying that we have a model for it): $$R^2 = \frac{\V{\hat{Y}}}{\V{Y}} = 1 - \frac{\V{\hat{e}}}{\V{Y}} $$
 \end{definition}
 
 We have already seen that, in order to get a solution for our OLS estimator we need the assumption of non-singularity of $X'X$. In the same spirit, we will need other assumptions in order to draw out the properties of $\hat\beta$ whether in finite or infinite samples. The assumptions that are going to be described here represent the minimal assumptions that one can make ; we'll see what they imply and how to relax them in the following sections.
+
+\section{Gauss-Markov Theorem}
+
+\subsection{Assumptions of the linear model}
 
 \begin{definition}[Classical assumptions]
 The following assumptions on our model are called the classical assumptions:
@@ -151,8 +107,90 @@ If the data is random, then we need that: $$ \E{e_i|X_i} = \E{e|X} = 0 \text{ an
 \end{itemize}
 \end{definition}
 
+\begin{theorem}[Gauss-Markov Theorem]
+Under assumptions A1-A4, the OLS estimator $\hat\beta$ is the Best Linear Unbiased Estimator (BLUE). This property means that, among the class of linear unbiased estimators, the OLS estimator is the most efficient one.
+\end{theorem}
 
-\section{Finite sample properties of OLS estimation}
+In order to prove this theorem, we will need to understand more about the general class of estimators that contain the OLS estimator.
+
+\subsection{Linear Unbiased Estimators}
+
+\begin{definition}[Linear estimator]
+An estimator $\tilde \beta$ is said to be linear in the dependent variable if it can be written as a linear transformation of the dependent variable. Formally, it must be equal to a constant matrix multiplied by a random vector: $$\tilde{\beta} = \tilde{C}Y $$
+\end{definition}
+
+\begin{proposition}[Unbiased Linear Estimators]
+A linear estimator is unbiased if and only if its associated transformation matrix $\tilde{C}$ is such that $$\tilde{C}X = I_k$$
+\end{proposition}
+\begin{proof}
+Consider any linear estimator $\tilde{\beta} = \tilde{C}Y$, we have that: \begin{align*}
+\tilde{\beta} = \tilde{C}(X\beta + e) = \tilde{C}X\beta + \tilde{C}e \Rightarrow \E{\tilde{\beta}} & = \tilde{C}X\beta + \tilde{C}\E{e} \\
+& = \tilde{C}X\beta \\ ( & = \beta \text{ if } \tilde{C}X = I_k )
+\end{align*}
+\end{proof}
+
+\begin{proposition}[Variance of Linear Estimators]
+The variance of a homoskedastic, non-autocorrelated linear estimator is given by $\V{\tilde{\beta}} =  \sigma^2(\tilde{C}\tilde{C}')$.
+\end{proposition}
+\begin{proof}
+The proof is trivial and follows the properties of the variance operator:
+\begin{align*}
+\V{\tilde{\beta}} = \V{\tilde{C}X\beta + \tilde{C}e} = \V{\tilde{C}e} & = \tilde{C}\V{e}\tilde{C}'\\
+& = \tilde{C}\Omega\tilde{C}'\\
+& = \tilde{C}\sigma^2 I_n\tilde{C}'\\
+& = \sigma^2(\tilde{C}\tilde{C}')
+\end{align*}
+\end{proof}
+
+We now have the tools to prove the Gauss-Markov theorem.
+
+Consider, without loss of generality, an alternative linear estimator $\tilde\beta = \tilde C Y$ such that it is unbiased and $\tilde C = (X'X)^{-1}X' + D$. Since we assumed this estimator to be unbiased, we can write that:\begin{align*}
+\tilde C X = I_k \Leftrightarrow [(X'X)^{-1}X' + D]X = I_k \Leftrightarrow I_k + DX = I_k \Leftrightarrow DX = 0
+\end{align*}
+Using this, we can find the variance of this estimator:\begin{align*}
+\V{\tilde C Y} = \sigma^2\cdot (\tilde{C}\tilde{C}') & = \sigma^2\cdot [(X'X)^{-1}X' + D][(X'X)^{-1}X' + D]' \\
+& = \sigma^2 [(X'X)^{-1} + DD'] \geq \sigma^2(X'X)^{-1}
+\end{align*}
+Implying that the lowest variance achievable by a linear unbiased estimator will be equal to $\sigma^2(X'X)^{-1}$, the variance of the OLS estimator.
+
+\subsection{Other properties of linear unbiased estimators}
+
+\begin{definition}[Projection matrix]
+Given a linear unbiased estimator $\tilde\beta$, we define the projection matrix, denoted $P$, as $$ P = X\tilde{C} $$
+\end{definition}
+
+\begin{proposition}[Properties of the projection matrix]
+The projection matrix has a few nice properties such as:\begin{itemize}
+\item $PX = X$
+\item $P=P'$
+\item $PP = P$
+\item $\operatorname{tr}(P) = k$
+\item $PY = \hat Y$
+\end{itemize}
+\end{proposition}
+\begin{proof}
+We have $PY = X\tilde{C}Y = X\tilde\beta = \hat Y$
+\end{proof}
+
+\begin{definition}[Orthogonal projection matrix]
+Given a linear unbiased estimator $\tilde\beta$, we define the orthogonal projection matrix, denoted $M$, as $$M = I_k - P$$
+\end{definition}
+
+\begin{proposition}[Properties of the projection matrix]
+The orthogonal projection matrix also has a few nice properties such as:\begin{itemize}
+\item $MX =0$
+\item $MP = 0$
+\item $\operatorname{tr}(M) = n-k$
+\item $MY = Y - PY = Y - \hat Y = \hat e $
+\item $\hat e = MY = M(X\beta + e) = Me$
+\end{itemize}
+\end{proposition}
+\begin{proof}
+
+\end{proof}
+
+\section{Finite sample properties of the OLS estimator}
+
 Thanks to these four assumptions, we will be able to discuss more in depth the properties of our OLS estimator, first in finite samples.
 
 \begin{proposition}[Unbiasedness of OLS estimator]
@@ -168,70 +206,35 @@ We already know that $\hat\beta = (X'X)^{-1}X'Y$. Therefore, \begin{align*}
 \end{align*}
 \end{proof}
 
-\begin{proposition}[Unbiasedness of linear estimators]
-A linear estimator is unbiased if and only if its associated transformation matrix $\tilde{C}$ is such that $$\tilde{C}X = I_k$$
-\end{proposition}
-\begin{proof}
-In the case of linear regression, we'd have \begin{align*}
-\tilde{\beta} = \tilde{C}(X\beta + e) = \tilde{C}X\beta + \tilde{C}e \Rightarrow \E{\tilde{\beta}} & = \tilde{C}X\beta + \tilde{C}\E{e} \\
-& = \tilde{C}X\beta = \beta \text{ if } \tilde{C}X = I_k
-\end{align*}This is verified in the OLS since $\tilde{C}X = (X'X)^{-1}X'X = I_k$
-\end{proof}
+Now that we have found the expected value of $\hat\beta$, we will follow the previous chapter and look at its variance.
 
-\begin{proposition}[Variance of linear estimators]
-The variance of a homoskedastic, non-autocorrelated linear estimator is given by $\V{\tilde{\beta}} =  \sigma^2(\tilde{C}\tilde{C}')$. In the particular case of the OLS estimator, we have $\V{\hat{\beta}} = \sigma^2(X'X)^{-1}$
+\begin{proposition}[Variance of the OLS estimator]
+Under assumptions A1-A4, the variance of the OLS estimator $\hat\beta$ is given by: $$\V{\hat{\beta}} = \sigma^2(X'X)^{-1} $$
 \end{proposition}
 \begin{proof}
-The proof is trivial and follows the properties of the variance.
-\begin{align*}
-\V{\tilde{\beta}} = \V{\tilde{C}X\beta + \tilde{C}e} = \V{\tilde{C}e} & = \tilde{C}\V{e}\tilde{C}'\\
-& = \tilde{C}\Omega\tilde{C}'\\
-& = \tilde{C}\sigma^2 I_n\tilde{C}'\\
-& = \sigma^2(\tilde{C}\tilde{C}')
-\end{align*}
-In the case of $\hat\beta$, we have $\sigma^2(\tilde{C}\tilde{C}') = \sigma^2((X'X)^{-1}X'((X'X)^{-1}X')') = \sigma^2(X'X)^{-1}$
-\end{proof}
-
-\begin{proposition}[OLS as the Best Linear Unbiased Estimator]
-Under assumptions A1-A4, the OLS estimator $\hat\beta$ is the Best Linear Unbiased Estimator (BLUE). This property means that, among the class of linear unbiased estimators, the OLS estimator is the most efficient one.
-\end{proposition}
-\begin{proof}
-Consider the alternative linear estimator $CY = [(X'X)^{-1}X' + D]Y$, where $D$ is a constant. We need that $CY$ is unbiased, meaning that: \begin{align*}
-\E{CY} = \E{[(X'X)^{-1}X' + D]Y} & = \E{(X'X)^{-1}X'Y} + \E{DY} \\
-& = \beta + \E{DX\beta} + \E{De} \\
-& = (I_k + DX)\beta \Rightarrow DX = 0
-\end{align*}
-Now, the variance of this estimator is given by: \begin{align*}
-\V{CY} & = C\V{Y}C'\\ & = \sigma^2 CC' \\ & = \sigma^2 [(X'X)^{-1}X' + D][(X'X)^{-1}X' + D]' \\
-& = \sigma^2 [(X'X)^{-1}X'X(X'X)^{-1} + (X'X)^{-1}(DX)' \\ & + (DX)(X'X)^{-1} + DD'] \\
-& = \sigma^2 [(X'X)^{-1} + DD'] \geq \sigma^2(X'X)^{-1}
+We know that $\hat\beta = \tilde{C}Y$ where $\tilde{C}$ is a function of $X$ (thus a constant, or if $X$ is random, a constant conditional on $X$). Therefore,\begin{align*}
+\V{\hat{\beta}} = \V{\tilde{C}Y} = \tilde{C}\V{Y}\tilde{C}' & = \sigma^2\cdot \tilde{C}\tilde{C}' \\
+& = \sigma^2\cdot (X'X)^{-1}X'((X'X)^{-1}X')' \\
+& = \sigma^2\cdot (X'X)^{-1}
 \end{align*}
 \end{proof}
 
-\begin{bclogo}[couleur=blue!10, arrondi=0.1, logo=,ombre=false]{ Practical considerations on the data} 
-\begin{small}
-Assume the model is $$y_i = a + bx_i + e_i$$
-Then, we can show that \begin{itemize}
-\item $\V{\hat b} = $
-\item $\V{\hat a} = $
-\item $\cov{\hat b, \hat a} = $
-\end{itemize}
-Analyzing the data we can find some interesting properties for our model.
+However, note that the variance of $Y$ (or equivalently the variance of $e$) is unknown to the econometrician. Therefore, the variance of $\hat\beta$ cannot be computed. This might not seem to be an issue since we have only be interested in theoretical variances of estimators until now, but it will be a burden when we will try to perform inference analysis, hypothesis testing, etc. Thus, we cover how to estimate this variance in this section.
 
-For example, if $\sigma^2$ is small, all three variances and covariance will be small as well. A lower $\sigma$ implies a more efficient model.
+\begin{definition}[Estimator of the error variance]
+Since the error term $e$ has mean-zero, we can write its variance as $\sigma^2 = \E{ee'}$. Using the Law of Large Numbers, we know that a consistent estimator of this object could be the sample average estimator given by: $$\tilde{\sigma}^2 = \frac{1}{n}\sum_{i=1}^n e_i^2 $$ 
 
-Now, if $n$ is big, the effect is the same, since all variances will be smaller, our model will be more accurate.
+However, $e_i$ is never observed and cannot be used. Let's substitute for $\hat{e_i}$ after OLS estimation. We get the feasible variance estimator:$$\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n \hat e_i^2 $$ 
 
-Again, the implications are the same with greater values of $x_i - \bar x$.
+Alternatively, we can write $\tilde{\sigma}^2 = n^{-1}e'e$ and $\hat{\sigma}^2 = n^{-1}\hat{e}'\hat{e} = n^{-1}Y'MMY = n^{-1}e'MMe = n^{-1}e'Me$. A nice property of this is that:\begin{align*}
+\tilde{\sigma}^2 - \hat{\sigma}^2 = n^{-1}e'e - n^{-1}e'Me & = n^{-1}e'(I_n - M)e \\
+& = n^{-1}e'Pe \\
+& \geq 0
+\end{align*}which means that $\tilde{\sigma}^2 \geq \hat{\sigma}^2$.
+\end{definition}
 
-Finally, we can see that the covariance between the two estimators indicate how their errors are related. If the covariance is high and positive, then a mistake in the estimation of $\hat b$ will lead to the same mistakes in $\hat a$.
-\end{small}
-\end{bclogo}
-
-Now we have seen that $\V{\hat{\beta}}$ is given by $\sigma^2(X'X)^{-1}$. However, in actual situations, the true value $\sigma$ is unknown and we would need to estimate it.
-
-\begin{proposition}[Properties of the variance estimator]
-Let $\hat\sigma^2$ be the sample moment estimator. This estimator is biased and: $$\E{\hat{\sigma}^2} = \sigma^2\left(\frac{n-k}{n}\right)$$
+\begin{proposition}[Expected value of the variance estimator]
+Let $\hat\sigma^2$ be the sample moment estimator discussed in the previous definition. This estimator is biased as: $$\E{\hat{\sigma}^2} = \sigma^2\left(\frac{n-k}{n}\right)$$
 \end{proposition}
 \begin{proof}
 \begin{align*}
@@ -257,7 +260,9 @@ Let $V_j$ denote the $(j,j)$th element of the matrix $(X'X)^{-1}$. Then, $\hat{\
 Therefore, $$\frac{\hat{\beta}_j -\beta_j}{\sqrt{\sigma^2V_j}}\sim N(0,1)$$ while, $$\frac{\hat{\beta}_j -\beta_j}{\sqrt{s^2V_j}}\sim t_{n-k}$$
 \end{proposition}
 
+\begin{definition}[Interval estimation and Hypothesis testing]
 This last fact can be used in interval estimation as it implies that: $$\operatorname{Pr}(\hat{\beta}_j - t_{\alpha /2}\frac{S}{\sqrt{V_j}} $$
+\end{definition}
 
 \begin{proposition}[Moments of the residuals]
 Let the residuals of the regression be $\hat{e} = Me$ as we've seen before. We have that:\begin{itemize}
@@ -269,20 +274,38 @@ Let the residuals of the regression be $\hat{e} = Me$ as we've seen before. We h
 We have that: $\E{\hat{e}} = \E{Me} = M\E{e} = 0$. And $\V{\hat{e}} = \V{Me} = M\V{e}M' = M\Omega M = M\sigma^2I_nM = \sigma^2MM = \sigma^2$
 \end{proof}
 
-\
 
-\section{Asymptotic properties of OLS estimation}
+\section{Asymptotic properties of the OLS estimator}
+
+Before going to asymptotic properties, we ignore the normality assumption of the error term. Recall that this assumption had nothing to do with unbiasedness, or it being BLUE, however, it allowed us to derive the distribution of $\beta$ in finite samples. As we will see in this section, the normality assumption is not even needed to prove the consistency of the OLS estimator, nor its asymptotic distribution.
 
 \begin{proposition}[Consistency of $\hat\beta$]
-Let $Q_n = \frac{X'X}{n}$, which is a non-singular, positive definite matrix (from A3). Moreover, let its limit $Q = \lim_{n\to\infty} Q_n$ exist.
-
+Let $Q_n = \frac{X'X}{n}$, which is a non-singular, positive definite matrix (from A3). Moreover, let its limit $Q = \lim_{n\to\infty} Q_n$ exist. This implies that $\hat\beta$ is a consistent estimator of $\beta$.
+\end{proposition}
+\begin{proof}
 Consider that $\E{\hat{\beta}}=\beta$ and $\V{\hat{\beta}} = \frac{\sigma^2}{n}Q_n^{-1}$. Then, \begin{itemize}
 \item $\lim_{n\to\infty}\E{\hat{\beta}} = \beta$
 \item $\lim_{n\to\infty}\V{\hat{\beta}} = \lim_{n\to\infty} \frac{\sigma^2}{n}Q_n^{-1} = 0$
 \end{itemize}
-and therefore, $\hat{\beta}\msconv\beta$.
-\end{proposition}
+and therefore, $\hat{\beta}\msconv\beta \Rightarrow \hat\beta$ is a consistent estimator of $\beta$.
+\end{proof}
 
-\begin{proposition}[Root-n-consistency of $\hat\beta$]
-
+\begin{proposition}[Root-n-consistency and asymptotic normality of the OLS estimator]
+If $e_i$ is iid, then $X_ie_i$ is inid, so applying the Lindeberg-Fuller version of the Central Limit Theorem, we have that: $$\sqrt{n}(\hat\beta - \beta) \sim N\left(0, \frac{\sigma^2}{n}Q^{-1}\right) $$
+We say that the OLS estimator is $\sqrt{n}$-CAN (consistent and asymptotically normal).
 \end{proposition}
+\begin{proof}
+We have that: \begin{align*}
+\sqrt{n}(\hat\beta - \beta) = \sqrt{n}\cdot\left((X'X)^{-1}X'(X\beta + e) - \beta\right) & = \sqrt{n}\cdot\left((X'X)^{-1}X'e\right) \\
+& = \sqrt{n}\cdot\left(\frac{X'X}{n}\right)^{-1}\frac{X'e}{n} \\
+& = Q_n^{-1}\frac{1}{\sqrt{n}} X'e
+\end{align*}
+Now, we know that:\begin{itemize}
+\item $\E{X_i'e_i} = X_i'\E{e_i} = 0$, and
+\item $\V{X_i'e_i} = \E{X_i'e_ie_i'X_i} = \sigma^2{X_i'X_i} < \infty$
+\end{itemize}
+Moreover, since: $$\lim_{n\to\infty} \max_{i} \frac{\sigma^2{X_i'X_i}}{n\frac{1}{n}\cdot \sigma^2{X'X}} = 0 $$ $$\text{ and } \lim_{n\to\infty} \frac{1}{n}\cdot \sigma^2{X'X} < \infty $$
+We can use the Lindeberg-Fuller Central Limit Theorem to get that: $$\sqrt{n}\frac{\frac{X'e}{n} - 0}{\sigma\frac{X'X}{n}} \dconv N(0, 1) $$
+$$\left(\frac{X'X}{n}\right)^{-1} \cdot \sigma \cdot \frac{1}{\sqrt{n}}X'e \dconv N(0, 1) $$
+$$Q_n^{-1} \cdot \frac{1}{\sqrt{n}}X'e \dconv N(0, \sigma^2) $$
+\end{proof}
