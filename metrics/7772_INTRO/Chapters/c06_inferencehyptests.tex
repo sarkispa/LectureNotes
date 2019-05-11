@@ -1,15 +1,15 @@
-\section{Recap}
+\section{Review}
 
-In the case of a linear regression model with normal errors $e_i \sim N(0,\sigma^2)$, it is possible to compute the exact distribution of OLS coefficients $\hat\beta_{OLS}$ and OLS residuals $\hat e_i$.
+In the case of a linear regression model with iid normal errors $e_i \sim N(0,\sigma^2)$, it is possible to compute the exact distribution of OLS coefficients $\hat\beta_{OLS}$ and OLS residuals $\hat e_i$, even in finite samples (recall that this normality assumption is not need for asymptotic properties).
 
-First, recall that $\hat{\beta} - \beta = (X'X)^{-1}X'e$, a linear projection of the error $e$. Hence, we can get:\begin{align*}
+First, recall that $\hat{\beta} - \beta = (X'X)^{-1}X'e$, which is a linear projection of the error $e$. Hence, we can get:\begin{align*}
 \hat\beta - \beta & \sim (X'X)^{-1}X'N(0,\sigma^2 I_n)\\
 & \sim N(0, \sigma^2 (X'X)^{-1}X'X(X'X)^{-1}) \\ & \sim N(0,\sigma^2(X'X)^{-1})
 \end{align*}
 
-Second, with help of $\hat e = Me$, we have that $$\hat e \sim N(0, \sigma^2 MM) \sim N(0, \sigma^2 M) $$
+Second, using $\hat e = Me$, we have that $$\hat e \sim N(0, \sigma^2 MM) \sim N(0, \sigma^2 M) $$
 
-The first two points lead to a result on the joint distribution of $\hat \beta$ and $\hat e$:\begin{align*}
+These two results can also give us the joint distribution of $\hat \beta$ and $\hat e$, in fact:\begin{align*}
 \begin{bmatrix}
     \hat\beta - \beta \\
     \hat e
@@ -23,9 +23,15 @@ The first two points lead to a result on the joint distribution of $\hat \beta$ 
     M
 \end{bmatrix}
 e
-\end{align*} Again, this is a linear projection of e, we can guess its mean (0) and covariance matrix. The covariance is 0 since $(X'X)^{-1}X'M = 0$.
+\end{align*} which, again, is a linear projection of $e$, thus we can guess its mean ($\E{Ae} = \E{e} = 0$) for any constant $A$ and variance matrix ($\V{Ae} = A\V{e}A'$). And indeed, using the variance formulas, we find that $\hat\beta - \beta$ and $\hat e$ are uncorrelated (therefore $\hat\beta$ also is uncorrelated to $\hat e$):\begin{align*}
+\V{Ae} = A\V{e}A' = \sigma^2 AA' = \sigma^2 \cdot \begin{bmatrix}
+(X'X)^{-1} & 0 \\
+0 & M
+\end{bmatrix}
+\end{align*}
 
-Finally, consider the adjusted sample variance estimator $s^2$. We have that $(n-k)s^2 = \hat e'\hat e = e'Me$. We can use the spectral decomposition of $M$, namely $H\Lambda H'$ where $H'H=I_n$ and $\Lambda$ is a diagonal matrix with the first $n-k$ terms equal to $1$, the rest to $0$.
+Finally, consider the adjusted sample variance estimator $s^2 = (n-k)^{-1} \sum_{i=1}^{n} \hat e$. We can write that: $$ (n-k)s^2 = \hat e'\hat e = (Me)'Me = e'M'Me = e'Me $$
+Then, using the spectral decomposition of $M$, namely $M = H\Lambda H'$ where $H'H=I_n$ and $\Lambda$ is a diagonal matrix with the first $n-k$ terms equal to $1$, the rest to $0$.
 
 Let $u=H'e\sim N(0,I_n\sigma^2)$ and partition it as $u=(u_1, u_2)$. Then,\begin{align*}
 (n-k)s^2 = e'Me = e'H\Lambda H'e & = u'\Lambda u \\
@@ -33,15 +39,21 @@ Let $u=H'e\sim N(0,I_n\sigma^2)$ and partition it as $u=(u_1, u_2)$. Then,\begin
 & \sim \sigma^2 \chi_{n-k}^2
 \end{align*}
 
-The main results are:\begin{itemize}
-\item $\hat{\beta} \sim N(\beta,\sigma^2(X'X)^{-1}$, and in particular $\hat{\beta}_j \sim N(\beta_j,\sigma^2\left[(X'X)^{-1}\right]_{jj})$.
+The main results derived in this section (that will help us in the next) are:\begin{itemize}
+\item $\hat{\beta} \sim N(\beta,\sigma^2(X'X)^{-1})$
 \item $\hat e \sim N(0, \sigma^2M)$
 \item $\hat\beta$ and $\hat e$ are independent
 \item $\frac{(n-k)s^2}{\sigma^2}\sim \chi_{n-k}^2$
 \item $\hat\beta$ and $s^2$ are independent
 \end{itemize}
 
-\section{T-statistic}
+\newpage
+
+\section{Univariate tests}
+
+In this section, we cover tests and inference that can be applied to a particular estimator, say the coefficient on a single covariate.
+
+\subsection{T-statistic}
 
 We can use all results of the last section to derive two data statistics.
 
@@ -70,7 +82,7 @@ We call $c$ the critical value of the test. We have seen that it is defined as t
 & = 2(1 - t_{n-k}(c))
 \end{align*} We call this probability $\alpha$, the significance level of the test and hence we choose $c$ such that $t_{n-k}(c) = 1 - \alpha /2$.
 
-\section{Confidence intervals}
+\subsection{Confidence intervals}
 
 We have seen $\hat\beta$ as a point estimate for the true parameter $\beta$. We could also consider a set of values that have a certain probability of containing the true value $\beta$.
 
@@ -86,26 +98,36 @@ The coverage probability is defined as $\Prob{\beta\in\hat C} = 1 -\alpha $
 Consider the interval based on Student's $t$-statistic defined as the set of values $\beta$ such that the $t$-statistic is smaller than $c$, the critical value of the associated $t$-test. Formally, $$\hat C = \{x : \vert T(x)\vert \leq c\} = \left\lbrace x : -c\leq \frac{\hat{\beta} - x}{s(\hat\beta)} \leq c\right\rbrace $$
 \end{proposition}
 
-\section{Wald tests}
+\section{Multivariate tests}
 
-We know that $\hat\beta$ is asymptotically normal around $\beta$. In particular, if we want to test the null hypothesis $H_0:A\beta - C = 0$, we can use: $$ A\hat\beta - C \overset{a}{\sim} N(0,\Omega) $$ 
+Multivariate tests are useful compared to univariate in case the restrictions we want to test apply to multiple variables. For example, it could be that one would want to make sure that a set of multiple variables have their place in the model. For that purpose, we cover three test procedures:
 
-\subsection{Linear Regression model}
+\subsection{Wald tests}
 
-This also means that:\begin{align*}
+Wald tests are all based on a simple result that states that, if $W$ is a $q$-dimensional random vector following a normal $N(0, \Omega)$, then $$ W'\Omega^{-1} W \sim \chi_q^2 $$
+
+\subsubsection{Linear Restrictions: F-statistic}
+
+We know that $\hat\beta$ is asymptotically normal around $\beta$. In particular, if we want to test the null hypothesis $H_0:A\beta - C = 0$, we can use: $$ A\hat\beta - C \overset{a}{\sim} N(0,\Omega) $$ Note that in this case, $\beta$ is a vector of $q$ parameters to be tested at the same time. Using the result described in the introduction to Wald tests, we have:\begin{align*}
 \left(A\hat\beta - C\right)'\V{A\hat\beta - C}^{-1}\left(A\hat\beta - C\right) & \sim \chi_q^2 \\
-\left(A\hat\beta - C\right)'\left(A\V{\hat\beta}A'\right)^{-1}\left(A\hat\beta - C\right) & \sim \chi_q^2 \\
-\left(A\hat\beta - C\right)'\left(A\sigma^2(X'X)^{-1}A'\right)^{-1}\left(A\hat\beta - C\right) & \sim \chi_q^2 \\
 \frac{\left(A\hat\beta - C\right)'\left(A(X'X)^{-1}A'\right)^{-1}\left(A\hat\beta - C\right)}{\sigma^2} & \sim \chi_q^2 \\
-\end{align*} However, $\sigma^2$ is unknown so we have to use the adjusted sample variance $s^2$: $$ \frac{\left[\left(A\hat\beta - C\right)'\left(A(X'X)^{-1}A'\right)^{-1}\left(A\hat\beta - C\right)\right]/q}{\sigma^2\left[\frac{(n-k)s^2}{\sigma^2}\right]/(n-k)} \sim F_{q, n-k} $$
+\end{align*} However, $\sigma^2$ is unknown so we have to use the adjusted sample variance $s^2$, and derive the so-called $F$-statistic (which is really a multivariate version of the $t$-statistic): $$ \frac{\left[\left(A\hat\beta - C\right)'\left(A(X'X)^{-1}A'\right)^{-1}\left(A\hat\beta - C\right)\right]/q}{\sigma^2\left[\frac{(n-k)s^2}{\sigma^2}\right]/(n-k)} \sim F_{q, n-k} $$
+This test statistic only requires estimation of $\hat\beta$, the unrestricted model estimate. When the value of the statistic is on the far right of the distribution, one can safely assume that the restriction is not valid, thus rejecting the test.
 
-\subsection{General Case}
+In particular, for a regression model with $N$ observation, $q$ linear restrictions and $k$ regressors, the estimator for the $F$-statistic can be reduced to: $$\hat F = \frac{\sum_{i=1}{n}\left[\hat e_{Ri}^2 - \hat e_{Ui}^2\right]/q}{\sum_{i=1}{n}\hat e_{Ui}^2/(n - k)} \sim F_{q, n-k} $$
+In this case, one would estimate both the restricted and unrestricted model, recover the residuals and perform the test. This test is one-sided.
+
+\subsubsection{Nonlinear Restrictions: Wald statistic}
+
+In the more general case in which we have an unrestricted estimator that is $\sqrt{n}$-CAN but we want to test a nonlinear restriction such as: $H_0: g(\theta) = 0$ with $g(\cdot)$ being any differentiable function, we need another testing procedure. Based on the same result as before, we can now write that: $$ g(\hat\theta_U)'\V{g(\hat\theta_U)}^{-1}g(\hat\theta_U) \dconv \chi_q^2 $$ Note that we get a convergence in distribution result instead of a the usual result because we are using an estimate of $\theta$ rather than its true value under $H_0$. Then, using the delta method, we have that:\begin{align*}
+\V{g(\hat\theta_U)} = \frac{\partial g}{\partial \theta}\V{\hat\theta_U}\frac{\partial g}{\partial \theta}'
+\end{align*}
+which allows us to write the final ideal Wald statistic as: $$ g(\hat\theta_U)' \left[\frac{\partial g}{\partial \theta}\V{\hat\theta_U}\frac{\partial g}{\partial \theta}'\right]^{-1} g(\hat\theta_U) \dconv \chi_q^2 $$
+However, and as is usual now, we do not know the exact form of $\V{\hat\theta_U}$ since we do not know $\sigma^2$, the variance of the error term. Using $s^2$ can nonetheless get us somewhere, since $s^2 \pconv \sigma^2$, then using Slutsky's theorem, we have $\widehat{\operatorname{Var}}\left[\hat\theta_U\right] \pconv \V{\hat\theta_U}$, and finally: $$ g(\hat\theta_U)' \left[\frac{\partial g}{\partial \theta}\widehat{\operatorname{Var}}\left[\hat\theta_U\right]\frac{\partial g}{\partial \theta}'\right]^{-1} g(\hat\theta_U) \dconv \chi_q^2 $$
 
 \section{Likelihood Ratio tests}
 
-The section on $t$-tests introduced how to assess the validity of a hypothesis on one single estimated coefficient. However, it may be useful to test the validity of a set of estimated coefficients at once. For that purpose, you might already know the popular $F$-test which can be derived from the Likelihood Ratio (LR) test discussed in this section.
-
-Consider a partition of the regressor $X$ as $X = (X_1, X_2)$ and in a similar way the partition of $\beta = (\beta_1, \beta_2)$. The new regression model is: $$ Y = X_1\beta_1 + X_2\beta_2 + e $$ Suppose we want to test the significance of the set of parameters $\beta_2$, define the null hypothesis as $H_0 : \beta_2 = 0$.
+The Likelihood Ratio (LR) test discussed in this section is another way to test for single or multiple, linear or nonlinear restrictions on a model. To perform this test, consider a partition of the regressor $X$ as $X = (X_1, X_2)$ and in a similar way the partition of $\beta = (\beta_1, \beta_2)$. The partitioned regression model can be written as: $$ Y = X_1\beta_1 + X_2\beta_2 + e $$ Suppose we want to test the significance of the set of parameters $\beta_2$, define the null hypothesis as $H_0 : \beta_2 = 0$.
 
 If $H_0$ is true, then the "restricted" model is $Y = X_1\beta_1 + e$. Under the alternative hypothesis $H_1:\beta_2 \neq 0$, we keep our "unrestricted" model.
 
@@ -114,3 +136,6 @@ The statistic used to test the validity of $H_0$ against $H_1$ under the LR test
 \end{proposition}
 
 \section{Lagrange Multiplier tests}
+
+Finally, the last test we cover in this section is called the Lagrange Multiplier test. Like the Wald test, this test can be used to test any restriction on the parameters, such that $H_0: g(\hat\theta_R) = 0$ where $g$ is differentiable and $\hat\theta_R$ solves the MLE problem. Then, following the same result as in the Wald test, we have that: $$ \frac{\partial \ln L(\hat\theta_R)}{\partial\theta}\cdot (I(\hat\theta_R))^{-1} \frac{\partial \ln L(\hat\theta_R)}{\partial\theta}' \sim \chi_q^2 $$
+Contrary to the Wald test, this test requires only the restricted estimation.

@@ -37,9 +37,9 @@ Note that the last part allows us to write: $$\sqrt{n}(\hat\beta - \beta) = Q_n^
 Strict multicollinearity is a consequence of the columns of matrix $X$ being linearly dependent. In particular, there is at least one column (or row) of $X$ which is a linear combination of any other column (row). Algebraically, $$\exists \alpha\neq 0 : X\alpha = 0$$
 \end{definition}
 
-\begin{remark}[Singularity of strictly multicollinear matrices]
+\begin{proposition}[Singularity of strictly multicollinear matrices]
 If the matrix $X$ is strictly collinear, then its quadratic form $X'X$ is singular and $\hat{\beta}_{OLS}$ is not defined.
-\end{remark}
+\end{proposition}
 
 \begin{definition}[Near multicollinearity]
 A matrix $X$ is said to be near multicollinearity (or simply multicollinear) if the matrix $X'X$ is near singular.

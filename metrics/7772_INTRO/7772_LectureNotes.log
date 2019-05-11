@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2019.1.21)  10 MAY 2019 12:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2019.1.21)  11 MAY 2019 13:22
 entering extended mode
 **./7772_LectureNotes.tex
 (7772_LectureNotes.tex
@@ -1476,49 +1476,49 @@ Overfull \hbox (90.59479pt too wide) detected at line 112
 Chapter 5.
 (Chapters/c06_inferencehyptests.tex [48
 
-] [49] [50] [51] [52]) [53]
+] [49] [50] [51] [52] [53]) [54]
 Chapter 6.
 (Chapters/c07_generalizedls.tex
 Overfull \hbox (47.79688pt too wide) detected at line 11
 []
  []
 
-[54
+[55
 
-] [55]
+] [56]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 29.
- [56] [57] [58]
-<images/defcorrelogram.png, id=553, 1027.84pt x 727.71875pt>
+ [57] [58] [59]
+<images/defcorrelogram.png, id=558, 1027.84pt x 727.71875pt>
 File: images/defcorrelogram.png Graphic file (type png)
 <use images/defcorrelogram.png>
 Package pdftex.def Info: images/defcorrelogram.png  used on input line 64.
 (pdftex.def)             Requested size: 256.95937pt x 181.92923pt.
- [59 <./images/defcorrelogram.png (PNG copy)>] [60]
-[61] [62]) [63]
+ [60 <./images/defcorrelogram.png (PNG copy)>] [61]
+[62] [63]) [64]
 Chapter 7.
-(Chapters/c08_dynamicmodels.tex [64
+(Chapters/c08_dynamicmodels.tex [65
 
-] [65]) [66]
+] [66]) [67]
 Chapter 8.
-(Chapters/c09_ivreg2sls.tex [67
+(Chapters/c09_ivreg2sls.tex [68
 
-] [68] [69] [70] [71] [72] [73] [74]) [75]
+] [69] [70] [71] [72] [73] [74] [75]) [76]
 Chapter 9.
-(Chapters/c10_gmm.tex [76
+(Chapters/c10_gmm.tex [77
 
-] [77] [78] [79] [80]) [81] [82]
+] [78] [79] [80] [81]) [82] [83]
 Chapter 10.
-(Chapters/c11_nonparamreg.tex [83
+(Chapters/c11_nonparamreg.tex [84
 
-] [84] [85] [86]) [87] [88]
+] [85] [86] [87]) [88] [89]
 Chapter 11.
-(Chapters/c12_policyeval.tex [89
+(Chapters/c12_policyeval.tex [90
 
-] [90] [91] [92] [93] [94]) [95]
+] [91] [92] [93] [94] [95]) [96]
 Chapter 12.
-(Chapters/c13_regdiscontinuity.tex) [96
+(Chapters/c13_regdiscontinuity.tex) [97
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 97.
@@ -1529,10 +1529,10 @@ Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 97.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 97.
  ) 
 Here is how much of TeX's memory you used:
- 33046 strings out of 492946
- 638011 string characters out of 3135527
- 713285 words of memory out of 3000000
- 35786 multiletter control sequences out of 15000+200000
+ 33048 strings out of 492946
+ 638044 string characters out of 3135527
+ 713295 words of memory out of 3000000
+ 35785 multiletter control sequences out of 15000+200000
  665906 words of font info for 276 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,16n,81p,1256b,1390s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1563,9 +1563,9 @@ X 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
 public/amsfonts/symbols/msam10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
 lic/amsfonts/symbols/msbm10.pfb>
-Output written on 7772_LectureNotes.pdf (97 pages, 872580 bytes).
+Output written on 7772_LectureNotes.pdf (98 pages, 877560 bytes).
 PDF statistics:
- 1104 PDF objects out of 1200 (max. 8388607)
- 362 named destinations out of 1000 (max. 500000)
- 32314 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 1106 PDF objects out of 1200 (max. 8388607)
+ 365 named destinations out of 1000 (max. 500000)
+ 32306 words of extra memory for PDF output out of 35830 (max. 10000000)
 
