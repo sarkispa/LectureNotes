@@ -45,10 +45,8 @@
 \contentsline {subsection}{\numberline {3.5.4}Interaction variables}{40}{subsection.3.5.4}% 
 \contentsline {chapter}{\numberline {4}Maximum Likelihood Estimation}{42}{chapter.4}% 
 \contentsline {section}{\numberline {4.1}Basic assumptions}{43}{section.4.1}% 
-\contentsline {section}{\numberline {4.2}Some properties}{44}{section.4.2}% 
-\contentsline {section}{\numberline {4.3}Application of ML estimation to Binary Choice models}{46}{section.4.3}% 
-\contentsline {subsection}{\numberline {4.3.1}Classical BC model}{46}{subsection.4.3.1}% 
-\contentsline {subsection}{\numberline {4.3.2}Threshold model}{47}{subsection.4.3.2}% 
+\contentsline {section}{\numberline {4.2}Properties of the ML estimator}{44}{section.4.2}% 
+\contentsline {section}{\numberline {4.3}Application of MLE to Binary Choice models}{47}{section.4.3}% 
 \contentsline {chapter}{\numberline {5}Inference and Hypothesis Testing}{48}{chapter.5}% 
 \contentsline {section}{\numberline {5.1}Review}{48}{section.5.1}% 
 \contentsline {section}{\numberline {5.2}Univariate tests}{50}{section.5.2}% 

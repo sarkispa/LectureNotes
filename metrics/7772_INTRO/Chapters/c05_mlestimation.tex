@@ -33,32 +33,41 @@ Let $\{Z_n\}$ be any sequence of random variables following a joint distribution
 \begin{definition}[Assumptions on MLE]
 In order to further analyze the MLE, let's describe a set of additional assumptions:
 \begin{itemize}
-\item[\textbf{A1.}]\textbf{Compactness:} Let $\Theta$ be the set of all possible parameters. We will assume that this set is compact and $\theta_0$, the true value of the parameter lies in this set.
-\item[\textbf{A2.}]\textbf{Name?:} For all $\theta \in \Theta$ such that $\theta \neq \theta_0$, we have that,$$ \E{\frac{\partial \ln f(Z_i\vert \theta)}{\partial \theta}} \neq \E{\frac{\partial \ln f(Z_i\vert \theta_0)}{\partial \theta_0}} $$
-\item[\textbf{A3.}]\textbf{Boundedness:} All first-order, second-order and third-order (own and cross) derivatives of $\ln f(Z_i\vert\theta)$ with respect to $\theta$ exist and are bounded.
-\item[\textbf{A4.}]\textbf{Name?:} Let $\Omega_Z$ be the support of $f(\cdot\vert\theta)$; either $\Omega_Z$ does not depend on $\theta$ or $f(Z_i\vert \theta) = 0$ for all $\theta$ on the boundary of $\Theta$.
-\item[\textbf{A5.}]\textbf{Name?:} All $Z_i$ are random variables once conditioned on $\theta$.
+\item[\textbf{A1.}]\textbf{Random draws:} The sequence $\{Z_n\}$ is a sequence of $n$, i.i.d. random variables. The we can write the likelihood function as:$$ L(\theta\vert Z_1, ..., Z_n) = \prod_{i=1}^{n} f(Z_i\vert \theta) $$
+
+\item[\textbf{A2.}]\textbf{Unique true parameter:} There is a single ``true'' parameter denoted $\theta_0$.
+
+\item[\textbf{A3.}]\textbf{Compactness:} Let $\Theta$ be the set of all possible parameters. We will assume that this set is compact and $\theta_0$, the true value of the parameter lies in this set.
+
+\item[\textbf{A4.}]\textbf{Identification:} For all $\theta \in \Theta$ such that $\theta \neq \theta_0$, we have that,$$ \E{\frac{\partial \ln f(Z_i\vert \theta)}{\partial \theta}} \neq \E{\frac{\partial \ln f(Z_i\vert \theta_0)}{\partial \theta_0}} $$ This assumption implies that there are no other values than $\theta_0$ that yield the same FOC of the maximum likelihood problem.
+
+\item[\textbf{A5.}]\textbf{Boundedness:} All first-order, second-order and third-order (own and cross) derivatives of $\ln f(Z_i\vert\theta)$ with respect to $\theta$ exist and are bounded, for all $\theta \in \Theta$ and $Z_i \in \Omega_Z$, the support of $Z$.
+
+\item[\textbf{A6.}]\textbf{Independence of the support:} Let $\Omega_Z$ be the support of $f(\cdot\vert\theta)$; either $\Omega_Z$ does not depend on $\theta$ or $f(Z_i\vert \theta) = 0$ for all $\theta$ on the boundary of $\Theta$.
 \end{itemize}
 \end{definition}
 
-\section{Some properties}
+\section{Properties of the ML estimator}
 
-\begin{remark}[Log-likelihood function]
+\begin{proposition}[Log-likelihood function]
 Let $\hat \theta_{\text{ML}}$ be the MLE for the parameter $\theta_0$ from the distribution $f(Z_1,...,Z_n\vert\theta)$. Then, $\hat \theta_{\text{ML}}$ also solves the logarithm of the likelihood function:\begin{align*}
 \hat \theta_{\text{ML}} & = \operatorname{arg}\max_{\theta \in \Theta} L(\theta\vert Z_1, ..., Z_n) \\
 & = \operatorname{arg}\max_{\theta \in \Theta} \ln\big(L(\theta\vert Z_1, ..., Z_n)\big) \\
 & = \operatorname{arg}\max_{\theta \in \Theta} \ln\big(\prod_{i=1}^{n} f(Z_i\vert \theta)\big) \\
 & = \operatorname{arg}\max_{\theta \in \Theta}\sum_{i=1}^{n} \ln f(Z_i\vert \theta) \\
 \end{align*}
-\end{remark}
+\end{proposition}
+\begin{proof}
+The proof of this proposition is straightforward as the natural logarithm function is a monotonic transformation.
+\end{proof}
 
 \begin{definition}[Score function]
-The score function, denoted $s(Z\vert\theta)$ is defined as the gradient of the log-likelihood function when differentiated wrt $\theta$:$$ s(Z\vert\theta) = \frac{\partial \ln f(Z\vert \theta)}{\partial \theta} $$Because $Z_i$ are iid, $s_i(Z_i\vert\theta)$ are also iid.
+The score function, denoted $s(Z\vert\theta)$ is defined as the gradient of the log-likelihood function of an observation $Z$, when differentiated wrt $\theta$:$$ s(Z\vert\theta) = \frac{\partial \ln f(Z\vert \theta)}{\partial \theta} $$Because $Z_i$ are iid, $s(Z_i\vert\theta)$ are also iid.
 \end{definition}
 
-\begin{remark}[Maximum of the score function]
-Let $f(Z_1, ..., Z_n)$ be the joint pdf of iid random variables $Z_1, ..., Z_n$ such that $\theta_0$ is the true parameter. Then, $\E{s(Z\vert\theta_0)}=0$. This fact is very important because, linked to assumption 2 above, it means that the log-likelihood function is maximized at one unique point $\theta_0$.
-\end{remark}
+\begin{proposition}[Maximum of the score function]
+Let $f(Z_1, ..., Z_n)$ be the joint pdf of iid random variables $Z_1, ..., Z_n$ such that $\theta_0$ is the true parameter. Then, $\E{s(Z\vert\theta_0)}=0$. This result is very important because, linked to assumption 4 above, it means that the log-likelihood function is maximized at one unique point $\theta_0$.
+\end{proposition}
 
 \begin{proof}
 We know that for any $\theta$, $\int_{\Omega_Z} f(Z\vert\theta)dZ = 1$. By Leibniz rule, we can differentiate and get:\begin{align*}
@@ -67,48 +76,54 @@ We know that for any $\theta$, $\int_{\Omega_Z} f(Z\vert\theta)dZ = 1$. By Leibn
 \end{proof}
 
 \begin{definition}
-The Hessian matrix of the LL function, denoted as $H(Z\vert\theta)$ is the derivative of the score function or equivalently, the second-order derivative of the LL function. $$H(Z\vert\theta) = \frac{\partial^2 \ln f(Z\vert \theta)}{\partial \theta\partial\theta'} = \frac{\partial s(Z\vert \theta)}{\partial\theta'}$$
+The Hessian matrix of the log-likelihood function, denoted as $H(Z\vert\theta)$ is the derivative of the score function or equivalently, the second-order derivative of the log-likelihood function, for one observation $Z$. $$H(Z\vert\theta) = \frac{\partial^2 \ln f(Z\vert \theta)}{\partial \theta\partial\theta'} = \frac{\partial s(Z\vert \theta)}{\partial\theta'}$$
 \end{definition}
 
-\begin{remark}[Variance of the score function]
+\begin{proposition}[Variance of the score function]
 Let $f(Z_1, ..., Z_n)$ be the joint pdf of iid random variables $Z_1, ..., Z_n$ such that $\theta_0$ is the true parameter. Then, $$\V{s(Z\vert\theta_0)}=-\E{H(Z\vert\theta)}$$
-\end{remark}
+\end{proposition}
 
 \begin{proof}
 
 \end{proof}
 
 \begin{definition}[Information matrix]
-The information matrix is the opposite of the Hessian matrix, it can be put in relation to the log-likelihood function of the sequence of rvs as: $$-\E{\frac{\partial^2 \ln f(Z_1, ..., Z_n\vert \theta)}{\partial \theta\partial\theta'}} = - n\E{H(Z\vert\theta)} = -nI(Z\vert\theta) $$ 
+The information matrix is the opposite of the Hessian matrix, it can be put in relation to the log-likelihood function of the sequence of rvs as: $$I_n(\theta) = -\E{\frac{\partial^2 \ln f(Z_1, ..., Z_n\vert \theta)}{\partial \theta\partial\theta'}} = - n\E{H(Z\vert\theta)}$$ We also define $J_0$ as: $$J_0 = \frac{I_n(\theta_0)}{n} $$
 \end{definition}
 
 \begin{theorem}[Consistency of the ML estimator]
 Let $\{Z_n\}$ be any sequence of random variables following a joint distribution $f(Z_1, ..., Z_n\vert \theta)$. Under the assumptions of the MLE, $\hat\theta_{\text{ML}}$, is a consistent estimator of $\theta$.
 \end{theorem}
-
 \begin{proof}
 
 \end{proof}
 
 \begin{theorem}[Asymptotic normality of the ML estimator]
-Suppose $\theta_{\text{ML}}$ is a consistent estimator of a parameter $\theta$, following the previous theorem. Then, $$\sqrt{n}(\hat\theta - \theta_0)\dconv N(0, J^{-1}JJ^{-1}) $$ where $J = -H$.
+Suppose $\theta_{\text{ML}}$ is a consistent estimator of a parameter $\theta$, following the previous theorem. Then, $$\sqrt{n}(\hat\theta - \theta_0)\dconv N(0, J_0^{-1}) $$
 \end{theorem}
-
 \begin{proof}
 
 \end{proof}
 
-\section{Application of ML estimation to Binary Choice models}
+However, as should be expected by now, there is no way to compute the variance of the ML estimator using only the data, since $J_0$ is a function of the true parameter $\theta_0$: we will need to use our ML estimate to compute an estimator of $J_0$. In order to do this, one could use any of three equivalent methods:
+\begin{itemize}
+\item $\hat J_0 = - \bar H = - \avg{1}{n} H(Z_i|\hat\theta)$
+\item $\hat J_0 = \widehat{\operatorname{Var}}(s(Z|\hat\theta)) = \avg{1}{n} s(Z_i|\hat\theta)s(Z_i|\hat\theta)'$
+\item $\hat J_0 = \bar H \left(\widehat{\operatorname{Var}}(s(Z|\hat\theta))\right) \bar H $
+\end{itemize}
 
-\subsection{Classical BC model}
+\section{Application of MLE to Binary Choice models}
 
 Let $Y_i$ be a binary variable. The data set is $(Y_i, X_i)$ such that $Y_i$ is independent of $X_i$. We write the true model as: $$\Prob{Y_i = 1\vert X} = F(X_i, \beta) $$ From this model, we get: $$\E{Y_i\vert X} = \Prob{Y_i = 1\vert X}\cdot 1 + \Prob{Y_i = 0\vert X} \cdot 0 = F(X_i, \beta)$$ Assuming $Y_i$ are iid, we can get the likelihood function of the data as: \begin{align*}
 L = \Prob{Y_1, ..., Y_n\vert X, \beta} & = \prod_{i=1}^{n} \Prob{Y_i =1\vert X_i, \beta}^{Y_i}\Prob{Y_i=0\vert X_i, \beta}^{1-Y_i} \\
 & = \prod_{i=1}^{n} F(X_i,\beta)^{Y_i} (1 - F(X_i,\beta))^{1 - Y_i}
-\end{align*} in log-likelihood form: $$\ln L = \sum_{i=1}^{n} \left(Y_i\ln(F(X_i,\beta)) + (1-Y_i)\ln(1 - F(X_i,\beta))\right) $$ Its maximum for $\beta$ is: $s(X_i,\beta) = 0 \Leftrightarrow \frac{\partial \ln f(Y_i\vert\beta)}{\partial \beta} = 0 \Leftrightarrow \left[\frac{Y_i}{F(X_i,\beta)} - \frac{(1 - Y_i)}{1 - F(X_i,\beta)}\right]\frac{\partial F(X_i,\beta)}{\partial\beta} = 0$
+\end{align*} in log-likelihood form: $$\ln L = \sum_{i=1}^{n} \left(Y_i\ln(F(X_i,\beta)) + (1-Y_i)\ln(1 - F(X_i,\beta))\right) $$ 
+
+Its maximum for $\beta$ is: \begin{align*}
+s(X_i,\beta) = 0 & \Leftrightarrow \frac{\partial \ln f(Y_i\vert\beta)}{\partial \beta} = 0 \\
+&  \Leftrightarrow \left[\frac{Y_i}{F(X_i,\beta)} - \frac{(1 - Y_i)}{1 - F(X_i,\beta)}\right]\frac{\partial F(X_i,\beta)}{\partial\beta} = 0
+\end{align*}
 
 We can also compute the information matrix \begin{align*}
 J_0 & = \E{s(X\vert\beta_0)s(X\vert\beta_0)'} \\ &= \E{\left[\frac{Y_i}{F(X_i,\beta)} - \frac{(1 - Y_i)}{1 - F(X_i,\beta)}\right]\frac{\partial F(X_i,\beta)}{\partial\beta} \frac{\partial F(X_i,\beta)}{\partial\beta'}\left[\frac{Y_i}{F(X_i,\beta)} - \frac{(1 - Y_i)}{1 - F(X_i,\beta)}\right]'} \\ & = \E{\left[\left(\frac{Y_i}{F(X_i,\beta)}\right)^2 - 2\frac{Y_i}{F(X_i,\beta)} \frac{(1 - Y_i)}{1 - F(X_i,\beta)} + \left(\frac{(1 - Y_i)}{1 - F(X_i,\beta)}\right)^2 \right] \frac{\partial F(X_i,\beta)}{\partial\beta} \frac{\partial F(X_i,\beta)}{\partial\beta'}} \\ & = \E{\left[\frac{Y_i}{F(X_i,\beta)^2} + \frac{(1 - Y_i)}{1 - F(X_i,\beta)^2}\right] \frac{\partial F(X_i,\beta)}{\partial\beta} \frac{\partial F(X_i,\beta)}{\partial\beta'}}
 \end{align*}
-
-\subsection{Threshold model}
