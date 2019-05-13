@@ -144,11 +144,16 @@
 \contentsline {subsection}{\numberline {10.4.7}Applications}{102}{subsection.10.4.7}% 
 \contentsline {subsubsection}{Binary Dependent Variable}{102}{section*.33}% 
 \contentsline {chapter}{\numberline {11}Program Evaluation and Treatment Effects}{104}{chapter.11}% 
-\contentsline {section}{\numberline {11.1}Introduction}{104}{section.11.1}% 
-\contentsline {section}{\numberline {11.2}Average Treatment Effect (ATE)}{105}{section.11.2}% 
-\contentsline {subsubsection}{Nonparametric regression}{107}{section*.34}% 
-\contentsline {subsubsection}{Matching estimators}{108}{section*.35}% 
-\contentsline {subsubsection}{Propensity score}{108}{section*.36}% 
-\contentsline {subsubsection}{Propensity score matching}{109}{section*.37}% 
-\contentsline {section}{\numberline {11.3}Local Average Treatment Effect (LATE)}{110}{section.11.3}% 
-\contentsline {chapter}{\numberline {12}Regression Discontinuity Design}{111}{chapter.12}% 
+\contentsline {section}{\numberline {11.1}Intuition}{104}{section.11.1}% 
+\contentsline {section}{\numberline {11.2}Identification}{106}{section.11.2}% 
+\contentsline {subsection}{\numberline {11.2.1}Joint full independence}{106}{subsection.11.2.1}% 
+\contentsline {subsection}{\numberline {11.2.2}Unconfoundedness}{107}{subsection.11.2.2}% 
+\contentsline {subsubsection}{Estimation}{108}{section*.34}% 
+\contentsline {subsubsection}{Practical issues}{108}{section*.35}% 
+\contentsline {subsection}{\numberline {11.2.3}Regression Discontinuity Design (RDD)}{109}{subsection.11.2.3}% 
+\contentsline {subsubsection}{Model}{110}{section*.36}% 
+\contentsline {subsection}{\numberline {11.2.4}Endogeneity}{111}{subsection.11.2.4}% 
+\contentsline {subsubsection}{Model}{111}{section*.37}% 
+\contentsline {subsubsection}{Binary IV}{112}{section*.38}% 
+\contentsline {subsubsection}{Continuous IV}{114}{section*.39}% 
+\contentsline {chapter}{\numberline {12}Regression Discontinuity Design}{116}{chapter.12}% 

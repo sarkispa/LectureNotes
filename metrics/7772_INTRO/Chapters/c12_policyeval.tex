@@ -1,81 +1,155 @@
-\section{Introduction}
+\section{Intuition}
 
-This chapter focuses on a particular type of situation where we observe an outcome $Y$ that is a consequence of a treatment $T$. Hence, $T$ causes $Y$ but not the other way around.
+Suppose the data follows the model: $$ Y = \phi(D, A) $$ where $\phi(\cdot)$ is a very general function of the data, such that it is not differentiable; $D$ is the discrete (binary) variable indicating if yes (1) or no (0) the treatment was administered; and $A$ is a potentially infinite dimensional error.
 
-We will also restrict our attention to binary treatments meaning that:\begin{itemize}
-\item $T_i = 1$ if $i$ is in the treatment group.
-\item $T_i = 0$ if $i$ is in the control group.
-\end{itemize}
-Hence, following the Rubin causal notation, for each individual $i$ there are two outcomes: $Y_i(1)$ if individual $i$ was in the treatment group and $Y_i(0)$ if individual $i$ was in the control group. Clearly, you can see that only one of those two outcomes can be observed! In fact, it is impossible that an individual was in both groups at the same time. We call the unobserved outcome the counterfactual.
+We denote $Y_1$ and $Y_0$ as respectively the values of the outcome for each different treatment: $$Y_1 = \phi(1, A) ; \quad Y_0 = \phi(0, A) $$ Note that both variables are not (never) directly observed. The observations in the data are realized outcomes depending on the realization of the random variable $A$. Thus, the function $\phi$ that transforms the data can never be observed.
 
-The actual outcome can be written as: $$Y_i = Y_i(0) + [Y_i(1) - Y_i(0)]\cdot T_i $$ where $[Y_i(1) - Y_i(0)]$ is called the treatment effect. Note that for the same reason exposed earlier, this treatment effect cannot be observed or computed exactly. That's why the literature has focused on two related but different problems: what is the average treatment effect (ATE)? And what is the average treatment effect on treated individuals (ATT)? These two questions help us formalize the two concepts: $$\operatorname{ATE} = \E{Y_i(1) - Y_i(0)} $$ $$\operatorname{ATT} = \E{Y_i(1) - Y_i(0)\vert T_i=1} $$
+Ideally, we want to be able to recover the effect of the treatment, or how the outcome changes when $D=0$ increases to $D=1$, for a given $A = a$ (an individual). We call this the individual treatment effect: $$Y_1 - Y_0 = \phi(1, A) - \phi(0, A) $$ which varies for any $A$, across the population. However, knowing the effect for any individual might not be that useful in practical terms. In fact, when designing a policy or evaluating programs, you might be interested only in a subgroup of people, or the population as a whole, but rarely about each individual. This is why we might be more interested in the Average Treatment Effect (or ATE), defined as: $$ATE \equiv \E{Y_1 - Y_0} = \E{\phi(1, A) - \phi(0, A)} $$ the average of the individual treatment effect across all individuals. One could also be directly looking at the subgroup of interest, say the average treatment effect on the treated (ATT), i.e. $$ ATT \equiv \E{Y_1 - Y_0\vert D = 1} = \E{\phi(1, A) - \phi(0, A)\vert D=1} $$ Going further, one might be interested in identifying a subgroup on other characteristics $X$, using the average treatment effect conditional on $X$ (or CATE): $$CATE \equiv \E{Y_1 - Y_0\vert X = x} = \E{\phi(1, A) - \phi(0, A)\vert X=x} $$ Finally, in the same line of reasoning, one could separate subpopulations in terms of endogeneity of their response to the treatment, using estimators we'll study later like LATE, MTE, etc. All these estimators take the form: $$ \E{Y_1 - Y_0\vert \textit{Subpop.}} = \E{\phi(1, A) - \phi(0, A)\vert \textit{Subpop.}} $$
 
-\section{Average Treatment Effect (ATE)}
+To go back to our first object of interest, an alternative interpretation of the average treatment effect can be found by rewriting the equation in terms of the binary variable: $$Y = \phi(D, A) = Y_0 + (Y_1 - Y_0)\cdot D = \alpha(A) + \beta(A)\cdot D $$ where $Y_0$ becomes a random intercept and $Y_1 - Y_0$ a random slope. Then, the ATE is the average random slope of the model: $ATE = \E{\beta(A)}$.
 
-From the data, we can identify two elements: $\E{Y_i(1)\vert T_i=1}$, the average outcome of the treatment group and $\E{Y_i(0)\vert T_i=0}$, the average outcome of the control group. Notice that here $$ \E{Y_i(1)\vert T_i=1} = \E{Y\vert T_i=1} $$ $$\E{Y_i(0)\vert T_i=0} = \E{Y\vert T_i=0} $$
+\section{Identification}
 
-If the treatment is truly random, then we have that: $$\operatorname{ATE} = \E{Y_i(1)\vert T_i=1} - \E{Y_i(0)\vert T_i=0} $$ It is trivial to understand this relation by intuition, but can be helpful to put it in more formal terms. This result depends on two assumptions grouped as assumptions for mean unconditional unconfoundedness.
+If $Y_1$ and $Y_0$ were known for the whole population under study, there would not be a whole field dedicated to compute the ATE. In fact, averaging over a simple substraction would be quite easy. However, for any individual $i$, only one of the outcomes can be observed at the same time. In fact, either an individual received the treatment ($Y_{1i}$ is observed) or he did not ($Y_{0i}$ is observed). Because of that fact, we will have to make some assumptions on the unobservables to make progress.
 
-\begin{definition}[Mean unconditional unconfoundedness]
-A treatment dataset satisfies MUU if:\begin{enumerate}
-\item $\E{Y(1)\vert T=1} = \E{Y(1) \vert T=0} = \E{Y(1)}$: this implies that regardless of the group we consider, the average outcome of receiving the treatment is the same.
-\item $\E{Y(0)\vert T=1} = \E{Y(0) \vert T=0} = \E{Y(0)}$: this implies that regardless of the group we consider, the average outcome of not receiving the treatment is the same.
-\end{enumerate}
-\end{definition}
+\subsection{Joint full independence}
 
-If these assumptions hold, then the ATE written as $\operatorname{ATE} = \E{Y_i(1)\vert T_i=1} - \E{Y_i(0)\vert T_i=0} $ is a consistent estimator. But what do those assumptions rely on? How can we interpret them in terms of a real-life situation.
+In particular, the first assumption we ought to make is the so-called ``joint full independence'' of outcomes with respect to treatment. Formally, we write: $(Y_1, Y_0)\perp D$, meaning that jointly, $Y_1$ and $Y_0$ are fully independent from $D$. This also implies that $A\perp D$.
 
-For example, when the treatment $T$ is randomly assigned, meaning that $T$ is independent of the outcomes: $(Y(0), Y(1)) \perp T $, then we have unconditional unboundedness. The difference between this and the assumptions above is that "mean" unconfoundedness implies that on average the treatment is as if it was random. Taking out the "mean" implies that it is actually truly random for every individual. Already, we can see how these assumptions can be described as strong since in reality it is very rare to observe true randomness.
+Intuitively, this assumption (denoted $A2$) means two things. First, that everything not observed by the econometrician ($A$) is independent of the treatment $D$, i.e. receiving the treatment or not does not change the unobserved variables that might affect the outcome of the treatment. Second, the unobserved variable $A$ has no effect on the treatment being delivered or not, i.e. the treatment is purely random, even on unobserved characteristics.
 
-To solve this issue, consider the weaker statement that within groups of individuals sharing a characteristic, the treatment is random. That is, conditional on an observable characteristic $X$, the treatment is randomly assigned or formally, $(Y(0), Y(1))\perp T \vert X $. This property is called confoundedness and allows us to get the analog of the previous results, accounting for $X$. As such, define $$\operatorname{CATE}(X) = \E{Y(1) - Y(0)\vert X} $$ as the conditional average treatment effect. If unconfoundedness is true, then $$\E{Y(1)\vert T=1,X=x} = \E{Y(1)\vert T=0,X=x} = \E{Y(1)\vert X=x} $$ $$\E{Y(0)\vert T=1,X=x} = \E{Y(0)\vert T=0,X=x} = \E{Y(0)\vert X=x} $$ meaning that we can use the following estimator: $$\operatorname{CATE}(X) = \E{Y(1)\vert T=1,X=x} - \E{Y(0)\vert T=0,X=x} $$ Moreover, if we assume that there is overlap in the population by the characteristic $X$ (i.e. for any $x\in X$, some people have been treated and some not), then we can also write $$\operatorname{ATE} = \E{\operatorname{CATE(X)}} $$ meaning that with unconfoundedness and overlap, we can estimate the ATE by averaging the CATE over the $X$.
+This assumption has an interesting implication on the regression of $Y$ on $D$. Consider the regression separated for each group of treatment. For the treated: \begin{align*}
+\E{Y\vert D =1} & = \E{Y_0 + (Y_1 - Y_0)\cdot D\vert D = 1} \\ & = \E{Y_0 + (Y_1 - Y_0) \vert D = 1}  \\ & = \E{Y_1 \vert D = 1}  \\ & = \E{Y_1} \text{ by assumption of joint full independence.}
+\end{align*} Similarly, for the non-treated, you get: $\E{Y\vert D = 0} = \E{Y_0} $. And thus, $$ ATE = \E{Y_1 - Y_0} = \E{Y_1} - \E{Y_0} = \E{Y\vert D =1} - \E{Y\vert D = 0} $$ In words, this assumption allows the econometrician to compute the ATE as the difference between the average effect across the treatment group ($\E{Y\vert D =1}$) and the average effect across the control group ($\E{Y\vert D =0}$). Remember that this can only be true if unobservables across the whole population are independent of the treatment.
 
-Now consider the true model $Y = Y(0) + [Y(1) - Y(0)]\cdot T $ and define $a = \E{Y(0)}$ and $b = \E{Y(1) - Y(0)}$. Then, you can rewrite the model as: $$Y = a + u_a + (b + u_b)\cdot T $$ where $u_a, u_b$ are mean-zero errors. This reduces to $$Y = a + bT + (u_a + u_bT) $$ If we consider the last term in parentheses as as an error term, can we estimate the model by OLS? To verify that, let's check the Gauss-Markov assumptions.
+Under the same assumption, we also get that $\E{Y\vert D =0} = \E{Y_0} = \E{Y_0\vert D =1}$ and thus $ ATE = ATT$.
 
-Define $e = (u_a + u_bT)$, then:\begin{itemize}
-\item $\E{e} = \E{u_a + u_bT} = \E{u_a} + \E{u_bT}$
-\item $\E{eT} = \E{(u_a + u_bT)T} = \E{u_aT} + \E{u_bT}$
-\end{itemize}
-If both terms are equal to 0, then the model satisfies GM assumptions and we can perform OLS on it. This implies that $\E{u_aT} = \E{u_bT} = 0$.
+\subsection{Unconfoundedness}
 
-If $\E{u_aT} = 0$, then:\begin{align*}
-\E{u_aT} = 0 & \Leftrightarrow \E{(Y(0) - \E{Y(0)}T} = 0 \\ & \Leftrightarrow \E{Y(0)T} - \E{\E{Y(0)}T} = 0 \\ & \Leftrightarrow \E{Y(0)\vert T=1}\Prob{T =1} - \E{Y(0)}\E{T} = 0 \\& \Leftrightarrow \E{Y(0)\vert T=1}\E{T} - \E{Y(0)}\E{T} = 0 \\ & \Leftrightarrow \E{T}\cdot [ \E{Y(0)\vert T=1} - \E{Y(0)}] = 0\\ & \Leftrightarrow \underbrace{\E{Y(0)\vert T=1} = \E{Y(0)}}_{\text{Mean Unconditional Unconfoundedness}}
+Although the previous assumption allows for some very interesting results, it requires a lot of effort to ensure. In fact, the assumption requires perfect randomization of the treatment assignment. This setting is called a perfect experiment, but it is not so common in research, as it is hard to randomize, and/or make sure that everyone follows the instructions. Nevertheless, we could study a more realistic setting where, conditional on some observables $X$, we would have independence. Assuming the following model:
+$$ Y = \phi(D, X, A) = \alpha(A, X) + \beta(A, X)\cdot D $$ the unconfoundedness assumption ($A2'$) requires that $(Y_1, Y_0) \perp D\vert X $, implying that $A\perp D\vert X$, instead of the previous $A\perp D$. A weaker assumption ($A2''$) would be that only the expectations of $Y$ would be the same regardless of the treatment once conditioned on $X$ (more formally, $\E{Y_j\vert D, X} = \E{Y_j\vert X}$ for both $j = 0,1$).
+
+Using this assumption and following the same reasoning as with joint full independence, we can come up with the Conditional Average Treatment Effect (CATE): \begin{align*} CATE(x) = \E{Y_1 - Y_0\vert X=x} & = \E{Y_1 \vert X=x} - \E{Y_0\vert X=x} \\ & = \E{Y \vert D=1, X=x} - \E{Y\vert D=0, X=x}
 \end{align*}
+and thus, the average treatment effect as: $$ATE = \int CATE(x) \D F(x) = \int \left(\E{Y \vert D=1, X=x} - \E{Y\vert D=0, X=x}\right)\D F(x) $$ which in words is the expectation of the CATE over $X$.
 
-This means that OLS also depends on the MUU property of the data!
+\subsubsection{Estimation}
 
-However, this last result implied a known specification for the effect of the treatment on outcome. In fact, $T$ interacts with $Y$ in a linear manner, but what if it is not the case? We look at three different ways to estimate the relationship between $Y$ and $T$.
+This equation for the ATE should really ring a bell if you have followed the last chapter. In fact, both elements within the integral can be estimated with nonparametric (kernel) regression. However, this type of regression applied directly to the problem will throw you directly under the curse of dimensionality (having expectations conditional on both $D$ and $X$, the latter potentially being multidimensional as well).
 
-\subsubsection{Nonparametric regression}
+A solution to this problem could be to implement a variable linking the treatment $D$ to the observables $X$. Define a propensity score $p(x) \equiv \Prob{D = 1\vert X = x}$. Along uncertainty in $X$, you get uncertainty in $p$, which can be summarized as a random variable $P$. Then, using the previous assumptions $A2'$, we get: $$ CATE(p) = \E{Y \vert D=1, P=p} - \E{Y\vert D=0, P=p} $$ where $P$ only has a single dimension.
 
-Suppose the relationship between $Y$ and $T$ is not known, you can run a kernel regression on it as: $Y = \hat m(T,X) + \operatorname{error}$. Then, you can evaluate the nonparametric ATE as: $$\widehat{\operatorname{ATE}} = \avg{1}{n}[\hat m(1,X) - \hat m(0,X)] $$
+In practice, this propensity score $p$ could be estimated nonparametrically or not. The issue with nonparametric estimation is that you are just displacing the dimensionality curse situation. Using a parametric structure such as the probit, logit or the kind would help in reducing the dimensionality issue.
 
-\subsubsection{Matching estimators}
+Now, using the definition of the ATE, we have: $$ATE = \E{\E{Y \vert D=1, P=p} - \E{Y\vert D=0, P=p}}$$ $$\widehat{ATE} = \frac{1}{n} \sum_i \hat m_1(P_i) - \hat m_0(P_i) $$
 
-An alternative to the OLS or the nonparametric regression is to find a matching algorithm such that for each individual $i$ in the treatment group, you look for a or multiple individuals $j$ in the control group such that for a given characteristic $X$, we have $X_i\approx X_j$. Then the ATE is defined for each individual in the treatment group and the estimator for the ATE is the average of the difference in outcome for all $i$ and $j$ matched. Formally, $$\operatorname{ATE} = \E{Y_i - Y_j} $$ $$\widehat{\operatorname{ATE}} = \avg{1}{n} (Y_i - Y_j) $$ In such a setting, the estimation follows three distinct steps:\begin{enumerate}
-\item Draw values of $x$ randomly from the population distribution of $X$.
-\item Randomly draw an individual $i$ in the treatment group such that $x_i = x$ and match him with a randomly drawn individual $j$ in the control group such that $x_j\approx x_i$.
-\item Calculate $Y_i - Y_j$.
-\end{enumerate} Then, you repeat this process many times and average the difference in outcomes to get the estimator for the ATE.
+\subsubsection{Practical issues}
 
-\subsubsection{Propensity score}
+Using last chapter, we know how to estimate $m(\cdot)$. Nevertheless, the setting derived just above is slightly different than before in the sense that the object of interest, $\widehat{ATE}$, is now an average over kernel regression estimators. Among other things, this changes how we interpret the optimal bandwidth. In fact, since we are now averaging, we could deal with smaller bandwidths without being too scared of the effect it would have on variance (averages reduce variances). Because a smaller $h$ is not that costly anymore, the cross-validation approach does not deliver the best bandwidth anymore, so we'll have to use different approaches. In particular, the field has come up with two interesting approaches: (1) the propensity score matching and (2) direct averages.
 
-A different approach to matching would be to look at the probability of being in the treatment group, conditional on some characteristic $X$. In this situation, we define this probability as the propensity score. Formally, we define the propensity score of an individual $P(X)$ such that $$P(X) = \E{T\vert X} = \Prob{T = 1\vert X}$$ The intuition behind this value is that if the outcome is independent of the group an individual is in, conditional on the characteristic $X$, then it must also be independent on the treatment while conditioning on the propensity score. Therefore, you could write the outcome as a nonparametric function of $T$ and $P(X)$ instead of $X$: $$Y = \hat m(T, P(X)) + \operatorname{error}$$ Then the process of estimating the ATE relies also on three steps:\begin{enumerate}
-\item Estimate the function $P(X)$ (can be done with a known model or again by nonparametric regression if the process of determining $T$ is unknown).
-\item Estimate $Y$ using the nonparametric form with the estimated $P$, that is $Y = \hat r(T, \hat P(X))$.
-\item The ATE is given by: $$\operatorname{ATE} = \E{\hat r(1, \hat P(X)) - \hat r(0, \hat P(X))} $$ while the estimator for it is $$\widehat{\operatorname{ATE}} = \avg{1}{n}[\hat r(1, \hat P(X)) - \hat r(0, \hat P(X))] $$
-\end{enumerate}
+The propensity score matching is very intuitive and maps to a sort of nearest neighbor estimator. The idea is that for any individual $i$ in the control group (with propensity score $p_i$), you find the individual $i'$ in the treatment group such that $i'\in\arg\min_{j\in I_1} \vert p_i - p_j\vert$ where $I_1$ is the set of individual who received the treatment. In words, you "match" every individual in the control group with at least one individual in the treatment, based on the proximity of their proximity score. Then, for each pair you compute the difference between their CATE, and finally average over all pairs to get the ATE. The advantage in that estimator is that as $n$ increase, you will find more and more individuals in the matching pairs. However, one disadvantage is that even with an infinite number of individuals, the bias of this estimator will not vanish.
 
-The remaining question is why would you use $P(X)$ instead of $X$ directly? Well, that depends on the specification of $P(\cdot)$. If it is known very well (probit or logit model), then you can find easily the value for ATE.
+The second approach of direct averages uses a clever rewriting of the problem such that the ATE is defined as: $$ATE \equiv \E{\frac{(D - p(X))\cdot Y}{p(X)\cdot (1 - p(X)}} $$ which suggests the simple following sample counterpart: $$\widehat{ATE} \equiv \frac{1}{n}\sum_{i} \frac{(D_i - \hat p(X_i))\cdot Y_i}{\hat p(X_i)\cdot (1 - \hat p(X_i)} $$ where $\hat p(\cdot)$ can be any first-stage estimator of the propensity score (non-parametric, probit, etc.).
 
-\subsubsection{Propensity score matching}
+\subsection{Regression Discontinuity Design (RDD)}
 
-Finally, the propensity score matching process is trivially the combination of both previous algorithms in the sense that instead of matching a particular characteristic $X$, you try and match the treatment group with the control group by their similarity in $P(X)$.
+The RDD is another setup used to analyze treatment effects conditional on covariates. The idea is quite simple and intuitive since it relies on an existing discontinuity in the treatment selection (who gets it and who do not) to study the effect of the treatment. In simpler words, if along a dataset the only discontinuity is whether a treatment was received or not (all other variables are continuous), then by studying the response for people around the discontinuity, you can identify the effect of the treatment. 
 
-\section{Local Average Treatment Effect (LATE)}
+For example, consider a situation in which students in a high-school are selected to go in an ``honors'' class based on their grade in some exam. The threshold is set at 800 points, such that everyone (this is important) above the threshold goes to the ``honors'' program, and everyone below does not. Then, assuming that people close to the threshold (in both directions) are similar in ability, we could study the effect of the ``honors'' program by looking at the average difference in effect between people on both sides of the threshold.
 
-What if the assignment to either the treatment or the control group is not perfectly random. That is, what if $T$ is not independent to $Y$. Then, all of our previous results do not hold, and we need to put in more work to find a suitable solution. As we did in the OLS case when $e$ and $X$ were correlated, let's try to find a binary instrument $Z$ which is randomly assigned.
+\subsubsection{Model}
 
-We define four main types of individuals: \begin{itemize}
-\item The compliers are individuals for which $T = Z$ as observed BUT ALSO if $T$ was different, we would get $T=Z$ anyway.
-\item The deniers are individuals for which $T \neq Z$ as observed BUT ALSO if $T$ was different, we would get $T\neq Z$ anyway.
+Consider the following structural model: $$ Y = Y_0(X, A) + \left[Y_1(X, A) - Y_0(X, A)\right]\cdot D \text{ where } D = \mathbb{I}\{X \geq c\} $$ or in words, the total outcome $Y$ is equal to the control outcome ($Y_0$) plus the difference between the treatment and control outcomes ($Y_1 - Y_0$), in case the treatment was administered, which is the case if and only if $X\geq c$. Then, we get:\begin{itemize}
+\item On the right side of the discontinuity: \begin{align*}
+\lim_{x\to c^+} \E{Y\vert D=1, X=x} & = \lim_{x\to c^+} \E{Y_1(x, A)\vert D=1, X=x} \\ & = \lim_{x\to c^+} \E{Y_1(x, A)\vert X=x} \text{ (by A2')}
+\end{align*}
+\item On the left side of the discontinuity: \begin{align*}
+\lim_{x\to c^-} \E{Y\vert D=0, X=x} & = \lim_{x\to c^-} \E{Y_0(x, A)\vert D=0, X=x} \\ & = \lim_{x\to c^-} \E{Y_0(x, A)\vert X=x} \text{ (by A2')}
+\end{align*}
 \end{itemize}
+
+Assume that the distribution of the unobservables $A$, conditional on observables $X$ is exactly the same within the infinitesimal neighborhood of the threshold $c$. Formally, assume: $$\lim_{x\to c^+} f_{A\vert X}(a ;x) =  \lim_{x\to c^-} f_{A\vert X}(a ;x) = f_{A\vert X}(a ;c) $$ Moreover, assume that the outcome $Y_j$, conditional on both $X$ and $A$, is the same within the infinitesimal neighborhood of the threshold. Formally, $$\lim_{x\to c^+} Y_j(x, a) =  \lim_{x\to c^-} Y_j(x, a) = Y_j(c, a) $$ for both $Y_0$ and $Y_1$.
+
+Then, we have that:\begin{align*}
+& \lim_{x\to c^+} \E{Y\vert D=1, X=x} - \lim_{x\to c^-} \E{Y\vert D=0, X=x} \\ = & \E{Y_1(c, A)\vert X=c} - \E{Y_0(c, A)\vert X=c} \\ = & \E{Y_1(c, A) - Y_0(c, A)\vert X=c} = CATE(c)
+\end{align*}
+This technique gives us the conditional average treatment effect based on being around the threshold. For that reason, it cannot be used to recover the global average treatment effect (the $ATE$), even using the techniques developed above. One should always keep in mind that the RDD model only applies for the neighborhood of the discontinuity.
+
+\subsection{Endogeneity}
+
+All three of the previous methods to compute the average treatment effect or the conditional average treatment effect rely on some version of assumption 2 ($A2$) which is correct only in the case of conditional or unconditional exogeneity of the treatment. However, in most applications, while selection of the treatment could be perfectly random, individual compliance with the selected treatment is not guaranteed. In fact, if you consider the effect of a training program for unemployed individuals, some people could be randomly selected to participate in a program, but decide not to do it. In order to control for that, we need a model that allows for endogenous selection.
+
+\subsubsection{Model}
+
+This model relies on two stages: \begin{align*}
+\text{(2nd stage): } Y & = Y_0 + \Delta\cdot D \\
+\text{(1st stage): } D & = \mathbb{I}\{\psi(Z, V) > 0\}
+\end{align*}
+where $\Delta \equiv Y_1 - Y_0$ as in previous models, $Z$ are instruments, $V$ are first-stage unobservables and $\psi(\cdot)$ is a function that maps the space defined by $(Z, V)$ to the decision space (where a positive number means the treatment is accepted, and a negative that is refused).
+
+The first-stage equation describes the choice of participation in the treatment: given some exogenous stimulus $Z$ and unobservables $V$ (that the individual observes, but not the econometrician), if $\psi(Z,V)>0$, then the individual participates in the program, else, he does not.
+
+In the second stage, as we did in the previous sections, an outcome is realized based on the individual's decision $D$. If $D=1$, $Y = Y_1$, else, $Y = Y_0$. Recall that $Y_i$ are also functions of observables $X$ and unobservables $A$, as in the previous sections. Moreover, both unobservables $V$ and $A$ might be correlated in some way if for example individuals have private information (inside $V$) about the potential success of the program (within $A$).
+
+The instrument $Z$ can have one or more dimensions, but a major question in this literature is whether $Z$ should include at least one discrete variable or at least one continuous. In Angrist and Imbens point of view, the most convincing instrument is a single binary IV. In Heckman's point of view, a continuous IV does the job well enough.
+
+\subsubsection{Binary IV}
+
+The application of binary IVs come with four definitions that should be understood perfectly before going on. The graph below as well as the definitions should include enough information to understand.
+
+\begin{definition}[Classification of individuals]
+There are four classes of individuals in a given program evaluation framework. This classification relies on the individuals' participation behavior ($D$), based on the binary instrument ($Z$).
+\begin{itemize}
+\item If an individual will participate in the program regardless of $Z$, then he is an ``always-taker".
+\item If an individual will not participate in the program regardless of $Z$, then he is a ``never-taker".
+\item If an individual will participate in the program if he does not get $Z$, but he refuses to participate if he gets $Z$, then he is a ``defier".
+\item If an individual will not participate in the program if he does not get $Z$, but he accepts to participate if he gets $Z$, then he is a ``complier".
+\end{itemize}
+\end{definition}
+ 
+Now, define $D_0 = \mathbb{I}\{\psi(0,V)>0\}$ and $D_1 = \mathbb{I}\{\psi(1,V)>0\}$. We can write the first-stage equation as: $$D = (1 - Z)D_0 + ZD_1 = D_0 + (D_1 - D_0)\cdot Z $$ and thus the second-stage equation as: $$Y = Y_0 + D_0\cdot \Delta + (D_1 - D_0)\cdot \Delta\cdot Z $$
+
+Assuming the binary instrumental variable $Z$ is jointly independent of participation and outcome ($A2'''$), or formally, $Z\perp (Y_1,Y_0,D_1,D_0)$. Then, \begin{align*}
+\E{Y\vert Z=1} & = \E{Y_0 + D_0\cdot \Delta + (D_1 - D_0)\cdot \Delta\cdot Z\vert Z=1} \\
+& = \E{Y_0 + D_1\cdot \Delta \vert Z=1} \\
+& = \E{Y_0 + D_1\cdot \Delta} \text{ (by } A2''')\\
+& = \E{Y_0} + \E{D_1\cdot \Delta}
+\end{align*}
+and also,
+\begin{align*}
+\E{Y\vert Z=0} & = \E{Y_0 + D_0\cdot \Delta + (D_1 - D_0)\cdot \Delta\cdot Z\vert Z=0} \\
+& = \E{Y_0 + D_0\cdot \Delta 
+\vert Z=0} \\
+& = \E{Y_0 + D_0\cdot \Delta} \text{ (by } A2''')\\
+& = \E{Y_0} + \E{D_0\cdot \Delta}
+\end{align*}
+which implies that: $$ \E{Y\vert Z=1} - \E{Y\vert Z=0} = \E{(D_1 - D_0)\cdot \Delta} $$
+
+This last term can be simplified with assumptions about the presence of some types of individuals in the sample. In fact, consider dividing the last term in the groups defined above: \begin{align*}
+\E{(D_1 - D_0)\cdot \Delta} & = 1 \cdot \E{\Delta\vert(D_1 - D_0)=1} \cdot \Prob{(D_1 - D_0)=1} \quad \text{ (compliers)}\\
+& - 1 \cdot \E{\Delta\vert(D_1 - D_0)=-1} \cdot \Prob{(D_1 - D_0)=-1} \quad \text{ (defiers)}\\
+& + 0 \cdot \E{\Delta\vert(D_1 - D_0)=0} \cdot \Prob{(D_1 - D_0)=0} \quad \text{ (others)}
+\end{align*}
+and assume that there are no defiers in the sample, formally, that $\Prob{D_1 - D_0=-1}$ is equal to 0. Then, we get: $$\E{(D_1 - D_0)\cdot \Delta} = \E{\Delta\vert(D_1 - D_0)=1} \cdot \Prob{(D_1 - D_0)=1} $$
+$$\Leftrightarrow \frac{\E{(D_1 - D_0)\cdot \Delta}}{\Prob{(D_1 - D_0)=1}} = \E{\Delta\vert(D_1 - D_0)=1} $$ where the last term is the average treatment effect conditional on being a complier. In order to compute it, we need to know the probability of being a complier. Using the $A2'''$ assumption, one can show that: $$
+\Prob{(D_1 - D_0)=1} = \E{D\vert Z=1} - \E{D\vert Z=0} $$ Finally, using the implication above, we have: $$LATE\equiv \E{\Delta\vert(D_1 - D_0)=1} = \frac{\E{Y\vert Z=1} - \E{Y\vert Z=0}}{\E{D\vert Z=1} - \E{D\vert Z=0}} $$ which is called the Local Average Treatment Effect but actually only means the ATE for compliers.
+
+This estimator has been heavily criticized due to the fact that it depends on the instruments chosen. In fact, the subpopulation of interest (compliers) can change if $Z$ is different. For example, consider the unemployment training program, where the instrument would be a coupon of 500\$ to selected individuals. Then, for a higher coupon value, say of 1000\$, the number of compliers would change for sure, making the estimator very different.
+
+\subsubsection{Continuous IV}
+
+Now, assume that the instrument is continuous. We have the following two-stage model:\begin{align*}
+\text{(2nd stage): } Y & = Y_0 + \Delta\cdot D \\
+\text{(1st stage): } D & = \mathbb{I}\{p(Z) > V\}
+\end{align*} where $p(\cdot)$ is the propensity score as used in the previous sections. First, note that in this context, the no defiers condition in the binary IV case is equivalent to the threshold structure in the first-stage of this model. Second, one could assume wlog that $V\sim U[0,1]$.
+
+As in the previous subsection, start by looking at: \begin{align*}
+\E{Y\vert Z=z} & = \E{Y_0 + \Delta\cdot D \vert Z = z} \\
+& = \E{Y_0} + \E{\Delta\cdot D \vert Z = z} \\ 
+& = \E{Y_0} + \E{\E{\Delta\vert Z, V} \cdot D \vert Z = z} \\
+& = \E{Y_0} + \E{\E{\Delta\vert V} \cdot \mathbb{I}\{p(z)>V\}} \text{ (by } A2''') \\ 
+& = \E{Y_0} + \int_0^{p(z)}\E{\Delta\vert V=v} \D v 
+\end{align*} 
+Then, by Leibniz' rule: $$\partial_z \E{Y\vert Z=z} = \E{\Delta\vert V=p(z)}\cdot \partial_zp(z) $$ $$\Leftrightarrow \frac{\partial_z \E{Y\vert Z=z}}{\partial_zp(z)} = \E{\Delta\vert V=p(z)} $$ which is the analog result to the LATE estimator in Angrist and Imbens' work. In words, the right-hand side term is the marginal treatment effect for the population that is indifferent between participating in the program or not for a given $z$. The left-hand side term is the instrumental variable at the point $z$. Using $p$ in place of $p(z)$ we get: $$ \E{\Delta\vert V=p} = \partial_z \E{Y\vert P=p}$$ which we can use to get the global average treatment effect, as the integral over the marginal treatment effect for individuals that are indifferent at each level of $p$: $$ATE = \int_0^1 \E{\Delta\vert V=p}\D p = \int_0^1 \partial_z \E{Y\vert P=p}\D p = \E{Y\vert P=1} - \E{Y\vert P=0} $$
+
+This strategy has also been heavily criticized, this time based on the fact that it should be impossible to observe propensity score of exactly 1 and 0. In fact, if one uses a parametric model to estimate $p(\cdot)$, then identification would only come for $Z=\pm \infty$. We call this issue identification at infinity.
