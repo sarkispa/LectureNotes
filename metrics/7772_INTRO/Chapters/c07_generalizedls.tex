@@ -1,22 +1,34 @@
+In this chapter, the goal is to let go of two main assumptions that we made about the variance of the error term. Respectively, we will cover both issues of heteroskedasticity (when the error term does not have identical variance over observations) and autocorrelation (when error terms of different observations are correlated).
+
 \section{Heteroskedasticity}
 
 Heteroskedasticity is the phenomenon when error terms $e_i$ do not have the same variance for all $i$. Formally, we write $\E{e_ie_i'} = \sigma^2\Omega$ where $\Omega$ is a diagonal matrix different from the identity matrix and by normalization $\operatorname{tr}(\Omega) = n$.
 
-In this particular case, our typical model for $Y = X\beta +e$ does not satisfy all Gauss-Markov assumptions. The next question we should ask ourselves is how does this violation affects our OLS estimates. Note that we still have: $\hat\beta_{OLS} = \beta + (X'X)^{-1}X'e$. Hence, $$\E{\hat\beta_{OLS}} = \beta + (X'X)^{-1}X'\E{e} = \beta $$ Our OLS estimator is still unbiased, is it consistent?\begin{align*}
-\lim_{n\to\infty} \V{\hat{\beta}_{OLS}} = \lim_{n\to\infty}\E{(\hat\beta - \beta)(\hat\beta - \beta)'} & = \lim_{n\to\infty}\E{((X'X)^{-1}X'e)((X'X)^{-1}X'e)'} \\ 
+In this particular case, our typical model for $Y = X\beta +e$ does not satisfy all Gauss-Markov assumptions. But does that mean that that our OLS estimator is completely useless? Next we will see how does this violation affects our OLS estimates.
+
+\subsection{OLS estimator}
+
+Recall that the OLS estimator is defined as: $$\hat\beta = (X'X)^{-1}X'Y = (X'X)^{-1}X'(X\beta + e) = \beta + (X'X)^{-1}X'e $$
+
+First, we want to look at the bias of this estimator under heteroskedasticity. Very easily, we get: $$\E{\hat\beta_{OLS}} = \beta + (X'X)^{-1}X'\E{e} = \beta $$ since the violation of homoskedasticity does not change the mean-zero assumption.
+
+Second, we want to look at its consistency. For that, we look at the limit of its variance: \begin{align*}
+\lim_{n\to\infty} \V{\hat{\beta}_{OLS}} & = \lim_{n\to\infty}\E{(\hat\beta - \beta)(\hat\beta - \beta)'} \\ & = \lim_{n\to\infty}\E{((X'X)^{-1}X'e)((X'X)^{-1}X'e)'} \\ 
 & = \lim_{n\to\infty}\E{(X'X)^{-1}X'ee'X(X'X)^{-1}} \\ & = \lim_{n\to\infty}(X'X)^{-1}X'\E{ee'}X(X'X)^{-1} \\ 
 & = \lim_{n\to\infty}\frac{1}{n^2}\left(\frac{X'X}{n}\right)^{-1}X'\sigma^2\Omega X\left( \frac{X'X}{n}\right)^{-1} \\ 
 & = \lim_{n\to\infty}\frac{\sigma^2}{n}\left(\frac{X'X}{n}\right)^{-1}\frac{X'\Omega X}{n}\left(\frac{X'X}{n}\right)^{-1} \\ 
 & = \lim_{n\to\infty}\frac{\sigma^2}{n}Q_n^{-1}R_n Q_n^{-1}
-\end{align*} It turns out that the consistency of $\hat\beta$ depends heavily on the limiting behavior of the term $R_n$. Indeed, since $Q_n$ tends to $Q_0$, a constant, when $n$ grows. We only need that $R_n$ grows at a rate lower than $\sigma^2/n$ to have a variance that tends to $0$ as $n$ tends to infinity.
+\end{align*} It turns out that the consistency of $\hat\beta$ depends heavily on the limiting behavior of the term $R_n$. Indeed, since $Q_n$ tends to $Q_0$, a constant, when $n$ grows. We only need that $R_n$ grows at a rate lower than $\sigma^2/n$ to have a variance that tends to $0$ as $n$ tends to infinity. This result is very important because it means that the OLS estimator will be consistent for well-behaved models, even if the Gauss-Markov assumptions are not satisfied.
 
-\subsection{Generalized Least-Squares}
+\subsection{Generalized Least-Squares estimator}
 
-The last result we derived about consistency of the OLS estimator is not satisfying enough, thus we might want to design a better estimator. The intuition needed to build a better one relies on two elements: first, we want an estimator that takes into account the new form of the variance matrix; second, we could transform the variance matrix into an identity matrix and somehow make our OLS estimator work. The Generalized Least-Squares estimator does exactly those two things.
+The last result we derived about consistency of the OLS estimator is not satisfying enough, thus we might want to design a better estimator. The intuition behind ``building'' a new estimator follows from two elements: first, we want an estimator that takes into account the new form of the variance matrix (can use the extra information); second, since we know how to deal with homoskedastic models, we could transform the variance matrix into an identity matrix and somehow make our OLS estimator work. The Generalized Least-Squares (GLS) estimator does exactly those two things.
 
-Let $P$ be a matrix such that: $$\V{Pe} = \sigma^2I_n $$ This implies $$\E{(Pe)(Pe)'} = \sigma^2I_n \Leftrightarrow \E{Pee'P'} = \sigma^2 I_n \Leftrightarrow \sigma^2P\Omega P' = \sigma^2 I_n \Leftrightarrow P\Omega P' = I_n$$ This is what we call the spectral decomposition of $\Omega$. Now we have that the term $Pe$ is indeed homoskedastic so we might look for the effects of multiplying our whole model by $P$.
+Let $P$ be a matrix such that: $$\V{Pe} = \sigma^2I_n $$ This implies $$\E{(Pe)(Pe)'} = \sigma^2I_n \Leftrightarrow \E{Pee'P'} = \sigma^2 I_n \Leftrightarrow \sigma^2P\Omega P' = \sigma^2 I_n \Leftrightarrow P\Omega P' = I_n$$ This is what we call the spectral decomposition of $\Omega$. Now, this very simple procedure made the term $Pe$ homoskedastic, thus by transforming the whole model by $P$, we get an easy-to-deal-with model that satisfies all Gauss-Markov assumptions. But what are the implications of transforming the whole model?
 
-Let $Y^* = X^*\beta + e^*$ where starred variables are the true variables projected by matrix $P$ (i.e. $Y^* = PY$). This model satisfies all Gauss-Markov assumptions when the true model only violates heteroskedasticity. Therefore, we'll use OLS on the modified model to recover the true effects: $\hat\beta_{GLS} = (X^{*'}X^*)^{-1}X^{*'}Y^*$. What can we say about this new estimator in terms of $X$ and $Y$ (we already know that it is consistent in regards to $X^*$ and $Y^*$)? We know that $$\hat\beta = (X^{*'}X^*)^{-1}X^{*'}Y^* = (X'P'PX)^{-1}X'P'PY = (X'\Omega^{-1}X)^{-1}X'\Omega^{-1} Y $$ Then, \begin{align*} 
+Let $Y^* = X^*\beta + e^*$ where starred variables are the true variables projected by matrix $P$ (i.e. $Y^* = PY$). Using the OLS estimator on the modified model, we get: $$\hat\beta = (X^{*'}X^*)^{-1}X^{*'}Y^* = (X'P'PX)^{-1}X'P'PY = (X'\Omega^{-1}X)^{-1}X'\Omega^{-1} Y $$
+
+As we did with the OLS estimator, let's look at the properties of this new estimator. Note that consistency follows directly from the transformation we made, so we only look at bias. We get that: \begin{align*} 
 \E{\hat\beta} & = \E{(X'\Omega^{-1} X)^{-1}X'\Omega^{-1} Y} \\ 
 & = (X'\Omega^{-1} X)^{-1}X'\Omega^{-1}\E{X\beta + e} \\
 & = (X'\Omega^{-1} X)^{-1}X'\Omega^{-1}X\beta + (X'\Omega^{-1} X)^{-1}X'\Omega^{-1}\E{e} \\
@@ -24,7 +36,10 @@ Let $Y^* = X^*\beta + e^*$ where starred variables are the true variables projec
 \end{align*}
 and:\begin{align*}
 \V{\hat\beta} = \sigma^2(X^{*'}X^*)^{-1} = \sigma^2(X'P'PX)^{-1} = \sigma^2(X'\Omega^{-1} X)^{-1}
-\end{align*} And we only need to estimate $\Omega$ in order to get our GLS estimate consistent.
+\end{align*} 
+Which will go to zero as the sample size increases, thus yielding a consistent estimator.
+
+However, the limitation to this method is that we might not know the variance matrix $\Omega$. Indeed, it might be that we only suspect heteroskedasticity but we do not know the form of it. In these cases, one would need to estimate $\Omega$ in order to get compute the GLS estimator. Formally, we say that this GLS estimator is not feasible, however, its functional form might give us indications on how to get a feasible GLS estimator in practice.
 
 \begin{bclogo}[couleur=blue!10, arrondi=0.1, logo=,ombre=false]{ Weighted Least Squares} 
 \begin{small}
@@ -38,7 +53,7 @@ Now that we know what to do in the case of heteroskedasticity, we might want to 
 \item Regress the original model by OLS and keep the residuals $\hat e_i$
 \item Regress the OLS residuals on all variables and their possible interactions (again, by OLS): $$ \hat e_i = a_0 + a_1x_i + a_2z_i + a_3x_i^2 + a_4z_i^2 + a_5x_iz_i $$
 \item If we have homoskedasticity, it must be that $\E{eX} = 0$, thus, testing for heteroskedasticity is equivalent to testing whether jointly $a_0 = a_1 = ... = 0$. In order to do that, construct the statistic $nR^2$ from the previous regression and it should follow a chi-squared distribution of $k + 1 + k!$ degrees of freedom. $$nR^2\dconv \chi_{k+1+k!}^2$$
-\end{enumerate} This procedure is known as the White test for heteroskedasticity. 
+\end{enumerate} This procedure is known as the White test for heteroskedasticity. While rejection in this test will definitely imply heteroskedasticity, keep in mind that failing to reject the null in this test does not tell us any meaningful information about the error term.
 
 \subsection{White standard errors}
 
@@ -56,6 +71,10 @@ Autocorrelation is another type of inconsistency of the error term. This time, i
 
 We might be interested first in how this autocorrelation is present in the data. For that purpose we'll use a measure of estimated correlation between two periods $t$ and $t-s$ over the whole sample.
 
+\begin{definition}[Autocorrelation at lag $s$]
+For a given lag $s$, we write the autocorrelation in the error term as: $$ r_s = \frac{\cov{e_t, e_{t-s}}}{\V{e_t}} $$
+\end{definition}
+
 \begin{definition}[Sample autocorrelation at lag $s$]
 For a given lag $s$, we define the sample autocorrelation, denoted $\hat r_s$ as follows: $$\hat r_s = \frac{\frac{1}{T - s}\sum_{t = s+1}^{T}\hat e_t\hat e_{t-1}}{\frac{1}{T}\sum_{t = 1}^{T}\hat e_t^2} $$ If $\hat r_s$ is big in absolute value, then there is autocorrelation. If $\hat r_s$ is positive, then the autocorrelation is positive, and vice-versa.
 \end{definition}
@@ -72,14 +91,18 @@ The Ljung-Box Q-statistic is defined as follows: $$Q = \sum_{s = 1}^{L} \frac{(T
 
 \subsection{First-order autocorrelation}
 
-In this part of the section on autocorrelation, we'll study the case of a first-order autocorrelation. This model implies that only the first lag ($s=1$) has positive correlation with the instant error. As such, we model our regression as $$Y_t = X_t\beta + e_t $$ $$e_t = \rho e_{t-1} + v_t $$ We assume that $v_t$ is a Gauss-Markov type of error term such that $\E{v_t} = 0$, $\E{v_tv_{t-s}}=0$ for all $s\neq 0$, $\E{v_t^2} = \sigma_v^2$ and hence $\E{vv'} = \sigma^2I_n$. Moreover we assume that the errors are not explosive, meaning that $\vert\rho\vert < 1$. From those assumptions, we can write:\begin{align*}
+In this part of the section on autocorrelation, we'll study the case of a first-order autocorrelation. This model implies that only the first lag ($s=1$) has positive correlation with the instant error. Formally, we say that the error term follows an $\operatorname{AR}(1)$ process. As such, we model our regression as $$Y_t = X_t\beta + e_t $$ $$e_t = \rho e_{t-1} + v_t $$ We assume that $v_t$ is a Gauss-Markov type of error term such that $\E{v_t} = 0$, $\E{v_tv_{t-s}}=0$ for all $s\neq 0$, $\E{v_t^2} = \sigma_v^2$ and hence $\E{vv'} = \sigma^2I_n$. Moreover we assume that the errors are not explosive, meaning that $\vert\rho\vert < 1$. 
+
+From those assumptions, we can write the $\operatorname{MA}(\infty)$ representation of the error term as: \begin{align*}
 e_t = \rho e_{t-1} + v_t = \rho ( \rho e_{t-2} + v_{t-1}) + v_t & = \rho^2( \rho e_{t-3} + v_{t-2}) + \rho v_{t-1} + v_t \\ & = \dots \\ & = \sum_{s=0}^{\infty} \rho^s v_{t-s}
-\end{align*} and therefore, $$ \E{e_t} = \sum_{s=0}^{\infty} \rho^s \E{v_{t-s}} = 0 $$ 
+\end{align*} and therefore, we can compute the first two moment of the error term: $$ \E{e_t} = \sum_{s=0}^{\infty} \rho^s \E{v_{t-s}} = 0 $$ 
 \begin{align*}
 \V{e_t} = \E{\left(\sum_{s=0}^{\infty} \rho^s v_{t-s}\right)^2} = \sum_{s=0}^{\infty} \rho^{2s} \E{v_{t-s}^2}  & = \sigma_{v}^2 \sum_{s=0}^{\infty} (\rho^{2})^s \\ & =  \frac{\sigma_{v}^2}{1 - \rho^2}
 \end{align*}
 
-The two last equations imply that the error term $e_t$ is in fact homoskedastic. Because of that fact we can rewrite: $$\E{e_te_{t-s}} = \E{\left(\rho^s e_{t-s} + \sum_{s=0}^{\infty} \rho^s v_{t-s}\right)e_{t-s}} = \rho^s \sigma_e^2 $$ In matrix form, \begin{align*}
+The two last equations imply that the error term $e_t$ is a homoskedastic mean-zero process, with autocorrelation being the only issue.
+
+Using the two previous result, we get: $$\E{e_te_{t-s}} = \E{\left(\rho^s e_{t-s} + \sum_{k=1}^{\infty} \rho^{s+k} v_{t-s-k}\right)e_{t-s}} = \rho^s \sigma_e^2 $$ In matrix form, \begin{align*}
 \E{ee'} = \sigma_e^2 \begin{bmatrix}
 1 & \rho & \hdots & \rho^{T-1} \\
 \rho & 1 & \hdots & \rho^{T-2} \\
