@@ -15,6 +15,8 @@ First, let's review the differences between what those concepts mean:\begin{item
 \end{itemize}
 \end{itemize}
 
+\section{Estimation of the EDF}
+
 Let $X$ be a random variable (a scalar for now), $x$ is a realization of $X$. As before, $X_i$ and $x_i$ are respectively iid random variables and their realizations. Suppose $X\sim F(X)$ for a given $F(\cdot)$ and each $X_i$ has the distribution $F$.
 
 \begin{definition}[Empirical distribution fucntion]
@@ -22,11 +24,6 @@ Define $\hat F(x)$, the empirical distribution function, evaluated at $x$ as: $$
 \end{definition}
 
 Graphically, if we plot $\hat F(x)$ against $x$, we can see it representing an step-wise approximation of the true distribution $F$. Below is an example of this for a random sample of 100 observations drawn from the standard normal distribution.
-
-%%
-
-
-\section{Estimation of the EDF}
 
 From what the graph in the previous section showed us, it seems natural to consider the EDF as a nonparametric estimator for $F(x)$. What are its properties?
 
@@ -41,32 +38,195 @@ Hence the EDF estimator is unbiased. In the same way, we have: \begin{align*}
 & = \frac{F(x)(1 - F(x))}{n}
 \end{align*} implying that the EDF estimator is also consistent. Finally, since $\hat F(x)$ is also an average, we can apply the CLT and show that it is $\sqrt{n}$-consistent and asymptotically normal: $$\sqrt{n}\left(\hat F(x) - F(x)\right) \dconv N[0,F(x)(1 - F(x))] $$ 
 
-\section{Estimation of the empirical pdf}
+\section{Kernel Density Estimation}
 
-Now suppose we want to estimate $f(x)$, the probability density function instead. We have seen the parameterized equivalent of this problem with Maximum likelihood estimators. Without any parameters, we can use an approximation by a histogram. Let $h$ represent half of the width of each bin, the histogram of our data can be represented by: $$\avg{1}{n}\mathbb{I}[x - h \leq x_i \leq x +h] $$ Note that this is equivalent to the following equation:\begin{align*}
-\hat F(x+h) - \hat F(x-h) & = \avg{1}{n}\mathbb{I}[X_i\leq x+h] - \avg{1}{n}\mathbb{I}[X_i\leq x-h] \\
-& = \avg{1}{n}\left(\mathbb{I}[X_i\leq x+h] - \mathbb{I}[X_i\leq x-h]\right) \\
-& = \avg{1}{n}\mathbb{I}[x-h\leq X_i\leq x+h] \\
-& = \avg{1}{n}\mathbb{I}\left[\left\vert\frac{x - X_i}{h}\right\vert\leq 1\right]
+Density estimation might be interesting in its own right, when you need to identify the particular distribution of a random variable. Nevertheless, it is mostly studied as a fundamental building block for more complicated semi-/nonparametric models. Following the example in the previous section, suppose we want to estimate how $Y$ is related to $X$ where $$ Y = m_Y(X) + U $$ Then we recovered that, using the assumption that $m_Y(\cdot)$ is twice differentiable and bounded in its second-order derivative, as well as the assumption that $\E{U\vert X} = 0$, we have: $$\E{Y\vert X = x} = m_Y(x) = \int_\chi y\cdot f_{Y\vert X}(y, x)\D x $$ Moreover, from probability theory (Bayes' theorem): $$ \int_\chi y\cdot f_{Y\vert X}(y, x)\D x = \int_\chi y\cdot \frac{f_{YX}(y, x)}{f_{Y}(x)} \D x$$ where you have two density functions to estimate.
+
+\subsection{Introductory examples}
+
+Let $X$ be a random variable that can take the value of $1$ with true probability $p^0$ or $0$ else. Think of how you would estimate the probability $p^0$.
+
+One answer is to draw the random variable many times and get a series $\{ x_1, x_2, ...\}$ then estimating $\hat p$ as the number of times we actually observed $1$ divided by the number of draws. Formally, if we perform $n$ random draws, $$\hat p = \frac{\sum_{i=1}^{n} \mathbb{I}\{x_i = 1\} }{n} $$ where $\mathbb{I}\{\cdot\}$ is a function that takes a value of 1 if the condition inside is true, 0 if not. For example, if one million draws are made and 333 333 of them have turned out to be ones, then: $\hat p = \frac{ 333333 }{1000000}\approx 1/3 $.
+
+Now, let's assume $X$ is actually a continuous variable that can take any real value on its support. Thinking about the previous example, how would you estimate the probability that the realization of $X$ falls in a given interval of length $h$ around a given $x$, or more formally, falls in $[x - h/2, x+ h/2]$. This value $h$ is called the bandwidth.
+
+Again, we could use the same strategy and draw the random variable $n$ times, counting the times $x_i$ falls in the ball around $x$ and compare it with the total number of draws: $$ \Probhat{ X\in B_{h/2}(x) } = \frac{\sum_{i=1}^{n} \mathbb{I}\{ x_i \in B_{h/2}(x)\} }{n} = \frac{1}{n} \sum_{i=1}^{n} \mathbb{I}\{ x - h/2 \leq x_i \leq x + h/2 \} $$
+
+Is this type of estimator unbiased? We can check by looking at: $$\E{\Probhat{ X\in B_{h/2}(x) }} = \E{\mathbb{I}\{ x - h/2 \leq X \leq x + h/2 \}} = \Prob{X\in B_{h/2}(x)} $$ which shows that it is indeed an unbiased estimator. 
+
+\subsection{Density estimation}
+
+We have just seen how to estimate probabilities without making assumptions on any structure; in this subsection, we will see how it relates to estimating a density function.
+
+First, think of what the pdf of $X$, denoted $f_X(x)$, actually is. It is the probability that $X$ takes the exact value $x$. In a sense, this is close to what we just did, however, we're looking for $X$ to be a point rather than in a set. The probability of being in a set is given by the cdf $F_X(x)$. It turns out that as we reduce the size of the set more and more, the two concept become closer and closer. Formally, as $h$ tends to 0, the set around $B_{h/2}(x)$ will only contain $x$. Since $f_X(x)$ is the derivative of $F_X(x)$, we can write: $$f_X(x) = \lim_{h\to 0} \frac{F_X(x+h/2) - F_X(x-h/2)}{h} = \lim_{h\to 0} \frac{\Prob{X\in B_{h/2}(x)}}{h} $$ where you should recognize the last term from the previous subsection.
+
+And in fact, you could estimate the pdf by using the estimator for the probability as seen above: $$ \hat f_X(x) = \frac{\Probhat{X\in B_{h/2}(x)}}{h} = \frac{1}{nh} \sum_{i=1}^{n} \mathbb{I}\{ x - h/2 \leq x_i \leq x + h/2 \} $$ for a given $h$ that is relatively small (more about this later). We now have our first own density estimator, let's look at it in more detail.
+
+The basic idea behind the estimator is to count how many observations fall in the neighborhood $x$, relative to the total number of observations, and the size of the neighborhood. Here we use ``count'' since our indicator function is rather naïve and only does that: setting a weight of one for observations in the neighborhood, and 0 for observations out of the neighborhood. The weight assignment function is called a kernel (hence the name of kernel density estimator). In particular, the one used above is called a uniform kernel because it assigns a uniform weight to all observations within the neighborhood. In practice, this is a very bad kernel and it should rarely be used. The parameter $h$ that defines the size of the neighborhood is called the bandwidth.
+
+\subsection{Properties of Kernel Density Estimators}
+
+\begin{definition}[Standard Kernel]
+A standard kernel $K: \mathbb{R}\to\mathbb{R}_+$ is a non-negative function such that:\begin{itemize}
+\item $\int K(\psi)\D \psi = 1$: the cdf of the kernel goes to one.
+\item $\int \psi K(\psi)\D \psi = 0$: the kernel is symmetric around 0.
+\item $\int K^2(\psi)\D \psi = \kappa_2 < \infty $:
+\item $\int \psi^2 K(\psi)\D \psi = \mu_2 < \infty $: 
+\end{itemize}
+\end{definition}
+You should view these properties through the lens of what we actually use a kernel for. Since a kernel is essentially a ``weight-assigning'' function, it must make sense that it is symmetric (equally off observations in either direction should be equally bad), that it is non-negative (although it might be interesting to assign negative weights to observations we really don't want) and that it stops assigning weights after a certain distance.
+
+Using this definition, we can then define a kernel density estimator.
+\begin{definition}[Rosenblatt-Parzen Kernel density estimator]
+A Kernel density estimator for a given pdf $f_X(x)$ is defined as: $$ \hat f_X(x) = \frac{1}{nh} \sum_{i=1}^{n} K\left(\frac{x_i - x}{h}\right) $$ where $K(\cdot):\mathbb{R}\to\mathbb{R}_+$ is a standard kernel.
+\end{definition}
+
+Interesting examples of kernels include:\begin{itemize}
+\item Uniform kernel: $K(\psi) = \mathbb{I}\{\vert\psi\vert\leq 1/2\}$
+\item Gaussian kernel: $K(\psi) = \frac{1}{\sqrt{2}}\exp\{- 0.5 \cdot \psi^2\}$
+\item Epanechnikov kernel: $K(\psi) = \mathbb{I}\{\vert\psi\vert\leq 1\}\cdot (1 - \psi^2)\cdot (3/4) $
+\end{itemize}
+
+As we did in the parametric econometrics classes, we now look for the kernel density estimator properties such as bias and variance.
+
+\subsubsection{Bias of the KDE}
+
+Assume a random sampling over iid data. Then, $$\E{\hat f_X(x)} = \frac{1}{nh}\E{\sum_{i=1}^{n} K\left(\frac{x_i - x}{h}\right)} = \frac{1}{nh} \cdot n \cdot \E{ K\left(\frac{X - x}{h}\right)} $$ $$ = \frac{1}{h} \int K\left(\frac{\xi - x}{h}\right)\cdot f_X(\xi) \D\xi  $$ Then, we perform a change of variables such that the term inside the kernel is $\psi$, meaning $\xi = \psi h + x$ and $\D \xi = h\cdot \D \psi $. Replacing it in the bias formula we get:$$\E{\hat f_X(x)} = \frac{1}{h} \int K\left(\psi\right)\cdot f_X(\psi h + x) \cdot h\cdot  \D \psi = \int K\left(\psi\right)\cdot f_X(\psi h + x) \D \psi$$
+Further, let's use a second order  mean value expansion to recover $f_X(x)$: $$f_X(\psi h + x) = f_X(x) + \psi h f_X'(x) + \frac{(\psi h)^2}{2}	 f_X''(x_r) $$ where $x_r$ includes a remainder term such that: $x_r = x + \lambda\psi h$. This yields us: 
+
+\begin{align*}
+\E{\hat f_X(x)} & = \int K\left(\psi\right)\cdot \left[ f_X(x) + \psi h f_X'(x) + \frac{(\psi h)^2}{2}	 f_X''(x_r)\right] \D \psi  
 \end{align*}
+\begin{align*}
+& = \int K\left(\psi\right)\cdot f_X(x) \D \psi  + \int K\left(\psi\right)\cdot \psi h f_X'(x) \D \psi + \int K\left(\psi\right)\cdot \frac{(\psi h)^2}{2}	 f_X''(x_r) \D \psi \\ & = f_X(x) \underbrace{\int K\left(\psi\right)\cdot \D \psi}_{=1}  + h f_X'(x)\underbrace{\int K\left(\psi\right)\cdot \psi \D \psi}_{=0} + \frac{h^2}{2}\int K\left(\psi\right)\cdot \psi^2	 f_X''(x_r) \D \psi
+\end{align*}
+The last term is quite problematic since it cannot be simplified out of the integral. However, we know that $f_X''(x)$ could be, so we can naively subtract it and we'll see later that the remainder is actually not very relevant. $$ \frac{h^2}{2}\int K\left(\psi\right)\cdot \psi^2	 f_X''(x_r) \D \psi = \frac{h^2}{2} \int K\left(\psi\right)\cdot \psi^2	 (f_X''(x_r) - f_X''(x)) \D \psi $$ $$ + \frac{h^2}{2} \int K\left(\psi\right)\cdot \psi^2 f_X''(x) \D \psi $$ $$ = R + \frac{h^2}{2}  f_X''(x) \mu_2 $$ where $R$ is bounded by $o(h^2)$. Finally, we can write the expectation of our kernel density estimator as: $$ \E{\hat f_X(x)} = f_X(x) + \underbrace{\frac{h^2}{2}  f_X''(x) \mu_2 + o(h^2)}_{\operatorname{Bias}\left[\hat f_X(x)\right]} $$ and the bias is given by the last two terms. From this equation, you can see that the bias is increasing with the bandwidth. This is intuitive since a greater bandwidth also implies more observations that are not related to $x$ (global information) relative to the observations actually close to $x$ (local information). Global information being more likely to introduce bias in the estimator, $h$ is positively correlated with bias. In the opposite direction, the bias seems to disappear as $h$ goes to 0. This means that the estimator is more efficient when the bandwidth is very small, then why not make the bandwidth as small as possible? One could show by similar equation work that the variance of the estimator is given by: $$
+\V{\hat f_X(x)} = \frac{1}{nh}  f_X(x) \kappa_2 + o((nh)^{-1}) $$
+which this time is actually increasing as $h$ tends to 0. Again, intuitively this makes sense as reducing the size of the bandwidth will eventually reduce the number of observations and thus increase the variance. This phenomenon is called the bias-variance trade-off.
 
-The probability at the exact point $x$ is the value of the proportion when the bin width tends to 0. This gives: $$\hat f(x) = \lim_{h\to 0} \frac{\hat F(x+h) - \hat F(x-h)}{2h} = \lim_{h\to 0} \frac{1}{h}\avg{1}{n}\frac{1}{2}\mathbb{I}\left[\left\vert\frac{x - X_i}{h}\right\vert\leq 1\right] $$ But since we cannot compute a zero binwidth, we will allow for our estimator to vary depending on $h$, we get formally that: $$\hat f_h(x) \equiv \frac{1}{nh}\sum_{i=1}^{n}\left(\frac{1}{2}\mathbb{I}\left[\left\vert\frac{x - X_i}{h}\right\vert\leq 1\right]\right) $$ The part in the sum can in fact be written as a function of $\frac{x - X_i}{h}$, call it $K(\cdot)$ where $$K(u) = \frac{\mathbb{I}\left[\left\vert u\right\vert\leq 1\right]}{2}$$ so that $K(u)$ is in fact the pdf of a uniform distribution on the interval $[-1, 1]$. It turns out that this function $K(\cdot)$ is called a kernel. This particular one has simple properties as it gives the same weight to any observations in the $h$-neighborhood of $x$ and a zero weight to those outside of the $h$-neighborhood. There are many other existing kernels that might give more information about a pdf. Let's look at a few of them.
+\subsubsection{Bias-variance trade-off}
 
-The Gaussian kernel estimator has the following kernel: $$K(u) = \frac{1}{\sqrt{2\pi}} e^{-\frac{u^2}{2}}$$
+In order to have a sense of what the bias and variance look like over the whole distribution, we integrate them with respect to $x$: $$\int \left(\operatorname{Bias}\left[\hat f_X(x)\right]\right)^2 \D x = c_1 \cdot h^4 \quad \int \V{\hat f_X(x)} \D x = c_2 \cdot (nh)^{-1} $$ This allows us to design an optimal measure of the trade-off, analogous to the mean squared error in the parametric case, defined as the Mean Integrated Squared Error: $\operatorname{MISE}(h) \equiv c_1 \cdot h^4 + c_2 \cdot (nh)^{-1} $. Now suppose we want to find the best bandwidth to minimize MISE: $$\frac{\partial MISE}{\partial h} = 0 \Leftrightarrow 4\cdot c_1\cdot h^3 - c_2\cdot n^{-1} h^{-2} = 0 \Leftrightarrow h \sim n^{-1/5} $$ meaning that $h$ must be proportional to $n^{-1/5}$. Again, this makes a lot of sense since it implies that increasing the number of observations allows you to reduce the size of the bands: the more observations you have, the more likely it is that they will fall around $x$, and thus the less need you have to keep wide bands.
 
-The Epanechikov kernel estimator has the following kernel: $$K(u) = \frac{3}{4} (1 - u^2)\cdot\mathbb{I}[\vert u \vert \leq 1] $$
+\subsubsection{Asymptotics}
 
-\subsection{Properties of the kernel estimator}
+The rate of convergence of the KDE is $\sqrt{nh}$ where $n$ is the number of observations and $h$ the bandwidth. For an optimal bandwidth, we had $h = n^{-1/5}$, yielding a convergence rate of $\sqrt{n\cdot n^{-1/5}} = \sqrt{n^{4/5}} = n^{2/5}$. Therefore, the nonparametric estimator has a slower rate of convergence than its parametric counterparts of OLS and ML estimators.
 
-The kernel estimator is unfortunately biased. In particular, we can show that: $$\E{\hat f_h(x)} = f(x) + h^2b(x) $$ Nevertheless, the estimator's variance will tend to 0 for a constant $h$ as: $$\V{\hat f_h(x)} \approx \frac{1}{nh} v(x) $$ The two previous properties introduce a typical issue in nonparametric models: the MSE trade off. In fact, we can see that choosing a small $h$ will reduce the bias, but increase the variance. The opposite is true as well, a great $h$ will make the estimator more biased while it will reduce its variance. The MSE equation is given by $$\operatorname{MSE} \approx h^4b^2(x) + \frac{1}{nh} v(x) $$ The $h$ that minimizes the MSE satisfies the following FOC: $$4h^3b^2(x) - \frac{1}{nh^2} v(x) = 0 $$ $$ h^5 = \frac{v(x)}{4b^2(x)}\cdot \frac{1}{n} $$ $$ h =\left[\frac{v(x)}{4b^2(x)}\right]^{1/5} n^{-1/5} $$ This shows an interesting feature: the bigger the number of observations $n$, the smaller the best $h$ gets. This means that for huge datasets, we can get away with setting $h$ really small to get unbiased estimates.
+\subsection{Going beyond the univariate, first-order KDE}
+
+As we've seen, the KDE method is very interesting in how it gets around the lack of structure, but it creates a new trade-off between bias and variance. In order to reduce further the bias, one might be interested in increasing the dimensions of the kernels, to allow for capturing more data points.
+
+\subsubsection{Density derivatives}
+
+If $f_X(x)$ is a differentiable function of $x$, one could also use the derivative of the kernel to estimate the object. In practice, to estimate a $r$-th order derivative, a $r$-th order kernel would set all moments up to the $r$-th one to 0, and the $r$-th one as a finite moment $\mu_r$. This technique displays the advantage of having convergence at a rate closer to $\sqrt{n}$. However, you would get potentially negative tails (meaning it would not be a proper density), and the estimator would be very efficient in small samples.
+
+\subsubsection{Multivariate Density estimation}
+
+Another way of achieving bias reduction would be to use multivariate density estimation, meaning $X$ would now be a random vector in $\mathbb{R}^k$ space. The kernel density estimator would then be a product of all univariate kernels. Obviously, this method adds additional variation in the function, but you would need way more observations to get an interesting result. To see that, recall the intuition behind the kernel function: it assigns weights to observations based on the mean distance of these observations to a point of interest, given a bandwidth. It turns out that increasing the dimension of the neighborhood (from a line, to a square, to hypercubes) will also increase the volume of the object, thus reducing the probability of observations being near the point of interest, and increasing the need for observations. This problem is called the curse of dimensionality.
+
+\section{Kernel Regression Estimation}
+
+In the previous section, we were interested in estimating the distribution of one variable $X$. However, in most economics applications, a more interesting element to estimate is the distribution of a variable $Y$, conditional on $X$. This is the mean regression model that we are going to study here.
+
+Recall our definition of a kernel density estimator for a true distribution $f_X(x)$: $$ \hat f_X(x) = \frac{1}{nh} \sum_{i=1}^{n} K\left(\frac{x_i - x}{h}\right) $$ where $K$ is a standard kernel (refer to ...). Also recall the mean regression model of $$\E{Y\vert X = x} = m_Y(x) = \int y\cdot \frac{f_{XY}(x, y)}{f_X(x)}\D y $$ Our goal is to use kernel density estimators for both the distribution of $X$ and the joint distribution of $X$ and $Y$. Formally, we look for: $$ \hat m_Y(x) = \int y\cdot \frac{\hat f_{XY}(x, y)}{\hat f_X(x)}\D y $$ 
+
+\subsection{Nadaraya-Watson Estimator}
+
+Intuitively, we turn directly to our kernel density estimators. We already wrote the definition of our estimator in the univariate case of estimating $\hat f_X(x)$, but what is the KDE for the joint distribution of $X$ and $Y$? For that we use a multivariate KDE including a product kernel. In particular, we get: $$\hat f_{XY}(x, y) = \frac{1}{nh^2} \sum_{i=1}^{n} \left( K\left(\frac{x_i - x}{h}\right)\cdot K\left(\frac{y_i - y}{h}\right)\right) $$ The two KDE can be used in the mean regression estimator to get: \begin{align*}
+\hat m_Y(x) = \int y\cdot \frac{\hat f_{XY}(x, y)}{\hat f_X(x)}\D y & = \int y\cdot \frac{(nh^2)^{-1} \sum_{i=1}^{n} \left( K\left(\frac{x_i - x}{h}\right)\cdot K\left(\frac{y_i - y}{h}\right)\right)}{(nh)^{-1} \sum_{i=1}^{n} K\left(\frac{x_i - x}{h}\right)} \D y \\
+& = \frac{1}{h}\cdot \frac{\sum_{i=1}^{n} K\left(\frac{x_i - x}{h}\right)\cdot \int y K\left(\frac{y_i - y}{h}\right)\D y }{\sum_{i=1}^{n} K\left(\frac{x_i - x}{h}\right)}  
+\end{align*} The only term that is not obvious here is the last term of the numerator. Let's look at it in detail.
+
+Apply a change of variable so that $\psi$ is the term inside the kernel. We get $y = \psi h + y_i$ (recall that since the kernel is symmetric $K(y_i - y) = K(y - y_i)$). We also have $\D y = h\D \psi$. Then we can write: $$ \int y K\left(\frac{y_i - y}{h}\right)\D y = \int (\psi h + y_i) K\left(\psi\right)h\D \psi $$ and separating we have: $$ h^2 \int \psi  K\left(\psi\right)\D \psi + h y_i \int K\left(\psi\right)\D \psi = h\cdot y_i $$ from the properties of the kernel. Finally, plugging this expression back into the mean regression estimator we get: $$ \hat m_Y(x) = \frac{\sum_{i=1}^{n} K\left(\frac{x_i - x}{h}\right)\cdot y_i }{\sum_{i=1}^{n} K\left(\frac{x_i - x}{h}\right)} $$
+
+\begin{definition}[Nadaraya-Watson estimator]
+For a given model of two variables $Y$ and $X$ such that $Y = m_Y(X) + U $, the Nadaraya-Watson estimator for the function $m_Y(x)$ is defined as: $$ \hat m_Y(x) = \frac{\sum_{i=1}^{n} K\left(\frac{x_i - x}{h}\right)\cdot y_i }{\sum_{i=1}^{n} K\left(\frac{x_i - x}{h}\right)} $$ where $K(\cdot):\mathbb{R}\to\mathbb{R}$ is a standard kernel.
+\end{definition}
+
+Note that a kernel regression estimator is only a valid estimator for $m(\cdot)$ in a local neighborhood of size $h$.
+
+\subsubsection{Nadaraya-Watson and OLS}
+
+Consider a model of $Y$ and $X$ such that $Y = \alpha + U$ or in matrix form: $$\begin{bmatrix}
+Y_1 \\ \vdots \\ Y_N
+\end{bmatrix} = \begin{bmatrix}
+1 \\ \vdots \\ 1
+\end{bmatrix}\cdot \alpha + \begin{bmatrix}
+U_1 \\ \vdots \\ U_N
+\end{bmatrix} $$ By OLS, the estimation of $\alpha$ is now straightforward: $$\hat\alpha = (\iota' \iota)^{-1} \iota' Y = \frac{\sum_i Y_i}{n} = \bar Y$$ where $\iota$ is a $n$-dimensional vector of 1. This means that the OLS estimation is equivalent to fitting a constant (the average of $Y$) globally on the model. Now, if you consider the NW estimator, you should see a type of relation between both. In fact, around the neighborhood of $x$, the two estimators are exactly the same. Hence, intuitively, you could see the NW estimator as fitting a constant locally for all $x$. To see that, reweight the the data by $K\left(\frac{x - X_i}{h}\right)^{1/2}$ so that observations in the neighborhood are 1, while others are 0 (in the case of the uniform kernel), the NW estimator is in fact the average of $Y$ for values of $Y$ inside of the neighborhood.
+
+\subsection{Local OLS estimator}
+
+We have seen that the intuition behind the NW estimator was about fitting a constant locally on the model. Naturally, one could think about extending this line of reasoning and fit more complex models inside the kernel. In particular, a well-studied extension is to fit a line, as a local linear model. This type of models is usually called local OLS models. They are represented by the following model: $$Y = m(x)\tilde\iota + h\cdot m'(x)\frac{X_i - x}{h} + U = \tilde X\beta (x) + U $$ Note that adding dimensions to the polynomial used to fit the model locally does not change the value of the $m(x)$ function, but rather adds information about higher-order derivatives of the $m(x)$ function at the point $x$. For example, estimating a simple line locally gives the value of the point at $x$ as well as the slope of $m$ at $x$.
+
+\begin{definition}[Local OLS estimator]
+For a given model of two variables $Y$ and $X$ such that $Y = m(x)\tilde\iota + h\cdot m'(x)\frac{X_i - x}{h} + U = \tilde X\beta (x) + U $, the local OLS estimator for the function $m_Y(x)$ is defined as:
+$$\hat\beta(x) = (\tilde X'\tilde X)^{-1}\tilde X'\tilde Y $$
+\end{definition}
+
+\subsection{Bias and Variance}
+
+The bias of the kernel regression estimation is given by: $$\E{\hat \beta_0\vert X} - \beta_0 = \E{\hat m(x)\vert X} - m(x) = \frac{h^2}{2} \cdot \mu_2 m_Y''(x) + o_p(h^2) $$ which is very similar to the formula derived for the bias of the kernel density estimator. If we also look at the variance, we get: $$\V{\hat \beta_0\vert X} = \V{\hat m(x)\vert X} = \frac{1}{nh}\cdot\kappa^2\frac{\sigma_U^2}{f_X(x)} + o_p((nh)^{-1}) $$ which is slightly different than the kernel density counterpart. In fact, in the regression case, $f_X(x)$ enters in the denominator, meaning that increasing $f(x)$ (the probability of finding observations at the point $x$) will decrease the variance while in the density estimation, increasing the number of observations increased the variance.
+
+\subsection{General considerations}
+
+\subsubsection{Asymptotic normality}
+
+Under similar regularity conditions as the density estimator, the regression estimation will tend in distribution to a standard normal as the number of observations increase to $\infty$. The rate of convergence is also $\sqrt{nh}$ in this setting.
+
+\subsubsection{Curse of dimensionality}
+
+Again, in a similar way as the KDE, the kernel regression estimator faces the curse of dimensionality as the number of regressors $k$ increases. The rate of convergence is then $\sqrt{nh^k}$.
+
+\subsubsection{Higher-order bias reduction}
+
+Same as KDE.
+
+\subsubsection{Order of local polynomial}
+
+As it is discussed in the section, instead of fitting a constant or a line, one could go further and fit higher order polynomials in the data in order to get more information on the shape of the fitted line. It turns out that asymptotically, there is no cost to move to the next-odd order when estimating a given object of interest. For example, say you want to estimate $m(\cdot)$ up to its $p$-th derivative, then you could use a $p+1$ or $p+3$ order local polynomial estimation. You should remember that when it comes to local OLS, it is an odd world.
+
+Moreover, estimating polynomials will actually achieve bias reduction in the same way that high order kernel do. This bias reduction comes without the cost of putting negative weight on some observations like the higher order kernels do. This is why it is generally thought that high order polynomial is more interesting than high order kernels.
+
+\subsubsection{Selection of bandwidth}
+
+There are two schools of thoughts when it comes to bandwidth selection in the case of kernel regression.
+
+We have seen in the kernel density estimation section that we chose the bandwidth in order to minimize the mean integrated squared error. In the context of kernel regression, the MISE does not have an analytic expression, and we thus have to approximate it using the following expression: $$ AMISE = \int \frac{h^2}{2} \cdot \mu_2 m_Y''(x) + \frac{1}{nh}\cdot\kappa^2\frac{\sigma_U^2}{f_X(x)} \D x $$ and then minimize over $h$.
+
+The second way to select the adequate bandwidth is to use cross-validations. Define the leave-one-out estimator $\hat m_{-j}$ as the the standard local OLS estimator, without the $j$-th observation. Now let the average prediction error (APE) be: $$APE = \frac{1}{n} \sum_j (Y_j - \hat m_{-j}(X_j))^2 $$ It turns out that choosing $h$ to minimize the APE is equivalent to minimizing the MISE.
+
+\subsubsection{Choice of kernel}
+
+Use Epanechnikov.
+
+\subsection{Series/sieve regression}
 
 
-\section{Kernel regressions}
 
+\subsection{Testing}
 
+In nonparametrics, hypothesis testing is separated from the regression estimation. It is also difficult to perform as generally, hypothesis testing is meant to look at interesting features on the whole dataset (the whole function), while nonparametrics focuses on local features of the data.
 
-\section{Series regressions}
+\subsubsection{Omission of variables test}
 
+\subsection{Applications}
 
+\subsubsection{Binary Dependent Variable}
 
-\section{Semiparametric regressions}
+Consider the case where $Y$, the dependent variable, only takes values of 1 or 0, such that: $$Y = \begin{cases}
+1 & \text{ if } X\beta + U > 0 \\
+0 & \text{ else.}
+\end{cases}
+$$ where $U$ is assumed to be independent of $X$, $U\perp X$.
+As outlined in the beginning of this section, we look for an estimator for the expectation of $Y$ given $X = x$. Since $Y$ is now a discrete random variable, we can write: \begin{align*}
+\E{Y\vert X = x} & = 1 \cdot \Prob{X\beta + U > 0\vert X = x} + 0 \cdot \Prob{X\beta + U \leq 0\vert X = x} \\
+& = \Prob{X\beta + U > 0 \vert X = x} = \Prob{U > -x\beta}\\
+& = 1 - G(-x\beta)
+\end{align*}
+This setting is problematic since it does not allow for ``point-identification'' of $\beta$. To see that, note that we have two objects to estimate here: $\theta = \{G(-X\beta), \beta\}$. However, we could also define $\tilde\beta = \beta/c$ and $\tilde G(z) = G(cz)$, which would yield that $\tilde G(X\tilde\beta) = G(X\beta)$. This means that observing the same data, one could estimate $\tilde G$ or $G$, leaving $\beta$ unidentified, or set identified (all vectors $\tilde\beta$). We say that $\beta$ is identified up to scale $c$.
+
+In order to solve this issue, we can impose a restriction on the size of $\beta$ such that we can single out a parameter from all proportional parameters. We call this restriction a normalization. 
+
+This normalization turns out not to affect the economic meaningfulness of the model. In fact, we have just seen that $G(\cdot)$ is perfectly identified, but identification of $\beta$, although an advantage, is not necessary. To see that, consider another object of interest in this model:
+$$\triangledown_x \E{Y\vert X = x} = \beta \cdot  g(-x\beta) $$ where $g$ denotes the pdf of the distribution of $U$. Then, define the set of parameters we want to estimate as $\theta = \{G(X\beta), \beta g(X\beta)\}$. Now let $\tilde{\beta} = \beta/c$ and $\tilde{G}(x) = G(cx)$. From this we get that $G(-X\beta) = \tilde{G}(-X\tilde\beta)$ and $\beta g(-X\beta) = \tilde\beta\tilde g(-X\tilde\beta)$. Therefore, we can write that $\tilde\theta = \theta$, meaning that whatever the value of $c$ is, our set of objects of interest will not change.

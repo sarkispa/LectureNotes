@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2019.1.21)  13 MAY 2019 11:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2019.1.21)  13 MAY 2019 11:52
 entering extended mode
 **./7772_LectureNotes.tex
 (7772_LectureNotes.tex
@@ -375,6 +375,9 @@ Package: amsthm 2017/10/31 v2.20.4
 \thm@postskip=\skip48
 \thm@headsep=\skip49
 \dth@everypar=\toks30
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
 )
 (C:\Users\18579\AppData\Roaming\MiKTeX\2.9\tex\latex\enumitem\enumitem.sty
 Package: enumitem 2019/01/14 v3.7 Customized lists
@@ -1204,29 +1207,29 @@ s\pgflibrarydecorations.pathmorphing.code.tex))
  (7772_LectureNotes.aux)
 \openout1 = `7772_LectureNotes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 38.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 39.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 39.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
 LaTeX Font Info:    Try loading font information for T1+LinuxLibertineT-TLF on 
-input line 38.
+input line 39.
 
 (C:\Users\18579\AppData\Roaming\MiKTeX\2.9\tex\latex\libertine\t1linuxlibertine
 t-tlf.fd
@@ -1234,8 +1237,8 @@ File: T1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for T1/Li
 nuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 38.
-LaTeX Info: Redefining \microtypecontext on input line 38.
+(Font)              scaled to size 12.0pt on input line 39.
+LaTeX Info: Redefining \microtypecontext on input line 39.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -1252,7 +1255,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 \c@mv@tabular=\count313
 \c@mv@boldtabular=\count314
 \AtBeginShipoutBox=\box66
-Package hyperref Info: Link coloring OFF on input line 38.
+Package hyperref Info: Link coloring OFF on input line 39.
  ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -1261,9 +1264,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count315
 )
-LaTeX Info: Redefining \ref on input line 38.
-LaTeX Info: Redefining \pageref on input line 38.
-LaTeX Info: Redefining \nameref on input line 38.
+LaTeX Info: Redefining \ref on input line 39.
+LaTeX Info: Redefining \pageref on input line 39.
+LaTeX Info: Redefining \nameref on input line 39.
 
 (C:\Users\18579\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -1296,23 +1299,23 @@ ABD: EveryShipout initializing macros
 Package todonotes Warning: The length marginparwidth is less than 2cm and will 
 most likely cause issues with the appearance of inserted todonotes. The issue c
 an be solved by adding a line like \setlength {\marginparwidth }{2cm} prior to 
-loading the todonotes package. on input line 38.
+loading the todonotes package. on input line 39.
 
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 20.74pt on input line 45.
+(Font)              scaled to size 20.74pt on input line 46.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 20.74pt on input line 45.
+(Font)              scaled to size 20.74pt on input line 46.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 24.88pt on input line 45.
+(Font)              scaled to size 24.88pt on input line 46.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 20.74pt on input line 45.
+(Font)              scaled to size 20.74pt on input line 46.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 45.
+(Font)              scaled to size 14.4pt on input line 46.
 (C:\Users\18579\AppData\Roaming\MiKTeX\2.9\tex\latex\microtype\mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 45.
+LaTeX Font Info:    Try loading font information for U+msa on input line 46.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1320,7 +1323,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (C:\Users\18579\AppData\Roaming\MiKTeX\2.9\tex\latex\microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 45.
+LaTeX Font Info:    Try loading font information for U+msb on input line 46.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1332,7 +1335,7 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 
 {C:/Users/18579/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 24.88pt on input line 46.
+(Font)              scaled to size 24.88pt on input line 47.
 
 (7772_LectureNotes.toc
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
@@ -1471,7 +1474,7 @@ Package mdframed Info: mdframed detected package amsthm
  changed the theorem header of amsthm
 (mdframed)              on input line 44.
  [58] [59] [60]
-<images/defcorrelogram.png, id=563, 1027.84pt x 727.71875pt>
+<images/defcorrelogram.png, id=559, 1027.84pt x 727.71875pt>
 File: images/defcorrelogram.png Graphic file (type png)
 <use images/defcorrelogram.png>
 Package pdftex.def Info: images/defcorrelogram.png  used on input line 83.
@@ -1492,30 +1495,31 @@ Chapter 9.
 Chapter 10.
 (Chapters/c11_nonparamreg.tex [87
 
-] [88] [89] [90]) [91] [92]
+] [88] [89] [90] [91] [92] [93] [94] [95]
+[96] [97] [98] [99] [100] [101] [102]) [103]
 Chapter 11.
-(Chapters/c12_policyeval.tex [93
+(Chapters/c12_policyeval.tex [104
 
-] [94] [95] [96] [97] [98]) [99]
+] [105] [106] [107] [108] [109]) [110]
 Chapter 12.
-(Chapters/c13_regdiscontinuity.tex) [100
+(Chapters/c13_regdiscontinuity.tex) [111
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 97.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 97.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 98.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 98.
  (7772_LectureNotes.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 97.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 97.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 97.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 98.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 98.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 98.
  ) 
 Here is how much of TeX's memory you used:
- 33059 strings out of 492946
- 638134 string characters out of 3135527
- 713299 words of memory out of 3000000
- 35785 multiletter control sequences out of 15000+200000
+ 33304 strings out of 492946
+ 640598 string characters out of 3135527
+ 713392 words of memory out of 3000000
+ 35990 multiletter control sequences out of 15000+200000
  665906 words of font info for 276 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,16n,81p,1368b,1390s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 62i,16n,81p,1547b,1390s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/18579/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_nao
 oyc.enc}{C:/Users/18579/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lb
 tn_ki75ao.enc}{C:/Users/18579/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libert
@@ -1543,9 +1547,9 @@ X 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
 public/amsfonts/symbols/msam10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
 lic/amsfonts/symbols/msbm10.pfb>
-Output written on 7772_LectureNotes.pdf (101 pages, 890610 bytes).
+Output written on 7772_LectureNotes.pdf (112 pages, 933491 bytes).
 PDF statistics:
- 1128 PDF objects out of 1200 (max. 8388607)
- 376 named destinations out of 1000 (max. 500000)
- 32306 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 1200 PDF objects out of 1200 (max. 8388607)
+ 413 named destinations out of 1000 (max. 500000)
+ 32290 words of extra memory for PDF output out of 35830 (max. 10000000)
 

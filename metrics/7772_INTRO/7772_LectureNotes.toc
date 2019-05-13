@@ -116,17 +116,39 @@
 \contentsline {chapter}{\numberline {10}Non-parametric estimators}{87}{chapter.10}% 
 \contentsline {section}{\numberline {10.1}Introduction}{87}{section.10.1}% 
 \contentsline {section}{\numberline {10.2}Estimation of the EDF}{88}{section.10.2}% 
-\contentsline {section}{\numberline {10.3}Estimation of the empirical pdf}{89}{section.10.3}% 
-\contentsline {subsection}{\numberline {10.3.1}Properties of the kernel estimator}{91}{subsection.10.3.1}% 
-\contentsline {section}{\numberline {10.4}Kernel regressions}{92}{section.10.4}% 
-\contentsline {section}{\numberline {10.5}Series regressions}{92}{section.10.5}% 
-\contentsline {section}{\numberline {10.6}Semiparametric regressions}{92}{section.10.6}% 
-\contentsline {chapter}{\numberline {11}Program Evaluation and Treatment Effects}{93}{chapter.11}% 
-\contentsline {section}{\numberline {11.1}Introduction}{93}{section.11.1}% 
-\contentsline {section}{\numberline {11.2}Average Treatment Effect (ATE)}{94}{section.11.2}% 
-\contentsline {subsubsection}{Nonparametric regression}{96}{section*.20}% 
-\contentsline {subsubsection}{Matching estimators}{97}{section*.21}% 
-\contentsline {subsubsection}{Propensity score}{97}{section*.22}% 
-\contentsline {subsubsection}{Propensity score matching}{98}{section*.23}% 
-\contentsline {section}{\numberline {11.3}Local Average Treatment Effect (LATE)}{99}{section.11.3}% 
-\contentsline {chapter}{\numberline {12}Regression Discontinuity Design}{100}{chapter.12}% 
+\contentsline {section}{\numberline {10.3}Kernel Density Estimation}{89}{section.10.3}% 
+\contentsline {subsection}{\numberline {10.3.1}Introductory examples}{90}{subsection.10.3.1}% 
+\contentsline {subsection}{\numberline {10.3.2}Density estimation}{91}{subsection.10.3.2}% 
+\contentsline {subsection}{\numberline {10.3.3}Properties of Kernel Density Estimators}{92}{subsection.10.3.3}% 
+\contentsline {subsubsection}{Bias of the KDE}{93}{section*.20}% 
+\contentsline {subsubsection}{Bias-variance trade-off}{95}{section*.21}% 
+\contentsline {subsubsection}{Asymptotics}{95}{section*.22}% 
+\contentsline {subsection}{\numberline {10.3.4}Going beyond the univariate, first-order KDE}{95}{subsection.10.3.4}% 
+\contentsline {subsubsection}{Density derivatives}{96}{section*.23}% 
+\contentsline {subsubsection}{Multivariate Density estimation}{96}{section*.24}% 
+\contentsline {section}{\numberline {10.4}Kernel Regression Estimation}{96}{section.10.4}% 
+\contentsline {subsection}{\numberline {10.4.1}Nadaraya-Watson Estimator}{97}{subsection.10.4.1}% 
+\contentsline {subsubsection}{Nadaraya-Watson and OLS}{98}{section*.25}% 
+\contentsline {subsection}{\numberline {10.4.2}Local OLS estimator}{99}{subsection.10.4.2}% 
+\contentsline {subsection}{\numberline {10.4.3}Bias and Variance}{99}{subsection.10.4.3}% 
+\contentsline {subsection}{\numberline {10.4.4}General considerations}{100}{subsection.10.4.4}% 
+\contentsline {subsubsection}{Asymptotic normality}{100}{section*.26}% 
+\contentsline {subsubsection}{Curse of dimensionality}{100}{section*.27}% 
+\contentsline {subsubsection}{Higher-order bias reduction}{100}{section*.28}% 
+\contentsline {subsubsection}{Order of local polynomial}{101}{section*.29}% 
+\contentsline {subsubsection}{Selection of bandwidth}{101}{section*.30}% 
+\contentsline {subsubsection}{Choice of kernel}{102}{section*.31}% 
+\contentsline {subsection}{\numberline {10.4.5}Series/sieve regression}{102}{subsection.10.4.5}% 
+\contentsline {subsection}{\numberline {10.4.6}Testing}{102}{subsection.10.4.6}% 
+\contentsline {subsubsection}{Omission of variables test}{102}{section*.32}% 
+\contentsline {subsection}{\numberline {10.4.7}Applications}{102}{subsection.10.4.7}% 
+\contentsline {subsubsection}{Binary Dependent Variable}{102}{section*.33}% 
+\contentsline {chapter}{\numberline {11}Program Evaluation and Treatment Effects}{104}{chapter.11}% 
+\contentsline {section}{\numberline {11.1}Introduction}{104}{section.11.1}% 
+\contentsline {section}{\numberline {11.2}Average Treatment Effect (ATE)}{105}{section.11.2}% 
+\contentsline {subsubsection}{Nonparametric regression}{107}{section*.34}% 
+\contentsline {subsubsection}{Matching estimators}{108}{section*.35}% 
+\contentsline {subsubsection}{Propensity score}{108}{section*.36}% 
+\contentsline {subsubsection}{Propensity score matching}{109}{section*.37}% 
+\contentsline {section}{\numberline {11.3}Local Average Treatment Effect (LATE)}{110}{section.11.3}% 
+\contentsline {chapter}{\numberline {12}Regression Discontinuity Design}{111}{chapter.12}% 
