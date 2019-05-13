@@ -19,9 +19,9 @@ In general, suppose the model is $y = a + bx + e$, then $\hat b = b + \frac{\wid
 
 \section{Measurement errors}
 
-We have seen that under measurement errors of the form $X = X^* + v$ where $X^*$ is the true value of the variable, $\cov{X,e} = -\beta\E{v^2}$. Moreover, it is trivial to show that $\V{X} = \V{X^*} + \V{v}$. Hence, we can show that, $$\plim\hat\beta = \beta + \frac{-\beta\V{v}}{\V{X^*}+\V{v}} $$ There are two important issues about this result: first, it shows an asymptotic bias of our OLS estimator ; second, the bias is leans strongly towards 0 and is positively correlated with $\beta$ (the bigger $\beta$ is, the bigger the bias).
+We have seen that under measurement errors of the form $X = X^* + v$ where $X^*$ is the true value of the variable, $\cov{X,e} = -\beta\E{v^2}$. Moreover, it is trivial to show that $\V{X} = \V{X^*} + \V{v}$. Hence, we can show that, $$\plim\hat\beta = \beta + \frac{-\beta\V{v}}{\V{X^*}+\V{v}} = \beta \cdot \left(1 - \frac{\V{v}}{\V{X^*}+\V{v}}\right)$$ There are two important issues about this result: first, it shows an asymptotic bias of our OLS estimator, in the sense that, even when we take the limit, the estimator is biased ; second, the bias is a downward bias (decreasing the value of $\beta$) and is positively correlated with $\beta$ (the bigger $\beta$ is, the bigger the bias).
 
-This problem quickly becomes more important as more variables are subject to measurement errors. Indeed, while the direction of the bias is straightforward on the mismeasured variable's coefficient, the effect on other variables can go any direction! Hence, when multiple variables are mismeasured, then it is impossible to identify the direction of the bias for any of the coefficients.
+For now, this problem seems manageable as we know the direction of the bias and could keep that in mind with interpretation, however, this problem quickly becomes more important as more variables are subject to measurement errors. Indeed, while the direction of the bias is straightforward on the mismeasured variable's coefficient, the effect on other variables can go any direction! Hence, when multiple variables are mismeasured, then it is impossible to identify the direction of the bias for any of the coefficients.
 
 \section{Instrumental variables}
 

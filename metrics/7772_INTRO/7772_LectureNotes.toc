@@ -98,34 +98,35 @@
 \contentsline {section}{\numberline {9.1}Nonlinear Least Squares}{78}{section.9.1}% 
 \contentsline {subsection}{\numberline {9.1.1}Model}{78}{subsection.9.1.1}% 
 \contentsline {subsection}{\numberline {9.1.2}Estimation}{79}{subsection.9.1.2}% 
-\contentsline {subsubsection}{Gradient method}{80}{section*.12}% 
-\contentsline {subsubsection}{Grid-search method}{80}{section*.13}% 
-\contentsline {section}{\numberline {9.2}Extremum Estimators}{80}{section.9.2}% 
-\contentsline {section}{\numberline {9.3}Generalized Method of Moments}{80}{section.9.3}% 
-\contentsline {subsection}{\numberline {9.3.1}Method of moments}{80}{subsection.9.3.1}% 
-\contentsline {subsubsection}{Estimation}{81}{section*.14}% 
-\contentsline {subsubsection}{Mean and variance of a population}{81}{section*.15}% 
-\contentsline {subsubsection}{OLS}{82}{section*.16}% 
-\contentsline {subsubsection}{IV}{82}{section*.17}% 
-\contentsline {subsection}{\numberline {9.3.2}Generalized Method of Moments}{83}{subsection.9.3.2}% 
-\contentsline {subsection}{\numberline {9.3.3}GMM Estimator properties}{84}{subsection.9.3.3}% 
-\contentsline {subsection}{\numberline {9.3.4}Efficient GMM}{84}{subsection.9.3.4}% 
-\contentsline {subsection}{\numberline {9.3.5}Estimation of the Efficient Weight Matrix}{84}{subsection.9.3.5}% 
-\contentsline {subsection}{\numberline {9.3.6}Variance Estimation}{84}{subsection.9.3.6}% 
-\contentsline {chapter}{\numberline {10}Non-parametric estimators}{85}{chapter.10}% 
-\contentsline {section}{\numberline {10.1}Introduction}{85}{section.10.1}% 
-\contentsline {section}{\numberline {10.2}Estimation of the EDF}{86}{section.10.2}% 
-\contentsline {section}{\numberline {10.3}Estimation of the empirical pdf}{87}{section.10.3}% 
-\contentsline {subsection}{\numberline {10.3.1}Properties of the kernel estimator}{89}{subsection.10.3.1}% 
-\contentsline {section}{\numberline {10.4}Kernel regressions}{90}{section.10.4}% 
-\contentsline {section}{\numberline {10.5}Series regressions}{90}{section.10.5}% 
-\contentsline {section}{\numberline {10.6}Semiparametric regressions}{90}{section.10.6}% 
-\contentsline {chapter}{\numberline {11}Program Evaluation and Treatment Effects}{91}{chapter.11}% 
-\contentsline {section}{\numberline {11.1}Introduction}{91}{section.11.1}% 
-\contentsline {section}{\numberline {11.2}Average Treatment Effect (ATE)}{92}{section.11.2}% 
-\contentsline {subsubsection}{Nonparametric regression}{94}{section*.18}% 
-\contentsline {subsubsection}{Matching estimators}{95}{section*.19}% 
-\contentsline {subsubsection}{Propensity score}{95}{section*.20}% 
-\contentsline {subsubsection}{Propensity score matching}{96}{section*.21}% 
-\contentsline {section}{\numberline {11.3}Local Average Treatment Effect (LATE)}{97}{section.11.3}% 
-\contentsline {chapter}{\numberline {12}Regression Discontinuity Design}{98}{chapter.12}% 
+\contentsline {subsubsection}{Lewbel's method (better name?)}{80}{section*.12}% 
+\contentsline {subsubsection}{Gradient-based methods}{80}{section*.13}% 
+\contentsline {subsubsection}{Global methods}{80}{section*.14}% 
+\contentsline {section}{\numberline {9.2}Extremum Estimators}{81}{section.9.2}% 
+\contentsline {section}{\numberline {9.3}Generalized Method of Moments}{82}{section.9.3}% 
+\contentsline {subsection}{\numberline {9.3.1}Moment Equation Model}{82}{subsection.9.3.1}% 
+\contentsline {subsection}{\numberline {9.3.2}Method of Moments Estimator}{82}{subsection.9.3.2}% 
+\contentsline {subsection}{\numberline {9.3.3}Generalized Method of Moments Estimator}{83}{subsection.9.3.3}% 
+\contentsline {subsection}{\numberline {9.3.4}Which weighting matrix to choose?}{83}{subsection.9.3.4}% 
+\contentsline {subsubsection}{Two-step GMM}{84}{section*.15}% 
+\contentsline {subsubsection}{Iterated GMM}{85}{section*.16}% 
+\contentsline {subsubsection}{Continuously-updated GMM}{85}{section*.17}% 
+\contentsline {subsection}{\numberline {9.3.5}Computing the variance}{85}{subsection.9.3.5}% 
+\contentsline {subsubsection}{Variance estimation}{86}{section*.18}% 
+\contentsline {subsubsection}{Bootstrap for GMM}{86}{section*.19}% 
+\contentsline {chapter}{\numberline {10}Non-parametric estimators}{87}{chapter.10}% 
+\contentsline {section}{\numberline {10.1}Introduction}{87}{section.10.1}% 
+\contentsline {section}{\numberline {10.2}Estimation of the EDF}{88}{section.10.2}% 
+\contentsline {section}{\numberline {10.3}Estimation of the empirical pdf}{89}{section.10.3}% 
+\contentsline {subsection}{\numberline {10.3.1}Properties of the kernel estimator}{91}{subsection.10.3.1}% 
+\contentsline {section}{\numberline {10.4}Kernel regressions}{92}{section.10.4}% 
+\contentsline {section}{\numberline {10.5}Series regressions}{92}{section.10.5}% 
+\contentsline {section}{\numberline {10.6}Semiparametric regressions}{92}{section.10.6}% 
+\contentsline {chapter}{\numberline {11}Program Evaluation and Treatment Effects}{93}{chapter.11}% 
+\contentsline {section}{\numberline {11.1}Introduction}{93}{section.11.1}% 
+\contentsline {section}{\numberline {11.2}Average Treatment Effect (ATE)}{94}{section.11.2}% 
+\contentsline {subsubsection}{Nonparametric regression}{96}{section*.20}% 
+\contentsline {subsubsection}{Matching estimators}{97}{section*.21}% 
+\contentsline {subsubsection}{Propensity score}{97}{section*.22}% 
+\contentsline {subsubsection}{Propensity score matching}{98}{section*.23}% 
+\contentsline {section}{\numberline {11.3}Local Average Treatment Effect (LATE)}{99}{section.11.3}% 
+\contentsline {chapter}{\numberline {12}Regression Discontinuity Design}{100}{chapter.12}% 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2019.1.21)  13 MAY 2019 09:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2019.1.21)  13 MAY 2019 11:42
 entering extended mode
 **./7772_LectureNotes.tex
 (7772_LectureNotes.tex
@@ -1488,17 +1488,17 @@ Chapter 8.
 Chapter 9.
 (Chapters/c10_gmm.tex [78
 
-] [79] [80] [81] [82]) [83] [84]
+] [79] [80] [81] [82] [83] [84] [85]) [86]
 Chapter 10.
-(Chapters/c11_nonparamreg.tex [85
+(Chapters/c11_nonparamreg.tex [87
 
-] [86] [87] [88]) [89] [90]
+] [88] [89] [90]) [91] [92]
 Chapter 11.
-(Chapters/c12_policyeval.tex [91
+(Chapters/c12_policyeval.tex [93
 
-] [92] [93] [94] [95] [96]) [97]
+] [94] [95] [96] [97] [98]) [99]
 Chapter 12.
-(Chapters/c13_regdiscontinuity.tex) [98
+(Chapters/c13_regdiscontinuity.tex) [100
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 97.
@@ -1509,13 +1509,13 @@ Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 97.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 97.
  ) 
 Here is how much of TeX's memory you used:
- 33049 strings out of 492946
- 638064 string characters out of 3135527
+ 33059 strings out of 492946
+ 638134 string characters out of 3135527
  713299 words of memory out of 3000000
  35785 multiletter control sequences out of 15000+200000
  665906 words of font info for 276 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,16n,81p,1256b,1390s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 62i,16n,81p,1368b,1390s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/18579/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lbtn_nao
 oyc.enc}{C:/Users/18579/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libertine/lb
 tn_ki75ao.enc}{C:/Users/18579/AppData/Roaming/MiKTeX/2.9/fonts/enc/dvips/libert
@@ -1543,9 +1543,9 @@ X 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
 public/amsfonts/symbols/msam10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
 lic/amsfonts/symbols/msbm10.pfb>
-Output written on 7772_LectureNotes.pdf (99 pages, 881997 bytes).
+Output written on 7772_LectureNotes.pdf (101 pages, 890610 bytes).
 PDF statistics:
- 1110 PDF objects out of 1200 (max. 8388607)
- 366 named destinations out of 1000 (max. 500000)
+ 1128 PDF objects out of 1200 (max. 8388607)
+ 376 named destinations out of 1000 (max. 500000)
  32306 words of extra memory for PDF output out of 35830 (max. 10000000)
 

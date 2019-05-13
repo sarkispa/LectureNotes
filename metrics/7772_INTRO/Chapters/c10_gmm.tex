@@ -8,88 +8,90 @@ By looking at minimizing the average sum of squared residuals instead, we find t
 
 \subsection{Estimation}
 
-Let's go back to the question of how to estimate $\hat\theta$. By using a first-order Taylor expansion of $g(X, \theta_0)$ around $\hat\theta$, we have that: $$g(X, \theta_0)\approx g(X,\hat\theta) + \left(\frac{\partial g(X,\hat\theta)}{\partial \theta}\right)'(\theta_0 - \hat\theta) $$ implying that we could rewrite the true model as: $$Y_i \approx g(X_i,\hat\theta) + \left(\frac{\partial g(X_i,\hat\theta)}{\partial \theta}\right)'(\theta_0 - \hat\theta) + e_i $$ $$ Y_i - g(X_i,\hat\theta) + \left(\frac{\partial g(X_i,\hat\theta)}{\partial \theta}\right)'\hat\theta \approx \left(\frac{\partial g(X_i,\hat\theta)}{\partial \theta}\right)'\theta_0 + e_i $$ This last equation is essentially a linear model now, with $\theta_0$ being the coefficient that could be estimated by simple OLS. However, you do not have the first value of $\hat\theta$, hence you cannot do this regression, there are many ways to find suitable values for $\hat\theta$, two of them being interesting and useful enough to discuss here: the gradient method and the grid search.
+Estimation of the model relies on finding the parameter $\hat\theta$ that reduces the MSE of the model. As we've seen, the analytic solution to the problem might be very difficult to compute and solve, thus we need to turn to numerical methods. We cover three types of numerical estimation methods here.
 
-\subsubsection{Gradient method}
+\subsubsection{Lewbel's method (better name?)}
 
+By using a first-order Taylor expansion of $g(X, \theta_0)$ around $\hat\theta$, we have that: $$g(X, \theta_0)\approx g(X,\hat\theta) + \left(\frac{\partial g(X,\hat\theta)}{\partial \theta}\right)'(\theta_0 - \hat\theta) $$ implying that we could rewrite the true model as: $$Y_i \approx g(X_i,\hat\theta) + \left(\frac{\partial g(X_i,\hat\theta)}{\partial \theta}\right)'(\theta_0 - \hat\theta) + e_i $$ $$ Y_i - g(X_i,\hat\theta) + \left(\frac{\partial g(X_i,\hat\theta)}{\partial \theta}\right)'\hat\theta \approx \left(\frac{\partial g(X_i,\hat\theta)}{\partial \theta}\right)'\theta_0 + e_i $$ This last equation is essentially a linear model now, with $\theta_0$ being the coefficient that could be estimated by simple OLS. However, you do not have the first value of $\hat\theta$, hence you cannot do this regression, there are many ways to find suitable values for $\hat\theta$, two of them being interesting and useful enough to discuss here: the gradient method and the grid search.
 
+\subsubsection{Gradient-based methods}
 
-\subsubsection{Grid-search method}
+The previous method relied only on the functional form of the model, using $g(\cdot)$ and $g'(\cdot)$, and used a known estimation procedure in OLS. Other methods can be used to directly solve the objective function numerically (instead of approximating a linear equation). In particular, gradient based methods of optimization will use information on the gradient of $g(\cdot)$ to find the solution. While this method will be very efficient is the model is well-behaved, it could be attracted to trivial solutions or local minima when the model is not smooth enough. When this happens, we will turn to global optimization methods. 
 
+\subsubsection{Global methods}
 
+Global optimization methods relate to gradient-based ones in the sense that they take on the problem of finding the solution to the objective function, rather than working on the model analytically. However, global optimization methods do not use any information on the functional forms of the function and try to get to the optimum point by evaluating the function at many points, based on an algorithm (i.e. Nelder-Mead) or naively (i.e. grid search). While this method will not be as efficient as gradient-based methods (since it does not use any information on the function), it will perform better when the functional form might trick the gradient-based methods.
 
 \section{Extremum Estimators}
 
+Extremum estimators are a class of estimators that solve an optimization problem of the form: $$\hat\theta = \arg\max_\theta Q_n(\theta) $$
 
+We can derive the asymptotic distribution of this class of estimators under four assumptions:\begin{enumerate}
+\item The estimator is consistent (i.e. $\hat\theta \pconv \theta_0$).
+\item The true value $\theta_0$ is not on the boundary of the parameter space $\Theta$.
+\item The objective function $Q_n(\theta)$ is twice continuously differentiable.
+\item The derivative of the objective function is asymptotically linear, such that $$\sqrt{n}\left(\frac{\partial Q_n(\theta)}{\partial \theta} - \bar S_n\right) \pconv 0$$ where $\bar S_n = \avg{1}{n} S_i$ converges to a zero-mean normal distribution at rate $\sqrt{n}$, with variance matrix $\Sigma_0$.
+\end{enumerate}
+
+Let $H(\theta) = \plim \frac{\partial^2 Q_n(\theta)}{\partial\theta\partial\theta'}$, then, if $H(\theta)$ is bounded, continuous and nonsingular in the neighborhood of $\theta_0$, we have that: $$\sqrt{n}(\hat\theta - \theta)\dconv N(0, H_0^{-1}\Sigma_0 H_0^{-1}) $$
 
 \section{Generalized Method of Moments}
 
-\subsection{Method of moments}
+\subsection{Moment Equation Model}
 
-Moment equation models are models where the population parameters solve a system of moment equations. This class of models is much broader than the model that we have considered so far, and we will see how OLS, IV or MLE fall into the GMM estimation class.
+Let $g_i(\theta)$ be a vector of $l$ moments as a function of the data within the $i$-th observation and $\theta$ a $k$-dimensional unknown parameter. The moment equation model is defined as a system of $l$ equations (also called moment conditions) such that: $$\E{g_i(\theta)} = 0$$
 
-Let $g_i(\theta)$ be a $l$-dimensional observed function of a $k$-dimensional parameter vector $\theta$. A moment equation model is summarized by the moment equations: $$\E{g_i(\theta)} = 0$$ which is a $l\times k$ equation system. Hence, all properties of equation systems hold here: $l\geq k$ implies the model is just (or over) identified, leading to potentially unique solutions for $\theta$ ; $l<k$ implies underidentification. In this chapter, we will only consider the first case.
+In this system, we have $l$ equations with which we are trying to identify $k$ parameters (inside $\theta$). This implies that we will not always be able to find a unique solution to the system. In particular, if $l < k$, we have more unknown parameters than equations, it will not be possible to find a solution: the model is underidentified. If $l \geq k$, then a unique solution must exist. Moreover, if $l>k$, then we have more equations than unknowns and excessive information (which can be used for other means than identification): the model is over-identified. In this chapter, we will only discuss the case when the model is just-identified or over-identified.
 
-\subsubsection{Estimation}
+\subsection{Method of Moments Estimator}
 
-Define the sample estimator for our moment equation as: $$ \bar g_n(\theta) = \avg{1}{n} g_i(\theta) $$ The method of moments estimator (MME), denoted $\hat\theta_{MM}$ for $\theta$ is the value for which $\bar g_n(\hat\theta) = 0 $. This last equation system is named the estimating equation system.
+As we've seen in the previous section, in order to identify the parameters in $\theta$, you need to solve the moment equation model. However, the expectation of the moment conditions $g_i(\theta)$ is never observed and thus the solution cannot be computed as is. In order to go around this issue, we will use the sample analog of the expectation term: the sample average. Define $\bar g_n(\theta)$ as the sample average of the vector of moment conditions over $n$ observations. Formally, $$\bar g_n(\theta) = \avg{1}{n} g_i(\theta)$$
 
-Although this estimator seems very simple to use, it is not guaranteed that a (unique) solution can be found analytically, or even numerically. Before going further in the topic of GMM, we will look at its estimators in known cases.
+Following this, define the method of moments estimator (MME) as the value $\hat\theta$ that solves the moment equation model using the sample average: $$ \bar g_n(\hat\theta) = \avg{1}{n} g_i(\hat\theta) = 0 $$ Solutions to the system might be found analytically (OLS for example) or numerically. Note that this method works only for just-identified moment equation models, i.e. models in which $l=k$. For overidentified models, this method will be generally impossible.
 
-\subsubsection{Mean and variance of a population}
+\subsection{Generalized Method of Moments Estimator}
 
-Here, set $g_i(\mu) = y_i - \mu$, we clearly have that $\E{g_i(\mu)} = 0$. Hence, the MME is $\hat\mu$ for which $$\avg{1}{n} (y_i - \hat\mu) = 0 \Leftrightarrow \hat\mu = \avg{1}{n} y_i $$ In the more complex case where we want to estimate the mean and variance of a population, then \begin{align*}g_i(\mu,\sigma^2) = \begin{pmatrix}
-y_i - \mu \\
-(y_i - \mu)^2 - \sigma^2
-\end{pmatrix}
-\end{align*} which also gives $\E{g_i(\mu, \sigma^2)} = 0$. Here the MME would be $(\hat\mu,\hat\sigma^2)$ such that: \begin{align*}\avg{1}{n}g_i(\hat\mu,\hat\sigma^2) & = 0 \\
-\avg{1}{n} \begin{pmatrix}
-y_i - \hat\mu \\
-(y_i - \hat\mu)^2 - \hat\sigma^2
-\end{pmatrix} & = 0 \\
-\begin{pmatrix}
-\hat\mu \\
-\hat\sigma^2
-\end{pmatrix} & = \begin{pmatrix}
-\avg{1}{n} y_i \\
-\avg{1}{n}(y_i - \hat\mu)^2
-\end{pmatrix}
-\end{align*}
+For the particular case of over-identified moment equation models, we cannot find a an estimator $\theta$ that would set the sample average to 0 exactly. The second-best solution is therefore to set $\bar g_n(\theta)$ as close to zero as possible. Again, an obvious way to do that is to use Least-Squares by squaring $\bar g_n(\theta)$ and finding $\hat\theta$ to minimize it. Before doing that, we will define $W$ a weighting matrix that will help solving the model by assigning weights to moment conditions. This weighting matrix does not alter the interpretation of the problem; we are still doing least-squares but with weights. In particular, if $W = I_l$, then we are doing exactly least-squares. Hence, the GMM estimator can be defined as: $$ \hat\theta \in\arg\min_{\theta} J(\theta) \equiv n\cdot \bar g_n(\theta)'W\bar g_n(\theta) $$ The presence of $n$ in the equation does not change the solution (as it is a scalar). On the contrary, the estimator value does depend on $W$ and because of that, choosing the right $W$ is crucial to estimating the model correctly. Note that even though different $W$ can yield different estimator values, in the limit, the GMM estimator is consistent for any $W$. This means that choosing the best $W$ is important for small samples and efficiency purposes only.
 
-\subsubsection{OLS}
+\subsection{Which weighting matrix to choose?}
 
-In the OLS case, the population distribution of variables follow the simple following model: $$Y_i = X_i\beta + e_i \text{ where } e_i \sim N(0,\sigma^2) \text{ and } e_i\perp X_i $$ There are $k$ parameters to estimate in this regression (i.e. the $k$ lines in the $\beta$ vector). Thus, we require at least $k$ moment conditions to identify these parameters. Let's try and find what those moments can be. From our model, a good condition could be that $e_i\perp X_i$, implying the condition $\E{X_ie_i} = \E{X_i(Y_i - X_i\beta)} = 0$. Here, $g_{i}(\beta) = X_i(Y_i - X_i\beta)$. This is a $k\times 1$ vector, meaning that it contains in fact $k$ conditions: the model is exactly identified.
+As stated earlier, for any weighting matrix $W$, the GMM estimator will be consistent and converge in distribution to a normal distribution at rate $\sqrt{n}$. However, the variance of the estimator is dependent on $W$ since it is given by: $$ \V{\hat\theta} = (Q'WQ)^{-1}(Q'W\Omega WQ)(Q'WQ)^{-1} $$ where $\Omega = \E{g_ig_i'}$ and $Q = \E{\frac{\partial g_i(\theta)}{\partial\theta}'}$. Using this, we can find the optimal weighting matrix, which makes the GMM estimator efficient (achieves the lowest variance) as $W = \Omega^{-1}$. But as we are used to, this term is not observed so we will also need to estimate it somehow. There are multiple ways to do so.
 
-Hence the MME is $\hat\beta$ that satisfies: $$\avg{1}{n}X_i(Y_i - X_i'\hat\beta) = 0 $$ $$\avg{1}{n}[X_iY_i - X_iX_i'\hat\beta] = 0 $$ $$\avg{1}{n}X_iY_i = \avg{1}{n}X_iX_i'\hat\beta $$ $$\sum_{i=1}^{n}X_iY_i = \sum_{i=1}^{n}X_iX_i'\hat\beta $$ which finally gives: $\hat\beta = \left(\sum_{i=1}^{n}X_iX_i'\right)^{-1}\left(\sum_{i=1}^{n}X_iY_i\right) $, the OLS estimator that we know.
+First, one could not make such an effort and just go with a user-specified weighting matrix, such as $W = I_l$ for example. This will still achieve a consistent, although not efficient estimator. We call this estimator the one-step GMM.
 
-\subsubsection{IV}
+Another way would be to try and estimate $\Omega$ using its sample average (or a sligthly modified version of it): $$\hat\Omega = \avg{1}{n}\left(g_i(\hat\theta)\right)\left(g_i(\hat\theta)\right)' $$
 
-In an instrumental variables setting, the moment condition we used in the OLS case is not valid anymore. Indeed, $\E{Xe}\neq 0$, and it's exactly for that reason that we are using the $l$ instruments $Z$. Nevertheless, recall that $\E{Z_ie_i} = 0$ for instruments to be valid, or alternatively $\E{Z_i(Y_i - X_i\beta)} = 0$. Again, this implies that $g_i(\beta) =  Z_i(Y_i - X_i\beta)$, a $l\times 1$ vector, thus a $l$-moment conditions vector. If by chance $l=k$, the model is then exactly identified and we get the following method of moments estimator: $$\hat\beta_{IV} = \left(\sum_{i=1}^{n}Z_iX_i'\right)^{-1}\left(\sum_{i=1}^{n}Z_iY_i\right) $$
+$$\text{or } \hat\Omega^* = \avg{1}{n}\left(g_i(\hat\theta) - \bar g_n(\hat\theta)\right)\left(g_i(\hat\theta) - \bar g_n(\hat\theta)\right)' $$ As we can see, these estimates rely on an already estimated parameter $\hat\theta$ meaning one needs to perform a preliminary estimation of $\theta$. This also suggests multiple ways to do it.
 
-\subsection{Generalized Method of Moments}
+\subsubsection{Two-step GMM}
 
-Using the previous example of instrumental variables regression, it might be the case that the number of instruments provided is actually greater than the number of parameters to estimate. In this case, it means that we are trying to find the value of $k$ parameters that solve $l>k$ equations: the solution might not be unique. Then we need to find another way to estimate the parameters.
+As the name suggests, this procedure is composed of a first estimation of the model using GMM and a user-specified weighting matrix (usually $W = I_l$), then a second estimation using the information obtained in the first stage. In particular, the steps are detailed below: \begin{enumerate}
+\item Run a GMM estimation using $W = I_l$ (or any other weighting matrix) and recover an estimated parameter $\hat\theta$
+\item Compute an estimate of $\Omega$ using either $\hat\Omega$ or $\hat\Omega^*$. Invert it to obtain $\hat W = \hat\Omega^{-1}$.
+\item Run a second GMM estimation using $W = \hat W$ and recover $\hat\theta$ as your final estimated parameter.
+\end{enumerate} 
 
-Recall that our estimation process relied on finding $\beta$ such that $\bar g_n(X_i, \beta) = 0$. But now, this value of $\beta$ might not exist. Using the IV case as a motivating example, think of $\bar g_n(X_i, \beta)$ as being equal to $\frac{1}{n} (Z'Y - Z'X\beta)$. Further define $\mu = Z'Y$ and $G = Z'X$. Then, $Z'Y - Z'X\beta = \mu - G\beta \equiv \eta$ which we'll call the error term. Because this $\eta$ represents the difference that we are trying to set the closest possible to 0, we might want to use a well-known technique to minimize distance: the least-squares method. Write our model as $\mu = G\beta + \eta$, a simple estimate would then be: $$\hat\beta = (G'G)^{-1}G'\mu $$ However, we might have that $\eta$ is not well-behaved enough for a classical least-squares regression. In particular, it could be that $\E{\eta\eta'}\neq \sigma^2 I_n$. In this case, it might be better to use the generalized least-squares estimators. For a given weight matrix $W$, \begin{align*}\hat\beta & = (G' W G)^{-1}G' W\mu \\ & = ((Z'X)' W (Z'X))^{-1}(Z'X)' W Z'Y \\ & = (X'Z W Z'X)^{-1} X'Z W Z'Y
-\end{align*}
-This estimator minimizes the weighted sum-of-squares: $\eta' W\eta$. Now, recall that $\eta = \bar g_n(X_i, \beta)$ and hence we can rewrite our estimator $\hat\beta$ as: $$\hat \beta\in \arg\min_{\beta} [\bar g_n(X_i, \beta)]'W[\bar g_n(X_i, \beta)] $$ for a given weight matrix $W$.
+\subsubsection{Iterated GMM}
 
-\subsection{GMM Estimator properties}
+After reading the previous procedure, you might wonder why we should stop at two steps? Why not more? There is no particularly good reason to stop at two steps and you could go further by repeating the previous process until some convergence criterion is met. This would be called the iterated GMM estimator. All in all, while it requires more steps, this estimator is generally as efficient as the two-step version.
 
+\subsubsection{Continuously-updated GMM}
 
+Another question that might have popped up looking at the two-step procedure is why would we need two steps, if the only unknown in computing $\Omega$ is the object of our problem. Then the Continuously-Updated GMM estimator (CU-GMM) would be for you. It relies on plugging the estimate for $\hat\Omega$ directly into the first-stage optimization problem such that: $$ \hat\theta \in\arg\min_{\theta} J(\theta) \equiv n\cdot \bar g_n(\theta)'\left(\avg{1}{n}\left(g_i(\hat\theta)\right)\left(g_i(\hat\theta)\right)'\right)^{-1}\bar g_n(\theta) $$
+The CU-GMM estimator is not a quadratic problem in $\theta$ anymore and thus will require more advanced numerical techniques to solve. In exchange, it delivers a lower bias, although fatter tails in the distribution of $\theta$. It is not very common in application.
 
-\subsection{Efficient GMM}
+\subsection{Computing the variance}
+ 
+As always in econometrics, one will be interested in computing the variance of estimators in order to perform further analysis such as hypothesis testing, constructing confidence intervals, etc. Recall the theoretical formula for the variance: $$ \V{\hat\theta} = (Q'WQ)^{-1}(Q'W\Omega WQ)(Q'WQ)^{-1} $$ The issue here is that both $Q = \E{\frac{\partial g_i(\theta)}{\partial\theta'}}$ and $W = \E{g_ig_i'}$ are unknown, and as always, the solution is that we will have to estimate them. There are two main ways to do this: one is the ``classical way'' using previous estimates; the other is using bootstrapping.
 
+\subsubsection{Variance estimation}
 
+As we've seen in the previous section, we already have two estimators for the matrix $\Omega$, relying on the law of large numbers (i.e. using the sample average) as: $$\hat\Omega = \avg{1}{n}\left(g_i(\hat\theta)\right)\left(g_i(\hat\theta)\right)' $$
 
-\subsection{Estimation of the Efficient Weight Matrix}
+$$\text{or } \hat\Omega^* = \avg{1}{n}\left(g_i(\hat\theta) - \bar g_n(\hat\theta)\right)\left(g_i(\hat\theta) - \bar g_n(\hat\theta)\right)' $$
 
+And using the same intuition, we can estimate $Q$ using its sample average: $$\hat Q = \avg{1}{n} \frac{\partial g_i(\hat\theta)}{\partial \beta} $$
 
+\subsubsection{Bootstrap for GMM}
 
-\subsection{Variance Estimation}
-
-
-
-
-
-
+The standard bootstrap algorithm generates boostrap samples by drawing observations from the data, with replacement, until some size is met. Then, the GMM estimator is computed over this particular sample. Repeating this process $B$ times will give $B$ estimators, from which we can compute the variance, confidence intervals, etc.
