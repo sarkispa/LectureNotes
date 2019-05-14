@@ -95,14 +95,41 @@ The information matrix is the opposite of the Hessian matrix, it can be put in r
 Let $\{Z_n\}$ be any sequence of random variables following a joint distribution $f(Z_1, ..., Z_n\vert \theta)$. Under the assumptions of the MLE, $\hat\theta_{\text{ML}}$, is a consistent estimator of $\theta$.
 \end{theorem}
 \begin{proof}
+In this proof, we only need to check the assumptions on consistency of extremum estimators. First, define the objective function, denoted $Q_n(\theta)$, as the average of the log-likelihood function: $$Q_n(\theta) = \avg{1}{n} \ln f(Z_i|\theta) $$ Recall that the ML estimator is the value $\hat\theta_{ML}$ that maximizes this objective function. First of all, note that the objective function has an existing $\plim$, denoted $Q_0$ since, by Law of Large Numbers, $\plim Q_n(\theta) = \E{\ln f(Z|\theta)} \equiv Q_0(\theta)$. Now, we can go to the four conditions of consistency.
 
+First, we need to satisfy identification. For that, we need that $Q_0(\theta)$ is uniquely maximized at $\theta_0$. In this case we get: $$\hat\theta = \arg\max Q_0(\theta) $$ yielding the following FOC: $$\frac{\partial Q_0(\theta)}{\partial \theta} = 0 \Leftrightarrow \frac{\partial \E{\ln f(Z|\theta)}}{\partial \theta} = 0 \Leftrightarrow \E{\frac{\partial \ln f(Z|\theta)}{\partial \theta}} = 0 \Leftrightarrow \E{s(Z|\theta)} = 0 $$ which is satisfied for $\theta_0$ by Assumption 4 we made earlier. The SOC would be: $$\frac{\partial^2 Q_0(\theta)}{\partial \theta\partial \theta'} = \E{H(Z|\theta)} $$ which, evaluated at $\theta_0$ gives $\E{H(Z|\theta)} = -\V{s(Z|\theta_0)} < 0$.
+
+Second, the condition of compactness is satisfied by assumption.
+
+Third, smoothness of the objective function in $\theta$ is also ensured by Assumption 5.
+
+Finally, we can show that uniform convergence is satisfied using two facts. First, we have that: $$\lvert \frac{\partial Q_n(\theta)}{\partial \theta} \rvert \pconv \E{s(Z|\theta)} $$ which, in addition to the assumption that $\lvert \frac{\partial Q_n(\theta)}{\partial \theta} \rvert$ is bounded for any $n$, then we can write: $$\sup_{\theta} \lvert \frac{\partial Q_n(\theta)}{\partial \theta} \rvert = C + o_p(1) = O_p(1) $$
+
+Therefore, $\hat\theta_{ML} \pconv \theta_0$.
 \end{proof}
 
 \begin{theorem}[Asymptotic normality of the ML estimator]
 Suppose $\theta_{\text{ML}}$ is a consistent estimator of a parameter $\theta$, following the previous theorem. Then, $$\sqrt{n}(\hat\theta - \theta_0)\dconv N(0, J_0^{-1}) $$
 \end{theorem}
 \begin{proof}
+Recall that: $$\avg{1}{n} s(Z_i|\hat\theta) = 0 $$ From there, we use the mean value theorem expansion around $\tilde\theta \in [\theta_0, \hat\theta]$: \begin{align*}
+\avg{1}{n} \left[ s(Z_i|\theta_0) + \frac{\partial s(Z_i|\tilde\theta)}{\partial \theta}(\hat\theta - \theta_0)\right] & = 0 \\
+\sqrt{n} \avg{1}{n} s(Z_i|\theta_0) + \sqrt{n} \avg{1}{n} H(Z_i|\tilde\theta)(\hat\theta - \theta_0) & = 0 \\
+- \sqrt{n} \avg{1}{n} s(Z_i|\theta_0) \cdot\left[ \avg{1}{n} H(Z_i|\tilde\theta)\right]^{-1} & = \sqrt{n}(\hat\theta - \theta_0) \\
+\end{align*}
+And then we look at the asymptotic distributions of both elements separately.
 
+First, using the Lindeberg-Lévy version of the Central Limit Theorem and the fact that $\E{ \avg{1}{n} s(Z_i|\theta_0) } = 0$, we get that: \begin{align*}
+\sqrt{n}\left(\avg{1}{n} s(Z_i|\theta_0) - \E{ \avg{1}{n} s(Z_i|\theta_0) }\right) & = \sqrt{n}\cdot \avg{1}{n} s(Z_i|\theta_0) \\ &  \dconv N(0, \V{s(Z|\theta_0)})\\ &  \dconv N(0, J_0)
+\end{align*}
+
+Then, take the first-degree Taylor expansion for the term inside the bracket around $\bar\theta \in (\theta_0, \tilde{\theta})$: \begin{align*}
+\avg{1}{n} H(Z_i|\tilde\theta) = \avg{1}{n} H(Z_i|\theta_0) + \avg{1}{n} \sum_{j=1}^{k} \frac{\partial H(Z_i|\bar\theta)}{\partial \theta_j} (\bar\theta_j - \theta_0)
+\end{align*}
+From the Law of Large Numbers, we know that: $$\avg{1}{n} H(Z_i|\theta_0)\pconv \E{H(Z|\theta_0)} $$
+And using the fact that $\tilde{\theta}\pconv \theta_0$ (since it is inside $[\theta_0, \hat\theta]$), we can also write that $\bar\theta \pconv \theta_0$ so that everything left is know to be $o_p(1)$. Thus, we have that: $$\avg{1}{n} H(Z_i|\tilde\theta) \pconv \E{H(Z|\theta_0)} + o_p(1) \pconv -J_0 $$
+
+Now, combining the two elements (using Slutsky's identities) we have that: $$\sqrt{n}(\hat\theta - \theta_0) \dconv J_0^{-1} \cdot N(0, J_0) \dconv N(0, J_0^{-1}) $$ $$\Leftrightarrow \hat\theta \dconv N \left( \theta_0, \frac{J_0^{-1}}{n} \right)$$
 \end{proof}
 
 However, as should be expected by now, there is no way to compute the variance of the ML estimator using only the data, since $J_0$ is a function of the true parameter $\theta_0$: we will need to use our ML estimate to compute an estimator of $J_0$. In order to do this, one could use any of three equivalent methods:

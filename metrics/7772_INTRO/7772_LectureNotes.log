@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2019.1.21)  13 MAY 2019 12:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2019.1.21)  14 MAY 2019 09:39
 entering extended mode
 **./7772_LectureNotes.tex
 (7772_LectureNotes.tex
@@ -1456,51 +1456,51 @@ LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 10.95pt on input line 6.
  [42
 
-] [43] [44] [45] [46]
-Overfull \hbox (90.59479pt too wide) detected at line 129
+] [43] [44] [45] [46] [47] [48]
+Overfull \hbox (90.59479pt too wide) detected at line 156
 []
  []
 
-) [47]
+[49]) [50]
 Chapter 5.
-(Chapters/c06_inferencehyptests.tex [48
+(Chapters/c06_inferencehyptests.tex [51
 
-] [49] [50] [51] [52] [53]) [54]
+] [52] [53] [54] [55] [56]) [57]
 Chapter 6.
-(Chapters/c07_generalizedls.tex [55
+(Chapters/c07_generalizedls.tex [58
 
-] [56] [57]
+] [59] [60]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 44.
- [58] [59] [60]
-<images/defcorrelogram.png, id=557, 1027.84pt x 727.71875pt>
+ [61] [62] [63]
+<images/defcorrelogram.png, id=569, 1027.84pt x 727.71875pt>
 File: images/defcorrelogram.png Graphic file (type png)
 <use images/defcorrelogram.png>
 Package pdftex.def Info: images/defcorrelogram.png  used on input line 83.
 (pdftex.def)             Requested size: 256.95937pt x 181.92923pt.
- [61 <./images/defcorrelogram.png (PNG copy)>] [62] [63] [64]) [65]
+ [64 <./images/defcorrelogram.png (PNG copy)>] [65] [66] [67]) [68]
 Chapter 7.
-(Chapters/c08_dynamicmodels.tex [66
+(Chapters/c08_dynamicmodels.tex [69
 
-] [67]) [68]
+] [70]) [71]
 Chapter 8.
-(Chapters/c09_ivreg2sls.tex [69
+(Chapters/c09_ivreg2sls.tex [72
 
-] [70] [71] [72] [73] [74] [75] [76]) [77]
+] [73] [74] [75] [76] [77] [78] [79]) [80]
 Chapter 9.
-(Chapters/c10_gmm.tex [78
+(Chapters/c10_gmm.tex [81
 
-] [79] [80] [81] [82] [83] [84] [85]) [86]
+] [82] [83] [84] [85] [86] [87] [88]) [89]
 Chapter 10.
-(Chapters/c11_nonparamreg.tex [87
+(Chapters/c11_nonparamreg.tex [90
 
-] [88] [89] [90] [91] [92] [93] [94] [95]
-[96] [97] [98] [99] [100] [101] [102]) [103]
+] [91] [92] [93] [94] [95] [96] [97] [98]
+[99] [100] [101] [102] [103] [104] [105]) [106]
 Chapter 11.
-(Chapters/c12_policyeval.tex [104
+(Chapters/c12_policyeval.tex [107
 
-] [105] [106]
+] [108] [109]
 Overfull \hbox (4.57237pt too wide) in paragraph at lines 25--26
 []\T1/LinuxLibertineT-TLF/m/n/12 (-20) Under the same as-sump-tion, we also get
  that $[] [] \OT1/cmr/m/n/12 = [] [] = [] []$
@@ -1514,14 +1514,14 @@ m/m/it/12 x\OT1/cmr/m/n/12 ) = [] [] d\OML/cmm/m/it/12 F\OT1/cmr/m/n/12 (\OML/c
 mm/m/it/12 x\OT1/cmr/m/n/12 )
  []
 
-[107] [108]
+[110] [111]
 Overfull \hbox (0.20819pt too wide) in paragraph at lines 52--53
 \T1/LinuxLibertineT-TLF/m/n/12 (-20) where $[]\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12
  \OT1/cmr/m/n/12 )$ \T1/LinuxLibertineT-TLF/m/n/12 (-20) can be any first-stag
 e es-ti-ma-tor of the propen-sity score (non-parametric,
  []
 
-[109] [110] [111] [112]
+[112] [113] [114] [115]
 Overfull \hbox (10.68367pt too wide) detected at line 132
 []
  []
@@ -1532,16 +1532,16 @@ Overfull \hbox (9.3497pt too wide) in paragraph at lines 132--133
 the sam-ple, for-mally, that $[] []$
  []
 
-[113] [114]
+[116] [117]
 Overfull \hbox (14.16325pt too wide) detected at line 153
 \OML/cmm/m/it/12 ATE \OT1/cmr/m/n/12 = [][] [] [] d\OML/cmm/m/it/12 p \OT1/cmr/
 m/n/12 = [][] \OML/cmm/m/it/12 @[] [] [] \OT1/cmr/m/n/12 d\OML/cmm/m/it/12 p \O
 T1/cmr/m/n/12 = [] [] \OMS/cmsy/m/n/12   [] []
  []
 
-) [115]
+) [118]
 Chapter 12.
-(Chapters/c13_regdiscontinuity.tex) [116
+(Chapters/c13_regdiscontinuity.tex) [119
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 98.
@@ -1552,8 +1552,8 @@ Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 98.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 98.
  ) 
 Here is how much of TeX's memory you used:
- 33302 strings out of 492946
- 640576 string characters out of 3135527
+ 33305 strings out of 492946
+ 640600 string characters out of 3135527
  713392 words of memory out of 3000000
  35989 multiletter control sequences out of 15000+200000
  665535 words of font info for 274 fonts, out of 3000000 for 9000
@@ -1586,9 +1586,9 @@ X 2.9/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/
 public/amsfonts/symbols/msam10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
 lic/amsfonts/symbols/msbm10.pfb>
-Output written on 7772_LectureNotes.pdf (117 pages, 950958 bytes).
+Output written on 7772_LectureNotes.pdf (120 pages, 959541 bytes).
 PDF statistics:
- 1215 PDF objects out of 1440 (max. 8388607)
- 415 named destinations out of 1000 (max. 500000)
+ 1227 PDF objects out of 1440 (max. 8388607)
+ 418 named destinations out of 1000 (max. 500000)
  32282 words of extra memory for PDF output out of 35830 (max. 10000000)
 
