@@ -1,22 +1,49 @@
-\section{"Plain-vanilla" Logit}
+\section{Identification of Choice Models}
 
-\subsection{Overview}
+In order to identify all choice models we are going to see in this chapter, we will need to make several specification assumptions. These assumptions will allow us to go around two main issues that arise because of the choice process. These issues can be summarized in two statements: ``only differences in utility matter'' and ``the scale of utility is arbitrary''.
 
-Recall that in the pure logit model, each product has a mean quality level $\delta_j$ that incorporates the characteristics of the product as well as its price, and an idiosyncratic error term $\varepsilon_{ij}$ that is drawn iid, from a Type-I Extreme Value (or Gumbel) distribution. The Gumbel distribution has a pdf of $f(x) = e^{-x}e^{-e^{-x}}$ and a cdf of $F(x) = e^{-e^{-x}}$. We assume the variance of that distribution to be equal to $\pi^2/6$ which will normalize the scale of utility as we'll see later. The mean of the distribution is non-zero but we'll see shortly why it is not an issue. Formally, the utility derived from consumption of a good $j$ by consumer $i$ is written as: $$ U_{ij} = \delta_j + \varepsilon_{ij} $$ where $\delta_j = X_j\beta - \alpha p_j + \xi_j$. We say that a consumer chooses a good $j$ over $k$ if and only if his utility from good $j$ is strictly higher than from good $k$.
+\subsection{Only Differences in Utility Matter}
 
-Therefore, the probability that consumer $i$ buys good $j$ is the probability that he chooses $j$ over any $k$: \begin{align*} P_{ij} = \prob{U_{ij}>U_{ik}\text{ for all } j\neq k} & = \prob{\delta_j + \varepsilon_{ij} >\delta_k + \varepsilon_{ik}\text{ for all } j\neq k} \\
-& = \prob{ \varepsilon_{ij} - \varepsilon_{ik} >\delta_k - \delta_j \text{ for all } j\neq k }
-\end{align*} 
+Recall the choice process between products as described in the previous chapter: a consumer $i$ will choose a product $j$ over its alternatives if the utility derived from $j$, denoted $U_{ij}$ is greater than of all other alternatives. This means that the consumer will choose the product with the greatest perceived utility, and adding the same constant to all alternatives will not change the decision. This phenomenon has a particularly important implication: only parameters that capture differences across alternatives can be identified.
 
-It turns out that if $\varepsilon_{ij}$ and $\varepsilon_{ik}$ follow a type-I extreme value distribution independently, then the difference between both follows a logistic distribution with cdf $F(x) = \frac{e^{x}}{1+e^{x}}$. This form of the probability also tells us that constant terms in the utility across products do not matter since we consider only $\delta_j - \delta_k$ which exactly cancels any constant that we could observe. Knowing this fact, we have to ``select'' a single model by normalizing utility by substracting a same constant to all values, in particular, we can set the utility of an outside good to 0, so that $\delta_0 = 0$.
+\subsubsection{Product-specific constants}
 
-Since all error terms are independent of each other, we can write the following:\begin{align*} P_{ij}\vert \varepsilon_{ij} & = \prob{ \varepsilon_{ik} < \varepsilon_{ij} + \delta_j - \delta_k \text{ for all } j\neq k } \\ & = \prod_{k\neq j} F(\varepsilon_{ij} + \delta_j - \delta_k)
-\end{align*} and since $\varepsilon_{ij}$ is not known, we compute the unconditional probability by integrating over all possible values of $\varepsilon_{ij}$ from the Gumbel distribution: $$ P_{ij} = \int \left(\prod_{k\neq j} F(\varepsilon_{ij} + \delta_j - \delta_k)\right) f(\varepsilon_{ij})\D\varepsilon_{ij} = \frac{ e^{\delta_{j}} }{ \sum_{k=0}^{J} e^{\delta_{k}} } $$
+It is often reasonable to include an unobserved product-specific constant in the utility derived from a product $j$ such that $U_{ij} = V_{ij} + \varepsilon_{ij} $, where $$V_{ij} = X_j\beta + \xi_j $$ However, since only differences in utility matter, we will only be able to capture difference between $\xi$s, not their absolute level. To see that consider a binary choice model where $\tilde{\xi_{j}} - \tilde{\xi_{k}} = \xi_j - \xi_k$, then, we would have $$ U_{ij} > U_{ik} \Leftrightarrow \tilde{U_{ij}} > \tilde{U_{ik}} $$ and we would not be able to identify which value of $\xi$ or $\tilde{\xi}$ is the right one. That is why, in a model with $J$ alternatives, at most $J-1$ alternative specific constant can enter the model, and one product must have its $\xi$ normalized to zero.
 
-You can see that the probability of consumer $i$ buying good $j$ does not depend on any individual-only parameter or variable, so that we can express this probability of buying a good as the market share of that good $s_j$. Moreover, since we assume that utility for the outside good was 0, we have that $e^{\delta_0} = 1$. This yields the following market shares: $$s_j(\theta) = \frac{\exp(\delta_j)}{1 + \sum_{k} \exp(\delta_{k})} $$ $$s_0(\theta) = \frac{1}{1 + \sum_{k} \exp(\delta_{k})} $$
+\subsection{Irrelevance of utility scale}
+
+Just as adding a constant to the utility of all alternatives does
+not change the decision maker’s choice, neither does multiplying each
+alternative’s utility by a constant, i.e. the product with the highest utility would stay the same. The scale of utility and the variance of the error term are linked by definition, since multiplying $U_{ij}$ by a constant $\lambda$ for all $j$ would imply multiplying the variance of $\varepsilon_{ij}$ by $\lambda^2$ for all $j$. That is why the econometrician will have to normalize the model by normalizing the variance of the error term.
+
+\subsubsection{Normalization with iid errors}
+
+In the case of iid error terms, normalizing the variance is straightforward since normalizing the variance of one error term will normalize the variance of all error terms.
+
+\subsubsection{Normalization with heteroskedastic errors}
+
+In the case of heteroskedastic error terms, when at least one segment of the population/alternatives has a different variance than other segments, normalizing the model has to be done by normalizing the variance of one segment and estimating the variance for all others relative to that segment.
+
+\subsubsection{Normalization with correlated errors}
+
+Finally, when the error term is correlated across products, normalizing for scale is more of an issue, indeed, in that case, normalizing the variance for one product is not enough to normalize the variance of other products. The solution is to set the variance of one of the error differences to a number, then estimating all other variances and covariances relative to the constant.
+
+\section{``Plain-vanilla'' Logit}
+
+\subsection{Choice probabilities}
+
+To derive the logit model, recall the notation used in the previous chapter where each product has a mean quality level $\delta_j$ that incorporates the characteristics of the product as well as its price, and an idiosyncratic error term $\varepsilon_{ij}$. Thus, we have: $$ U_{ij} = \delta_j + \varepsilon_{ij} $$ In the logit model, we assume that the error term is drawn iid, from a Type-I Extreme Value (or Gumbel) distribution. The Gumbel distribution has the following laws of probability: $$ f(x) = e^{-x}e^{-e^{-x}} \text{ and } F(x) = e^{-e^{-x}} $$ Moreover, the variance of the distribution is assumed to be $\pi^2/6$; this assumption is crucial for identification since it implies normalization of the scale of utility (this is explained in the first section of this chapter). The mean of this distribution is not 0 (!) but since only differences between utility levels are important, this fact will not cause any issues. Finally, this distribution assumption allows us to have a closed-form solution for the distribution of the difference between two error terms: specifically, let $\tilde \varepsilon_{ijk} = \varepsilon{ij} - \varepsilon{ik}$, we have that: $$ F(\tilde \varepsilon_{ijk}) = \frac{\exp(\tilde \varepsilon_{ijk})}{1 + \exp(\tilde \varepsilon_{ijk})} $$ This distribution law is almost exactly the same as the Normal distribution, so that even if the extreme-value assumption gives fatter tails and slight asymmetry, we get back a Normal distribution in the differences. Nevertheless, note that the shape of the distribution is not that important and that the more important assumption is independence of errors, which requires a well-specified model to be justifiable (i.e. no missing variables, etc.). The independence assumption also requires that the unobserved part of utility for each product ($\varepsilon_{ij}$) is completely independent with respect to other products! In other words, taste for products cannot be correlated in an unobserved way. If this is the case, then we need to use other models that will be described later.
+
+The probability that consumer $i$ buys good $j$, given $\varepsilon_{ij}$, is the conditional probability that he chooses $j$ over all other $k$: \begin{align*} P_{ij}|\varepsilon_{ij} = \prob{U_{ij}>U_{ik}\text{ for all } j\neq k | \varepsilon_{ij} } & = \prob{\delta_j + \varepsilon_{ij} >\delta_k + \varepsilon_{ik}\text{ for all } j\neq k} \\
+& = \prob{ \varepsilon_{ik} < \varepsilon_{ij} + \delta_j - \delta_k \text{ for all } j\neq k } \\
+& = \prod_{j\neq k} F(\varepsilon_{ij} + \delta_j - \delta_k) \text{ (by indep.)}
+\end{align*}
+We can then proceed to compute the unconditional probability by integrating over all possible values of $\varepsilon_{ij}$ from the Gumbel distribution: $$ P_{ij} = \int \left(\prod_{k\neq j} F(\varepsilon_{ij} + \delta_j - \delta_k)\right) f(\varepsilon_{ij})\D\varepsilon_{ij} = \frac{ e^{\delta_{j}} }{ \sum_{k=0}^{J} e^{\delta_{k}} } $$ which is called the logit choice probability, and also equivalent to the market share of product $j$, under the assumption that all consumers are identical in their distributions.
+
+\subsubsection{Some properties}
 
 This model is very practical in the sense it is very easy to set up and displays several desirable properties:\begin{itemize}
-\item $s_j = P_{ij}\in(0,1)$ so that any market share can be rationalized by the model.
+\item $s_j = P_{ij}\in(0,1)$ so that any market share can be rationalized by the model, except in extreme cases with only one product having all the sales (in those cases we would not want a logit model anyway), or some products having no sales (then we should take them out of the sample).
 \item As $\delta_{j}$ increases, reflecting higher attributed quality, the market share will increase to 1. If $\delta_j$ decreases, then the market share goes to 0. However, note that these results only hold at the limit, meaning a good will never have a market share equal to 0 or 1. If that is the case in the data, the researcher should take the product out of the dataset. This is why estimating a logit model must be done on a time-period long enough so that all goods considered have been sold at least once (think about vending machines).
 \item $\sum_j s_j = 1$, meaning that one alternative will be chosen, always.
 \item $s_j = P_{ij}$ is everywhere continuously differentiable in the characteristics $\delta_{j}$ and in price $p_j$.
@@ -27,6 +54,13 @@ The last point is useful to compute price derivatives (and elasticities): \begin
 & = - \alpha \cdot \frac{e^\delta_j}{1 + \sum_{k}e^\delta_j} \cdot \frac{1 + \sum_{k}e^\delta_k - e^\delta_j}{1 + \sum_{k}e^\delta_k} \\
 & = - \alpha s_j (1 - s_j)
 \end{align*} And using the same method, we find $\partial s_j(\theta)/\partial p_k = \alpha s_j s_k $
+
+\subsubsection{Characterizing mean utility}
+
+The estimation of the mean quality characteristic $\delta_j$ can be done over a set of non-price characteristics $X_j$. In particular, consider the following:
+$$ \delta_j = X_j\beta - \alpha p_j + \xi_j $$ where $\alpha$ and $\beta$ are taste parameters for the given characteristics and $\xi_j$ is an independent, unobserved mean utility shock. This shock is important in order to rationalize any pattern of market shares (suppose a product has better characteristics in every way but still has lower shares).
+
+As introduced in the first section of this chapter, product-specific constants can only be estimated by normalizing the $\xi$ of one product to a constant. Here, the choice is already made since the outside good has a zero utility by assumption. However, another issue arises by introducing this term. Iif consumers know $\xi_j$, firms must also know it and price their products accordingly. This introduces endogeneity in the error term with respect to prices. Thus, the econometrician needs instruments to correct for that endogeneity. Typically, these instruments include cost shifters that would not affect intrinsic demand for the good but would definitely have an effect on prices. Note that any non-price characteristic included in $X_j$ that would also be correlated with the unobservable characteristics $\xi_j$ needs to be instrumented as well.
 
 \subsection{Logit and taste variation}\label{sssec:tastevar}
 
@@ -39,17 +73,6 @@ As an example, consider the choice of households between cars, where two charact
 In contrast, suppose taste variation was subject to an error term such that $\beta_i = \rho M_i + \mu_i$ where $\mu_i$ is non-observable (a random variable). Then the utility would be written as: $$U_{ij} = \rho M_i x_j - \theta p_j/I_i + \varepsilon_{ij} + \mu_ix_j $$ and the logit would confound the error term with $\tilde\varepsilon_{ij} = \varepsilon_{ij} + \mu_ix_j$ which is clearly correlated across product specifications and households.
 
 Bottomline is logit models can handle systematic taste variation but not random taste variation. For the latter, we will need more complex models, such as the BLP model studied in the next chapter.
-
-\subsection{Too-many-parameters problem}
-
-The estimation of the quality characteristic $\delta_j$ is done over the set of non-price characteristics $X_j$. In particular, recall that we've seen that:
-$$ \delta_j = X_j\beta - \alpha p_j + \xi_j $$ 
-
-In order to identify correctly this quality term, we need that the number of different observed characteristics (the dimension of $X_j$, say $k$) is smaller than the number of products $j$. This also means that we will need to include the term $\xi_j$ in our regression in order to explain any pattern of market shares that would be unobserved by the econometrician.
-
-However, if consumers know $\xi_j$, firms must also know it and price their products accordingly. This introduces endogeneity in the error term with respect to prices. Thus, the econometrician needs instruments to correct for that endogeneity. Typically, these instruments include cost shifters that would not affect intrinsic demand for the good but would definitely have an effect on prices.
-
-Note that any non-price characteristic included in $X_j$ that would also be correlated with the unobservable characteristics $\xi_j$ needs to be instrumented as well.
 
 \subsection{Derivatives and Elasticities}
 
@@ -119,7 +142,9 @@ Identification comes in different flavors:\begin{itemize}
 
 \section{Multinomial Probit}
 
-The multinomial probit is a more flexible alternative to the simple logit model. In fact, by allowing errors $\varepsilon_{ij}$ to be correlated (not iid) and to follow a multivariate normal distribution $N(\mu, \Sigma)$ that is completely free, it achieves more interesting outcomes than the simple logit. For example, with an unrestricted variance matrix $\Sigma$, you could end up with substitution patterns that are more...
+\subsection{Choice probabilities}
+
+
 
 \section{GMM Estimation Strategy for Product-level data}
 
