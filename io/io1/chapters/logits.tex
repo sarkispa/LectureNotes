@@ -142,11 +142,25 @@ Identification comes in different flavors:\begin{itemize}
 
 \section{Multinomial Probit}
 
+\subsection{Intuition}
+
+The two previous models covered in this chapter had two main issues: they cannot handle random taste variation and they imply restrictive substitution patterns due to IIA (even though the nested logit solves this issue in some way). The multinomial probit on the other side, is not affected by these two issues at all. In essence, the MNP approach allows for correlation between choices thanks to a flexible covariance matrix of the errors.
+
 \subsection{Choice probabilities}
 
+As in the general case, we start with writing the individual (unconditional) probability of choosing product $j$: \begin{align*} P_{ij} & = \E{\prob{U_{ij}>U_{ik}\text{ for all } j\neq k | \varepsilon_{ij} }} \\ & = \E{\prob{\delta_j + \varepsilon_{ij} >\delta_k + \varepsilon_{ik}\text{ for all } j\neq k| \varepsilon_{ij}}} \\
+& =\E{ \prob{ \varepsilon_{ik} < \varepsilon_{ij} + \delta_j - \delta_k \text{ for all } j\neq k| \varepsilon_{ij} }} \\
+& = \int \prod_{j\neq k} F(\varepsilon_{ij} + \delta_j - \delta_k) f(\varepsilon_{ij})\D \varepsilon_{ij}
+\end{align*}
+But in the multinomial probit case, the law of probability for $\varepsilon_{ij}$ depends on all the other error terms! Thus we have correlation between choices, that we estimate.
 
+Formally, we have: $$ \varepsilon_i \sim N(\mu, \Omega) $$ where $\varepsilon_i$ is the vector of all product error terms. This means that $\Omega$ is a $(J+1)^2$-elements symmetric matrix. In practice, we restrict $\mu$ to be 0 (especially if we estimate $\xi$s), but following the first section of this chapter we will also need to restrict the variance of the error terms heavily. In fact, as mentioned in that section, in the case of iid but correlated error terms, we need to normalize one diagonal term of the error-differences distribution and estimate the other terms relative to that term.
 
-\section{GMM Estimation Strategy for Product-level data}
+\subsection{Applications}
+
+The MNP approach is interesting in most cases where choice correlations are important, but is limited by the fact that data requirements get huge when we increase the number of products.
+
+\section{Estimation Strategy for Product-level data}
 
 The general estimation strategy that applies to logit models with product-level data is detailed in the following steps:\begin{enumerate}
 \item Assume that data is drawn from markets with large $n$.
@@ -167,22 +181,24 @@ In the same way as in the simple logit model, our main objective is to get the l
 
 \subsection{Endogeneity issues}
 
+\subsubsection{Simultaneity}
+
 Regardless of the model we use, we will have to deal with endogeneity issues regarding many dimensions, such as prices, observable characteristics or market shares. 
 
 In fact, in both models price was correlated to the unobservable term as firms make their decision based on demand which includes this term; moreover, in the nested logit case, we also have to deal with endogeneity in the within-share term. In general, anything that is correlated with the unobservable quality term $\xi$ will have to be instrumented.
 
+\subsubsection{Measurement errors}
 
+Measurement errors in observed prices, characteristics or quantities may also create difficulties for the estimation procedure outlined above. Prices enter linearly in the estimation and are already endogenous so that these errors do not create too important biases. However, when these errors are present in market shares or quantities data then this issue becomes more important. Indeed, market share data is used to invert the model and get the unobservable term as a function of observed data. If shares include measurement errors, the non-linear inversion will accentuate the errors in a non-tractable way, creating a lot of issues in estimation. In practice, maximum likelihood will not have this kind of issue, but will make IV strategies harder.
 
-In the particular case of the nested logit model, you should realize that conditional market shares and actual market shares depend on the same "function", which means we also need to instrument for one of these shares. ...
+\subsubsection{Identification}
 
-\subsection{Measurement errors}
+For identification, we need to satisfy orthogonality conditions between $\xi_j$ and the covariates (product characteristics $x_j$ and price $p_j$). As discussed earlier, price will for sure be endogenous, so we need at least one instrument for this. Formally, we need a set of instruments $w$ such that $\E{\xi|x, w} = 0$. 
 
-Measurement errors in observed prices, characteristics or quantities may also create difficulties for the estimation procedure outlined above. Prices enter linearly in the estimation and are already endogenous so that these errors do not create too important biases. However, when these errors are present in market shares or quantities data then this issue becomes more important. Indeed, market share data is used to invert the model and get the unobservable term as a function of observed data. This non-linear inversion will in fact be very sensitive to measurement errors in the market shares.
+In practice, the instruments for price will include ``cost-shifters'' (i.e. variables that affect price without affecting demand).
 
 \subsection{Adding supply-side restrictions}
 
-
-
-\section{Individual-level data}
+It is also possible to get more orthogonality conditions by adding a supply-side to the demand system. Essentially, this means adding the firms' decisions about prices as moment conditions. To do this, we have to assume two things: (1) the firms' cost functions and (2) the competition model. Then, using the FOCs of the firms, one can recover extra moments to use in combination of the $\xi$ moments to estimate the demand system by GMM.
 
 
