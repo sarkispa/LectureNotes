@@ -1,3 +1,48 @@
+This chapter provides a more rigorous introduction to estimation of models through the use of inequality restrictions, henceforth called moment inequalities. We have seen them in the previous chapter on entry, but they can be applied more generally to any type of games that would yield cumbersome computations using traditional methods, or for estimation when data are imperfect.
+
+\section{Framework}
+
+\subsection{The agent's decision problem}
+
+Consider a situation with $n$ decision makers indexed by $i$, having access to their own information set $I_i$ when decisions are made and $D_i$ the set of available decisions. The strategy played by agent $i$ is a mapping $s_i:I \to D$ (from information to action), such that it generates the observed decisions $d_i$ (which could be a vector). 
+
+The profit function of agent $i$ is determined by his decision ($d_i$), the other agents' decisions ($d_{-i}$) and other environment variables $y_i$. At the time of the decision, the agent has expectations over what happens in the game ($\pi(\cdot)$, $s_i$, $I_i$ and $Y_i$); they are denoted by $\mathcal{E}\left[\cdot\right]$, which is not the same operator as the typical expectation operator.
+
+\subsubsection{Best-response condition (Nash)}
+
+If $d_i$ is the observed decision of player $i$, we assume: $$ \sup_{d\in\D_i} \mathcal{E}\left[ \pi(d, d_{-i}, y_i) | I_i \right] \leq \mathcal{E}\left[ \pi(d_i, d_{-i}, y_i) | I_i \right]  \text{ for all } i = 1, ..., n $$
+
+Quite obviously, we can see this assumption as an assumption for ``rationality'', meaning that at the time of the decision, the agent chose the best option. In single agent problems, this comes directly from optimization behavior, while in games, it is only a necessary condition for a Bayes-Nash equilibrium to be played, but it does not rule out multiple equilibria, or restrict the selection between equilibria.
+
+\subsubsection{Counterfactual condition}
+
+In order for the agents to ensure optimal behavior, they need to evaluate the alternative decisions in their counterfactual environment. Thus we need to define what happens to $d_{-i}$ and $y_i$ following the decision of agent $i$. Note that in single-agent problems and simultaneous games, the counterfactual is assumed away using a conditional independence assumption.
+
+In other cases, we assume that $y_i = y(z_i, d, d_{-i})$ and that the distribution of $(d_i, z_i)$ conditional on $I_i$ and $d$ do not depend on $d$. In words, this assumption means that environment variables $y_i$ depend only on variables $z_i$ and decisions by the agents (which are all exogenous conditional on $I_i$ and $d$).
+
+Using this, we define the ``differential profit'' as: $$\Delta\pi(d, d', d_{-i}, z_i) = \pi(d, d_{-i}, y(z_i, d, d_{-i})) - \pi(d', d_{-i}, y(z_i, d', d_{-i})) $$ as the difference in profits between two decisions.
+
+Finally, we rewrite the first condition as: $$ \mathcal{E}\left[ \Delta\pi(d_i, d, d_{-i}, z_i) | I_i \right] \geq 0  \text{ for all } i = 1, ..., n $$
+
+This might seem like the inequality to use in estimation, however, recall that the expectation is only the agent's so we need to recover empirical analogues of these in order to use them.
+
+\subsection{Observables and disturbances}
+
+We assume that the econometrician has a parametric function, denoted $r(\cdot)$, that approximates $\pi(\cdot)$ given arguments $d_i$, $d_{-i}$,  observable variables of $z_i$, denoted $z_i^o$ and unknown parameters $\theta$ to estimate.
+
+Using that function, we can approximate the differential profit with $\Delta r(d, d', d_{-i}, z_i^o, \theta)$. From there, define two types of errors: \begin{align*}
+\nu_{2, i, d, d'} & = \mathcal{E}\left[ \Delta\pi(d, d', d_{-i}, z_i) | I_i \right] - \mathcal{E}\left[ \Delta r(d, d', d_{-i}, z_i^o, \theta) | I_i \right] \\ \nu_{1, i, d, d'} & = \nu_{1, i, d, d'}^\pi - \nu_{1, i, d, d'}^r \\ \nu_{1, i, d, d'}^\pi & = \Delta\pi(d_i, d, d_{-i}, z_i) - \mathcal{E}\left[ \Delta\pi(d_i, d, d_{-i}, z_i) | I_i \right] \\ \nu_{1, i, d, d'}^r & = \Delta r(d, d', d_{-i}, z_i^o, \theta) - \mathcal{E}\left[\Delta r(d, d', d_{-i}, z_i^o, \theta)|I_i\right]
+\end{align*}
+that we refer to in general as $\nu_{2,i}$ and $\nu_{1,i}$ (composed of $\nu_{1,i}^\pi$ and $\nu_{1,i}^r$). Note that the first error, while not observed by the econometrician, is a part of the information set $I_i$ of the agent (he ``knows'' $\nu_{2,i}$). The second error is not observed by either the agent nor the econometrician.
+
+\subsection{Moment inequalities}
+
+
+
+\section{Applications}
+
+
+
 %\subsection{Discrete games}
 %
 %Let $\pi(\cdot)$ be the profit function (continuation value) earned in the second period, $d_i$ and $d_{-i}$ be agent $i$'s and its competitors' discrete decisions respectively, $y_i$ be the set of variables that affect the agent's profits, $D_i$ be the choice set (of decisions) and $I_i$ the information set. Further, denote as $\mathcal{E}\left[ \cdot | I_i \right] $ the agent's expectation (note that we do not use the usual expectation term because we want to differentiate from the ``econometric'' expectation we usually use).

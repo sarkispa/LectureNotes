@@ -1,0 +1,65 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{microtype}
+\usepackage{libertine}
+\usepackage{amsmath,amsthm}
+\usepackage[varg]{newtxmath}
+\usepackage{setspace,graphicx,epstopdf}
+\usepackage{marginnote,datetime,url,enumitem,subfigure,rotating}
+\usepackage{multirow}
+\usepackage{xfrac}
+\usepackage[openlevel=3]{bookmark}
+\usepackage[tikz]{bclogo}
+\usepackage{enumitem}
+
+\setcounter{tocdepth}{2}
+
+\def\D{\mathrm{d}}
+
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1em}%Espacement des par
+
+\setlist[itemize]{topsep=-6pt, itemsep=-1pt}
+\setlist[enumerate]{topsep=-6pt, itemsep=-1pt}
+
+\newcommand{\smalltodo}[2][] {\todo[caption={#2}, size=\scriptsize,%
+fancyline, #1]{\begin{spacing}{.5}#2\end{spacing}}}
+\newcommand{\rhs}[2][]{\smalltodo[color=green!30,#1]{{\bf PS:} #2}}
+
+\newcommand{\E}[1]{\operatorname{E}\left[#1\right]}
+\newcommand{\Et}[1]{\operatorname{E}_t\left[#1\right]}
+\newcommand{\V}[1]{\operatorname{Var}\left[#1\right]}
+\newcommand{\cov}[1]{\operatorname{Cov}\left(#1\right)}
+\newcommand{\covt}[1]{\operatorname{Cov}_t\left(#1\right)}
+\newcommand{\avg}[2]{\frac{#1}{#2} \sum_{i=#1}^{#2}}
+\def\D{\mathrm{d}}
+\newcommand{\prob}[1]{\operatorname{Pr}\left[#1\right]}
+
+
+\begin{document}
+
+\date{}
+\title{\textbf{\huge{ECON8854 - Industrial Organization II}}\\ \textit{Lecture Notes from Charlie Murry and Michael Grubb's lectures}}
+\author{Paul Anthony Sarkis\\ Boston College} 
+ 
+\maketitle
+
+\tableofcontents
+
+
+\chapter{Nonlinear Pricing}
+\input{chapters/nlp}
+
+\chapter{Search}
+\input{chapters/search}
+
+
+\chapter{Switching Costs}
+\input{chapters/switchcosts}
+
+\chapter{Learning}
+\input{chapters/learning}
+
+
+\end{document}
