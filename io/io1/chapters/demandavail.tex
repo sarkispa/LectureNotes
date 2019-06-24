@@ -1,3 +1,101 @@
 \section{Introduction}
 
-Previous chapters have introduced demand estimation under 
+As we have seen in the previous chapters, many common models of demand estimation assume that the set of available choices (the ``availability set'') is the same for all agents. While this assumption simplified computations by a lot, it may be a poor approximation of reality (think of retail environments). In fact, many consumers in many settings might encounter stockouts of products they intended to purchase. Moreover, availability variation can also come from assortment decisions (different stores displaying different products) or imperfect consideration (consumers not being aware of some alternatives). If availability variation arise exogenously, it could provide helpful sources of identification but in all cases, ignoring this variation will bias estimation.
+
+There are three main sources of availability variation, from most to least aggregated:\begin{itemize}
+\item Assortment selection
+\item Stockout events
+\item Limited consumer information
+\end{itemize}
+This chapter will focus mainly on the first two, in relation to demand estimation (note that these topics might also be important on the supply-side).
+
+\section{Assortment variation}
+
+Understanding the effects of assortment on sales is mostly useful for two groups of agents: economists and policymakers who use demand estimates to evaluate welfare; and firms who want to explore these issues to come up with optimal choices.
+
+Assortment variation is very prevalent in markets. For example, Tenn and Yun (2008) show that in grocery stores, 16\% to 33\% of sales happen in a time of intermediate availability. Bruno and Vilcassim (2008) show that in the confections market, the median availability of products is only 80\%. If we consider time-series, we can see even more variability as Tenn and Yun explain by showing that only a third of products are available within a year and a third are discontinued every year.
+
+Depending on the dataset, we can separate the problem of estimating demand with assortment variation in two cases: (1) assortment variation is unobserved and (2) assortment variation is observed.
+
+\subsection{Unobserved assortment variation}
+
+There are three main papers that discuss the challenges of estimating demand with unobserved assortment variation, using market-level data. The first one (Tenn, 2009) examines the sufficient assumptions for consistent estimates of own and cross-price elasticities in a linear demand model in product space. The second one (Tenn and Yun, 2008) explores the biases that arise due to assortment variation in logit types of model. Finally, Bruno and Vilcassim (2008) propose a method to account for this variation using additional assumptions.
+
+\subsubsection{Tenn (2009)}
+
+Tenn (2009) explores the potential issues of estimating linear demand using aggregate market-level data while ignoring assortment variation. The paper comes up with three conditions under which such a model would still yield consistent estimates:\begin{itemize}
+\item All prices within a market are the same, or in other words, all stores carry products at the same price.
+\item The fraction of stores that carry a product within a market is fixed across markets.
+\item Demand for each product is independent of the assortment.
+\end{itemize}
+Note how these assumptions are very strict and will be violated in many settings.
+
+They show that the plim of estimated elasticities (again, when assortment is not accounted for) is given by: $$\bar \varepsilon_{jkm} = \E{\varepsilon_{jkm}^g|j, k\in g} \cdot \prob{k\in g|j\in g} $$ where $\varepsilon_{jkm}^g$ is the cross-price elasticity of product $j$ with respect to $k$, given the assortment $g$ (the object of interest). Intuitively, this means that $\bar \varepsilon_{jkm}$ is an ``attenuated'' (multiplied by a probability between 0 and 1) average of the elasticity for consumers who were presented assortments containing both $j$ and $k$. In that regard, it will be biased towards 0! In the particular case of own-price elasticities however, this bias is absent since $\prob{j\in g|j\in g} = 1$.
+
+\subsubsection{Tenn and Yun (2008)}
+
+Tenn and Yun (2008) consider a more complex model of demand in a standard logit. Utility derived from choosing good $j$ in market $m$ is given by the equation seen in chapter 2: $ U_{ijm} = X_{jm}\beta - \alpha p_{jm} + \xi_{jm} + \varepsilon_{ijm} $, which yields the same type of elasticities: $$ \varepsilon_{jmr} = -\alpha p_{jm} (1 - s_{jmr}) \text{ for all } j \in J_{mr} $$ $$ \varepsilon_{jkmr} = \alpha p_{km} s_{kmr} \text{ for all } j, k \in J_{mr} : j\neq k $$
+Which at first do not seem biased, but in fact are because of (1) price coefficient bias and (2) elasticity estimates bias!
+
+The price coefficient $\alpha$ can be biased in two ways. First, there might be an omitted variable bias, that arises with the failure to account for heterogenous retailers. In fact, a homogenous model such as the ones seen in chapter 2, will ignore the variation in availability of products ($X_{jm}$ does not include a measure of availability, since it is not measured), thus introducing bias in the estimates. The second source of bias in the price coefficients is the choice of instruments. Indeed, we usually use input prices or any ``supply-side'' variables to instrument for $\alpha$, however, these variables might also have an effect on the assortment. For example, consider a sudden wholesale cost shock on a particular brand: the retailer might not want to purchase the good that period and change its assortment!
+
+The elasticity estimates can also be biased in two ways: composition bias and weighting bias. As in the linear demand model, composition bias arises because of the fact that we average over all consumers, while some might not have had access to the same assortment. Moreover, bias in that case could go either way, depending on availability of the product (high availability means upward bias, low availability means downward bias). Weighting bias is the analog of the previous bias in aggregate, considering that markets as entities might have stores with different assortments.
+
+\subsubsection{Bruno and Vilcassim (2008)}
+
+Bruno and Vilcassim (2008) present an approach to correct the bias in a random-coefficients multinomial logit model such as the one discussed in chapter 3. Starting with a BLP-style utility where $U_{ijm} = X_{jm}\beta_i - \alpha_i p_{jm} + \xi_{jm} + \varepsilon_{ijm}$, we assume no observed individual variation so that we can rewrite utility as the sum of mean utility $\delta_{jm} = X_{jm}\beta - \alpha p_{jm} + \xi_{jm}$ and a consumer-specific term $\mu_{jm}(\theta_i) = X_{jm}\Sigma_{\beta}\nu_i - \sigma_\alpha \eta_i p_{jm}$.
+
+Then, given an availability vector $a_m = (a_{1m}, ..., a_{Jm})$ of indicator variables (if product $j$ is available in market $m$ or not), market shares can be written as: $$ \bar S_{jm}(a_m) = \int \frac{a_{jm}\cdot \exp(\delta_{jm} + \mu_{jm}(\theta_i))}{1 + \sum_{k=1}^J a_{km}\cdot \exp(\delta_{km} + \mu_{km}(\theta_i)) } \D G(\theta_i) $$
+Then, given a probability mass function for $a_m$, denoted $\pi(a_m)$, the observed market shares are given by: $$ S_{jm} = \sum_{a_m} \bar S_{jm}(a_m) \pi(a_m) $$
+
+To implement this, we need to add an outer loop in between the actual outer loop of BLP and the inner loop, in which we simulate the joint distribution of $a_m$ to get the actual shares.
+
+However, this method relies on two particularly ``shaky'' assumptions:\begin{itemize}
+\item Consumers' tastes do not vary systematically with availability.
+\item Marginal distributions of availability are mutually independent.
+\end{itemize}
+
+\subsection{Observed assortment variation}
+
+Including observed assortment variation looks like the solution to all our problems from the previous sections. However, Draganska, Mazzeo and Seim (2009) show that other challenges arise even when assortment is observed. Their method is analogous to the one described in Bruno and Vilcassim (2008), but does not relate on simulating availability since it is now observed for each market. However, if the unobservable quality of a good affects its presence in the assortment, the econometrician cannot identify $\delta_{jm}$ from $\xi_{jm}$, thus cannot use the BLP approach as in Bruno and Vilcassim. To go around that issue, they assume $\xi_{jm}$ is simply uncorrelated with either price or assortment.
+
+This issue is called assortment endogeneity and is treated in three more recent papers. The first one considers a simple reduced-form equation to recover availability of a product as a function of characteristics, and uses it as a control to relieve $\xi_{jm}$ from its endogeneity. The second adds a reduced-form pricing equation. Finally, the third approach models a structural supply-side in order to solve for the equilibrium.
+
+\subsubsection{Iaria (2014)}
+
+Iaria (2014) deals with endogeneity of assortment by estimating a reduced form equation for assortment such that given product and market data, it is possible to recover if a product will be available or not. Note that this strategy, while not structural, is still valid since we only care about the demand side in this paper. Nonetheless, this approach relies on multiple regularity assumptions for identification.
+
+\subsubsection{Shah, Kumar and Zhao (2015)}
+
+Shah, Kumar and Zhao (2015) differs from Iaria (2014) in two main ways: first, they add a reduced-form pricing choice to control for endogeneity in that direction too and second, they estimate demand and the two reduced-form equations as a system, simultaneously.
+
+\subsubsection{Musalem (2015)}
+
+Finally, Musalem (2015) uses a more structural approach by modeling a supply-side directly in the model. Solving the model using Mathematical Programming with Equilibrium Constraints (MPEC). The supply side is a two-stage game in which firms choose the assortment first, then the prices. While this approach is the most structural, it requires assumptions on the equilibria played on both sides, and a game structure that approximates the real world.
+
+\section{Stockouts}
+
+When a product stocks out, the observed sales for this particular product or its substitutes does not correspond to the underlying demand anymore. By ignoring this phenomenon, demand estimates would be biased as in the assortment variation case. In fact, demand for stocked out products will be underestimated, which we call censoring bias while demand for the available substitutes will be overestimated, which we call forced substitution bias. Stockouts also have an effect on price coefficients if the events are correlated with price variation (stockout during a sale for example). If both types of bias arise in the same event, we cannot sign the bias anymore and estimation is confounded. However, exogenous stock-out events could provide interesting data about demand, especially if we look at diversion, etc.
+
+There are two types of dataset used in this part of the literature: ``periodic inventory'' where we observe sales periodically, thus aggregating all sales within a period and ``perpetual inventory'' where we observe individual transactions. In the first type, stockouts are only partially observed since, within a period, we cannot identify which sale created the stockout. In the second type though, stockouts are fully observed. The rest of this chapter describes the differences in treating these two types of datasets.
+
+\subsection{Partially observed stockouts}
+
+Both papers presented next develop demand estimation approaches for use with periodic store data, with inventory levels. This implies that stockouts will only be partially observed (who got the last unit of a product is unknown). Thus, the efforts should be directed towards estimating the timing of the stockout, or a distribution of sales of other products.
+
+\subsubsection{Conlon and Mortimer (2013)}
+
+The key insight in Conlon and Mortimer (2013) is that discret-choice models of demand imply a distribution for the sales of all products given availability. In other words, it is possible to recover the sales using only the purchase probability implied by the demand model (total sales are thus a sufficient statistic). Here, the sales is the missing data.
+
+Without going too deep in the details, the approach first recovers a probability distribution of the number of alternative sales before a stockout and integrates over it to get the expected sales of a particular alternative after the stockout (given the sales made before the stockout). This approach uses combinatorial computations, which makes evaluating the model very cumbersome when multiple stockouts arise. However, evaluating demand for a large number of products is possible since you only need information on the product of interest and the stockouts to get a result.
+
+\subsubsection{Musalem et al. (2010)}
+
+In Musalem et al. (2010), they do not consider the amount of sales as missing data but rather the sequence of sales. Using the fact that multiple sequences of sales could lead to the same end-of-period inventory, they express a likelihood function conditional on the missing sequences and sum it over markets to recover the parameters. However, in this case, adding products is an issue since it will increase the possible sequences a lot, while adding stockouts will not affect computation.
+
+\subsection{Observed stockouts}
+
+
+
+\section{Limited consumer information}
+
