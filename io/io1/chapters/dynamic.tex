@@ -1,0 +1,187 @@
+\section{Definition}
+
+A discrete dynamic programming is a maximization problem of an objective function, over an infinite horizon, with discounting. More formally, the objective function takes the following form: $$\E{\sum_{t = 0}^{\infty} \beta^t\cdot r(s_t, a_t) }$$ where $s_t$ is the state variable, $a_t$ is an action, $\beta$ is the discount factor and $r(\cdot)$ is the ``reward'' function for taking action $a_t$ in the state $s_t$. While the action is deliberately taken by the optimizing agent, the state is pinned down by previous actions and states. We say that at each point in time, the state summarizes the information about the world. Hence, $s_t$ not only contains information about the present time period but also all previous time periods. This means that each pair $(s_t, a_t)$ will determine the potential state $s_{t+1}$; we denote the probability of moving to state $s_{t+1}$ given taking action $a_t$ in state $s_t$ as $Q(s_t, a_t, s_{t+1})$. In other words, the actions that the agent takes influence not only current rewards but also the future time path of the state, and thus future rewards as well. The essence of dynamic programming problems is solving this trade-off between current and future rewards at each point in time.
+
+\subsubsection{Policies}
+
+The most fruitful way to think about solutions to DDP problems is to compare what we call policies. A policy is a mapping from past actions and states to current action. In other words, it is a sort of code of conduct for the agent. Recall that the current state holds sufficient information about past actions and past states, therefore, a policy can also be represented as a mapping from current state to current action. This type of policies is called stationary Markov policies. A stationary Markov policy (henceforth just policy) is denoted as $\sigma(\cdot)$ which maps actions to states such that $a_t = \sigma(s_t)$. It is known that, for any arbitrary policy, there exists a stationary Markov policy that dominates it at least weakly: this is why solving the previous problem can be reduced to finding the best policy, only among Markov stationary policies.
+
+\subsubsection{Formal definition}
+
+A discrete dynamic program consists of:\begin{itemize}
+\item A finite set of states $S = \{1, ..., n\}$.
+\item A finite set of feasible actions $A(s)$ defined for each $s\in S$, and thus a set of feasible state-action pairs: $SA = \{(s, a): s\in S, a\in A(s)\}$.
+\item A reward function $r:SA\to\mathbb{R}$.
+\item A transition probability function $Q:SA\to\Delta S$, where $\Delta S$ is the set of probability distributions over $S$.
+\item A discount factor $\beta\in [0,1)$.
+\end{itemize}
+
+Over this definition, we provide other definitions to help us solve the problem. First, we define a policy as a function $\sigma:S\to A$. Then, in the set of policies are the feasible policies such that $\sigma(s)\in A(s)$ for all $s\in S$. This subset is denoted $\Sigma$.
+
+Now that we have a structure, let's remind ourselves how the problem works. If an agent uses a policy $\sigma\in\Sigma$, then he gets the current reward $r(s_t, \sigma(s_t))$ at time $t$ and the probability that next period's state is $s'$ is given by $\prob{s_{t+1} = s'} = Q(s_t, \sigma(s_t), s')$.
+
+Then, for each feasible policy $\sigma\in\Sigma$, define:\begin{itemize}
+\item $r_\sigma = r(s, \sigma(s))$, the vector of possible rewards at each state, for a given policy.
+\item $Q_\sigma = Q(s, \sigma(s), s')$, the state-transition matrix from $s$ to $s'$, also called the stochastic matrix on $S$.
+\end{itemize}
+Using these definitions, note that a row of $Q_\sigma$ contains the probabilities of all future states given the state of the row happened. For example, the $s$-th row would be a row vector of probabilities of each state $s_i$ happening in the next period, which would sum to 1. This is interesting because, coupled with $r_\sigma$, we get that: $$ (Q_\sigma\cdot r_\sigma)(s) = \E{r(s_t, \sigma(s_t))\vert s_{t-1} = s} $$ where $(Q_\sigma\cdot r_\sigma)(s)$ denotes the $s$-th row, of the column vector $Q_\sigma\cdot r_\sigma$ and assuming $s_t\sim Q_\sigma$.
+
+\subsubsection{Value and Optimality}
+
+Let $v_\sigma(s)$ denote the discounted sum of expected rewards following policy $\sigma$, given an initial state of $s$, or formally: $$v_\sigma(s) = \sum_{t=0}^{\infty} \beta^t (Q_\sigma\cdot r_\sigma)(s) $$ This function is called the policy value function for $\sigma$.
+
+A policy $\sigma\in\Sigma$ is optimal if, for all $s\in S$, we have that: $$\sigma \in \arg\max_{\sigma\in\Sigma} v_\sigma(s) $$ The optimal value function, or simply value function, is, as its name suggests, the value function of the previous problem, or formally, $v^*:S\to\mathbb{R}$ such that: $$v^*(s) = \max_{\sigma\in\Sigma} v_\sigma(s)$$
+
+Finally, given any value function $w:S\to\mathbb{R}$, a feasible policy $\sigma\in\Sigma$ is called $w$-greedy if $$\sigma(s)\in \arg\max_{a\in A(s)} r(s, a) + \beta \sum_{s'\in S} w(s') Q(s, a, s') \quad \text{ for all } s\in S $$
+This means that, given an expected future path of rewards determined by $w$, the $w$-greedy policy $\sigma$ is a policy that yields the best current action to take, for each state. Hence, it follows that if we knew the optimal value function $v^*$, we would be looking for policies that are $v^*$-greedy, or that would suggest the best current action to take given following the optimal path in the future.
+
+\subsubsection{Operators}
+
+Before going further into solving the problem, we define two useful operators.
+
+The Bellman operator, $T:\mathbb{R}^S\to\mathbb{R}^S$ is defined by: $$ (Tv)(s)  = \max_{a\in A(s)} r(s, a) + \beta\sum_{s'\in S} v(s')Q(s, a, s') \quad \text{ for all } s\in S $$ This operator transforms any value function by changing its current action to the optimal one in any state. In other words, if your current value function is bad, the Bellman operator will make it slightly better by altering the current action to its optimal value, thus increasing the level of the overall value function. In that sense, the Bellman operator is monotonic, such that if $v\leq w$, then $Tv\leq Tw$. Moreover, we can show that the Bellman operator is also a contraction mapping, or formally that: $\lVert Tv - Tw\rVert \leq \beta\lVert v - w\rVert$. Using these two facts, we will be able to design an iterative algorithm to get to the solution of the problem.
+
+The other operator is ...
+
+\subsubsection{Bellman equation and Optimality}
+
+We know that the solution of the DDP problem is to find a value function such that: $$ v(s) = \max_{a\in A(s)} r(s, a) + \beta\sum_{s'\in S} v(s')Q(s, a, s') \quad \text{ for all } s\in S $$ which can be written using the Bellman operator as: $$ v(s) = Tv(s) \quad \text{ for all } s\in S $$
+In this form, it is now clear that the essence of the problem is to find the fixed-point of the operator $T$. 
+
+Moreover, using the fact that we know $T$ as a contraction mapping of modulus $\beta$, we get a natural way to get the fixed-point of $T$ by applying it infinitely many times to any initial value function $v^0$. Formally, $$v^* = \lim_{k\to\infty} T^{k} v^0 $$
+
+However, in real applications, there is no such thing as infinite operations, thus we will need a finite approximation of this procedure.
+
+\subsubsection{Value Function Iteration}
+
+The value function iteration procedure is a finite approximation of the infinite Bellman operation we discussed just above. In fact, it relies on applying the Bellman operator as many times as needed to get a value function that is stable enough (close to the fixed point). The procedure goes as follows:\begin{enumerate}
+\item Choose any $v^0 \in \mathbb{R}^n$, and specify an error $\varepsilon > 0$ (close to 0). This is the initial step, $k =0$.
+\item Compute $v^{k+1} = T v^k$, meaning that you need to solve the maximization problem defined as: $$ v^{k+1}(s) = \max_{a\in A(s)} r(s, a) + \beta\sum_{s'\in S} v^k(s')Q(s, a, s') $$ for each state $s\in S$.
+\item Evaluate the continuation condition: $$ \sup_s \lVert v^{k+1}(s) - v^{k}(s) \rVert < \left[\frac{(1-\beta)}{2\beta}\right]\varepsilon $$ If it is true, then go to the next step, otherwise go back to step 2 and set $k = k+1$.
+\item The optimal value function computed is $v^{k+1}$ and the optimal policy function is $\sigma$, a $v^{k+1}$-greedy policy.
+\end{enumerate}
+
+By performing this procedure, you get a $\varepsilon$-approximation of the optimal value function.
+
+\section{Rust (1987)}
+
+Harold Zurcher is the manager of a bus depot in Madison, WI. Each month, for each bus, he must decide if the bus should continue with the current engine or if it should be replaced. If the bus continues without replacing the engine, then it pays a constant marginal cost for each additional mile. If the bus gets replaced, then Harold pays a fixed replacement cost. The problem that Harold faces is to minimize long run expected cost.
+
+This is a clear discrete state dynamic programming problem as defined above, and as such, should have been fairly easy to estimate at the time the paper was written. However, Rust (1987) is about estimating the parameters of the model, using the actual data from the decisions of Harold Zurcher. In that sense, solving the model is really the first step (the inner loop) of a more intricate process to recover the parameters of the model (fixed costs, marginal costs, etc.).
+
+In this chapter, we will go over both the solution to the model (given a set of parameters) and the estimation of it. We draw on the problem set 4 given by Prof. Julie Mortimer.
+
+\subsection{Setup}
+
+\subsubsection{Optimal stopping problem as a DDP}
+
+First we setup the model, using the formal definition of a DDP given in the first section. The model is set for a single bus (recall the assumption that there are no correlations between buses) for time periods $t = 1, 2, ..., +\infty$ representing weeks (for each time HZ can take a decision on the bus).
+
+The state variable $s$ will be the mileage on the bus. Hence the set of states $S$ should be the set $\mathbb{R}_+$ of all possible mileages.
+
+In each state, there are two feasible actions, which are the same for any state: ``not replace'' ($a^0$) or ``replace'' ($a^1$). The feasible action set is constant for all states: $A(s) = \{a^0, a^1\} = A$. Thus, the feasible state-action pairs set is: $ SA = \{ (s, a) : s\in S, a\in A\}$.
+
+The reward function is the profit function for each feasible state-action pair. For any state-action $(s, a)$ where $a = a^1$, the profit will be a negative fixed replacement cost $RC$. For state-action pairs in which $a = a^0$, then the profit will be a negative cost depending on the mileage (the state $s$). Formally, we get: $$ r(s, a) = \begin{cases} - RC & \text{ if } a = 1 \\ - c (s, \theta) & \text{ if } a = 0 \end{cases} $$
+
+The transition probability function yields a probability distribution over all states for each feasible state-action pair. To stay very general, we write: $$ s_{t+1} | s, a \begin{cases}= 0 &\text{ if } a = 1 \\  \sim G(\cdot | s) &  \text{ if } a = 0 \end{cases} $$ where $G$ is unknown up to parameters.
+
+Finally, the discount factor is denoted as $\beta$.
+
+Therefore, Harold Zurcher chooses the infinite sequence of actions $\{a_t\}_{t=1, ...}$ to maximize the objective function: $$\max_{\{a_t\}_{t=1, ...}} \E{\sum_{t = 1}^{\infty} \beta^t\cdot r(s_t, a_t; \theta) } $$
+
+Define the (optimal) value function as: $$
+V(s_t) = \max_{\{a_t\}_{t=1, ...}} \E{\sum_{\tau = t}^{\infty} \beta^{\tau - t} \cdot r(s_\tau, a_\tau; \theta) | s_t } $$
+
+And finally we write the Bellman equation: $$a_t = \arg\max_{a} r(s_t, a; \theta) + \beta \E{ V(s') | s_t, a } $$
+
+Solving the model requires knowledge of everything described until now, then performing a value function iteration as described in the first section. However, there are parameters in the model that are not observed in the data, hence the need to estimate them. To estimate is different than to solve, thus we will need to add crucial elements and assumptions to the model.
+
+\subsubsection{Adding structural errors}
+
+In particular, the main addition required is a structural error in the reward function. This structural error will allow for ``positive likelihood'' given our imperfect model (because the econometrician cannot recover the function perfectly). Recall that a structural error is observed by the agent at the time of the decision, but is never observed by the econometrician.
+
+We get that the ``new'' reward function is thus given by: $$ r(s, a) = \begin{cases} - RC + \varepsilon_1 & \text{ if } a = 1 \\ - c \cdot s + \varepsilon_0 & \text{ if } a = 0 \end{cases} $$
+
+We are left with three types of parameters to estimate that are summarized in $\theta$: \begin{itemize}
+\item Parameters of the $c(\cdot)$ function.
+\item Value of replacement cost $RC$.
+\item Parameters of the mileage transition function $G(\cdot|x)$.
+\end{itemize}
+
+Note that both the discount factor $\beta$ and the distribution of structural errors are not to be estimated. In fact, most dynamic-discrete choice settings are shown to be nonparametrically underidentified. Intuitively, $\beta$ is difficult to disentangle from $RC$.
+
+\subsection{Econometric model}
+
+We observe actions and mileages for $t=1, ..., T$ and 62 buses. We treat all buses as independent draws of the same distribution (as if all buses were equivalent).
+
+The likelihood function for a bus, over $T$ periods is given by: \begin{align*}
+L(\theta) & = f(s_1, ..., s_T, a_1, ..., a_T|s_0, a_0, \theta) \\ 
+& = \prod_{t=1}^T \prob{s_t, a_t| s_0, a_0, s_1, a_1, ..., ..., s_{t-1}, a_{t-1}, \theta} \\
+& = \prod_{t=1}^T \prob{s_t, a_t| s_{t-1}, a_{t-1}, \theta} \\
+& = \prod_{t=1}^T \prob{a_t| s_t, \theta} \cdot \prob{s_t | s_{t-1}, a_{t-1}, \theta_3}
+\end{align*} where $\theta_3$ is the vector of the parameters that govern the distribution of mileages.
+
+First of all, from the second to the third lines, we use the stationary Markov policy property (the best policies are Markov stationary, meaning that they only require information about the previous period). 
+
+Second, from the third to last equations, we use a new assumption called conditional independence. Formally, this assumption implies that (1) conditional on the current state, actions are independent over time (actions depend only on previous actions through the state variable) and that (2) conditional on the previous state and previous action, the current state is independent of parameters from the cost function or the structural errors.
+
+From the likelihood derived above, in order to estimate the model, we first need to recover each element in the final equation:\begin{enumerate}
+\item Recover $\theta_3$ to get $\prob{s_t | s_{t-1}, a_{t-1}, \theta_3}$.
+\item Estimate $\theta$ using $\prob{a_t| s_t, \theta}$.
+\end{enumerate}
+
+\subsubsection{Markov transition probabilities ($\theta_3$)}
+
+Instead of assuming a functional form for the mileage distribution $G(\cdot)$, Rust uses a simplifying trick where we assume a discrete distribution for the incremental mileage $\Delta s_t = s_t - s_{t-1}$ such that: $$ \Delta s_t = \begin{cases} [0, 5000) & \text{ w/ probability } p \\
+[5000, 10000) & \text{ w/ probability } q \\
+[10000, \infty) & \text{ w/ probability } 1 - p -q
+\end{cases} $$
+so that $\theta_3 = \{p, q\}$. Note that this step does not depend on the rest of the model and can be estimated right away, nonparametrically.
+
+\subsubsection{Dynamic Logit}
+
+For the other part of the likelihood function, we use an additional assumption on $\varepsilon_{1t}$ and $\varepsilon_{0t}$ such that they are iid draws from two independent Type-I Extreme Value distributions (with the standard normalizations). This is why we call this part a dynamic logit.
+
+Expanding the probabilities:
+\begin{align*}
+\prob{a_t = 1 | s_t, \theta} & = \prob{r(s_t, 1; \theta) + \beta \E{ V(s') | s_t, 1 } > r(s_t, 0; \theta) + \beta \E{ V(s') | s_t, 0 }} \\
+& =  \prob{- RC + \varepsilon_{1t} + \beta  V(0)  > - c\cdot s_t + \varepsilon_{0t} + \beta \E{ V(s') | s_t }} \\
+& =  \prob{\varepsilon_{1t} - \varepsilon_{0t} > RC  - \beta  V(0) - c\cdot s_t  + \beta \E{ V(s') | s_t }} \\
+& = \frac{\exp(- RC + \beta  V(0) ) }{\exp(- RC + \beta  V(0) ) + \exp( - c\cdot s_t + \beta \E{ V(s') | s_t })}
+\end{align*}
+as in the logit model! Obviously, this result applies also to the opposite action: 
+\begin{align*}
+\prob{a_t = 0 | s_t, \theta} = \frac{\exp( - c\cdot s_t + \beta \E{ V(s') | s_t }) }{\exp(- RC + \beta  V(0) ) + \exp( - c\cdot s_t + \beta \E{ V(s') | s_t })}
+\end{align*}
+
+The main issue with this probability is that $\E{ V(s') | s_t }$ does not have a closed form (it is precisely what we want to solve in a DDP). This is why the estimation method will rely on compute this element in an inner loop, for every guess of parameters (outer loop). The next section explain this procedure.
+
+\subsection{Estimation Method}
+
+As mentioned in the previous section, the estimation procedure has to rely on two loops, because the expected value function is not known up to parameters $\theta$. Thus, the first loop (the outer loop) will try to find the optimal $\theta$ given the value function computed in the second loop (the inner loop) which solves the model for a given $\theta$.
+
+\subsubsection{Computational details}
+
+The goal of the second step is to compute the value function for a given value of $\theta$. A clever and computationally convenient feature in the Rust paper is to perform value function iteration not on the value function per se, but on the expected value function denoted $EV(s, a)$ defined as: $$ EV(s, a) \equiv \E{ V(s') | s, a } $$
+
+We can develop the expectation to get: $$EV(s, a) = \int_{s'} \log \left( \sum_{a' \in \{0, 1\}} \exp( r( s', a'; \theta) + \beta EV(s', a') ) \right) \cdot \prob{s'|s, a} $$
+and now we see the parallel between this equation and the value function before the value function iteration of the first section. The only difference is that we do not need to ``solve'' for the best current action since we can use the logit inclusive value to recover the utility of the best choice! This yields a huge improvement in computational complexity.
+
+\subsubsection{Nested Fixed-point Algorithm}
+
+What follows after is the analog to the value function iteration. Let $\tau$ index the iterations, such that $EV^\tau(s, a)$ is the expected value approximation after $\tau$ iterations. \begin{enumerate}
+\item Choose any $EV^0$ and specify a tolerance $\eta >0$ but very small. Usually, we choose $EV^0 = 0$.
+\item Use $EV^{\tau-1}$ to compute: \begin{align*}
+EV^\tau(s, a) & = \int_{s'} \log \left( \sum_{a' \in \{0, 1\}} \exp( r( s', a'; \theta) + \beta EV^{\tau-1} ) \right) \cdot \prob{s'|s, a}  \\
+& = p \cdot \int_{s}^{s+5000} \log \left( \sum_{a' \in \{0, 1\}} \exp( r( s', a'; \theta) + \beta EV^{\tau-1} ) \right) \D s' \\
++ & q \cdot \int_{s+5000}^{s+10000} \log \left( \sum_{a' \in \{0, 1\}} \exp( r( s', a'; \theta) + \beta EV^{\tau-1} ) \right) \D s' \\
++ & (1 - p - q) \cdot \int_{s+10000}^{\infty} \log \left( \sum_{a' \in \{0, 1\}} \exp( r( s', a'; \theta) + \beta EV^{\tau-1} ) \right) \D s'
+\end{align*} for each state and action $(s, a)$.
+\item Evaluate the continuation condition:
+$$ \sup_{(s, a)} \lVert EV^{\tau}(s, a) - v^{\tau-1}(s, a) \rVert < \eta $$ If it is true, then we're done and $EV^\tau$ will serve as our best approximation (given $\theta$), otherwise go back to step 2 and increment $\tau$.
+\end{enumerate}
+
+Using the newly computed function $EV(s, a)$, we can derive the probabilities that were unknown previously and come up with a value for the likelihood function. The outer loop will take that value and suggest another $\theta$ to compute a new approximation of the $EV$ function, new probabilities and a new likelihood function value, until convergence to $\theta_0$: the true value of structural parameters.
+
+\section{Hotz-Miller approach}
+
