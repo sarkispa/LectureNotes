@@ -1,7 +1,5 @@
 \section{Aguirregabiria (1999)}
 
-\subsection{Summary}
-
 \subsubsection{Background}
 
 There is substantial evidence of price dispersion and staggering (prices are not flexible), most commonly explained by menu costs (changing prices is costly) and not perfect correlation in demand (different demand shocks across firms). Confirmed by theory of (S, s) rule (= target price and adjustment bands with adjustment only outside the bands). But what to make of evidence that retail firms might not use (S, s) rules, or that prices go down sometimes (with inflation, prices should always go up)? Most explanations rely on ``consumer-side'' phenomenons, not on inventories (supply-side)!
@@ -20,6 +18,14 @@ With menu costs, you get price staggering as well as markdowns.
 
 Monthly information on prices, sales, orders and inventories for every item = balanced panel data. Price data is monthly averages (for regular price and sales price).
 
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item Monopolistic competition in product market, price-taker in wholesale market
+\item Typical Rust + utility assumptions: additive separability, independence of errors, first-order Markov processes, logit errors, etc.
+\item Hotz-Miller approach where estimate policy functions then include in moments.
+\end{itemize}
+
 \subsubsection{Empirical evidence}
 
 Naive analysis and reduced form regressions show infrequent price changes, prevalence of sales promotions, infrequent orders, negative correlations between inventories and prices.
@@ -30,13 +36,7 @@ Using a Hotz-Miller approach, authors find the same results: data is consistent 
 
 Removing these lump sum costs actually leads to more variability = they explain a lot of price staggering and price reductions! Demand might explain the rest.
 
-\subsection{Discussion}
-
-
-
 \section{Hendel and Nevo (2002)}
-
-\subsection{Summary}
 
 \subsubsection{Background}
 
@@ -53,3 +53,13 @@ Reduced form analysis shows that duration between purchases has a positive effec
 \subsubsection{Model}
 
 Do not model quantity purchases but only sizes! Dynamic discrete choice model with utility of purchase and inventory costs.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item Typical Rust + utility assumptions: additive separability, independence of errors, first-order Markov processes, logit errors, etc.
+\item Purchase of different brands yield different utilities but consumption of different brands yields the same utility.
+\item Recover initial inventory by simulation and likelihood mapping with sequence of purchases.
+\item To reduce dimensionality: for each ``size'' estimate a static demand model to recover logit inclusive value of each size, and use this in standard approach (with prices and ads only for those sizes).
+\end{itemize}
+
