@@ -191,14 +191,22 @@ In fact, in both models price was correlated to the unobservable term as firms m
 
 Measurement errors in observed prices, characteristics or quantities may also create difficulties for the estimation procedure outlined above. Prices enter linearly in the estimation and are already endogenous so that these errors do not create too important biases. However, when these errors are present in market shares or quantities data then this issue becomes more important. Indeed, market share data is used to invert the model and get the unobservable term as a function of observed data. If shares include measurement errors, the non-linear inversion will accentuate the errors in a non-tractable way, creating a lot of issues in estimation. In practice, maximum likelihood will not have this kind of issue, but will make IV strategies harder.
 
-\subsubsection{Identification}
+\subsubsection{Instruments}
 
-For identification, we need to satisfy orthogonality conditions between $\xi_j$ and the covariates (product characteristics $x_j$ and price $p_j$). As discussed earlier, price will for sure be endogenous, so we need at least one instrument for this. Formally, we need a set of instruments $w$ such that $\E{\xi|x, w} = 0$. 
+For identification, we need to satisfy orthogonality conditions between $\xi_j$ and the covariates (product characteristics $x_j$ and price $p_j$). As discussed earlier, price will for sure be endogenous, so we need at least one instrument for this. Formally, we need a set of instruments $w$ such that $\E{\xi|x, w} = 0$.  In practice, we consider three types of instruments:\begin{itemize}
+\item Cost shifters: they are the ideal instruments but are not always observed.
+\item Hausman instruments: they consist of prices of the same product in other markets, however, they might not be valid when the same shock affects all markets together.
+\item BLP instruments: they are the competing products' characteristics. This approach is purely based on heuristics (no model) and is usually combined with other instruments to reduce the dimensionality requirement of other more valid instrument.
+\end{itemize}
 
-In practice, the instruments for price will include ``cost-shifters'' (i.e. variables that affect price without affecting demand).
+\section{Estimating the supply side}\label{sec:supplyside}
 
-\subsection{Adding supply-side restrictions}
+We may also be interested in estimating a supply side, either on its own for counterfactual estimation or as a mean to improve efficiency of demand parameter estimation. In order to do this, we need two assumptions: one on the cost function that firms face, and another on the type of competition in the market.
 
-It is also possible to get more orthogonality conditions by adding a supply-side to the demand system. Essentially, this means adding the firms' decisions about prices as moment conditions. To do this, we have to assume two things: (1) the firms' cost functions and (2) the competition model. Then, using the FOCs of the firms, one can recover extra moments to use in combination of the $\xi$ moments to estimate the demand system by GMM.
+Consider the following example. We start with a linear marginal cost function: $$\ln(mc_{jt}) = w_{jt}\gamma + \omega_{jt} $$ where $w_{jt}$ are the observed cost shifters and $\omega_{jt}$ the unobserved ones. Then, using the competition assumption, we recover the first-order conditions vector which has the following general form: $$ p_t - mc_t = - (\Omega \star \Delta)^{-1} s_t $$ where $\Omega$ is the ownership matrix and $\Delta$ the $J\times J$ elasticity matrix. Note also that the $\star$ operator represents element-wise multiplication.
 
-
+We can clearly see why demand estimation is important in that case: elasticities! Without the elasticities it is impossible to recover the marginal cost from the FOCs. Now, we can rewrite the equation as: \begin{align*}
+mc_t  & = p_t + (\Omega \star \Delta)^{-1} s_t \\
+ \Leftrightarrow \ln(mc_t) & = \ln(p_t + (\Omega \star \Delta)^{-1} s_t) \\ \Leftrightarrow \omega_{jt} & = \ln(p_t + (\Omega \star \Delta)^{-1} s_t) - w_{jt}\gamma
+\end{align*} 
+And using the same instruments as in our demand estimation procedure, we should have that $\E{\omega|x, w} = 0$. Then, we collect all demand and supply moments and estimate by GMM simultaneously.
