@@ -1,0 +1,75 @@
+\section{Introduction}
+
+The firm-level production function can be written as: $$Y_{it} = L_{it}^{\beta_l} K_{it}^{\beta_k} U_{it} $$ where $Y$ is output, $L$ is labor, $K$ is capital and $U$ is the TFP (usually unobserved by the researcher). The goal is to estimate the output elasticities $\beta$!
+
+But estimation is not straightforward, some issues arise from the very nature of production. First of all, the production process is dynamic since it uses capital, which can grow or depreciate endogenously (it is a decision based on production). Thus, state variables will be very important (R\&D, entry/exit, etc.). Then, we have a problem of simultaneity: variables that are unobserved to the econometrician might be determined by other equations. To see that, consider taking the logs of the production function, decomposing the unobserved TFP into a structural error $\omega$ and a random error $\varepsilon$: $$ y_{it} = \beta_l l_{it} +  \beta_k k_{it} + \omega_{it} + \varepsilon_{it} $$ It might be that $l_{it}$ or $k_{it}$ are chosen with knowledge of $\omega_{it}$, even though it is typically safe to assume that $k_{it}$ is chosen at $t-1$ and is thus free from endogeneity. Finally, we have issues of selction bias since using panel data will give extra weight to successful firms that ``survive'' throughout the dataset. However, it might be the case that the firms that do not survive have low productivity draws on average: selection bias!
+
+\section{Olley and Pakes (1996)}
+
+\subsection{Intuition}
+
+This paper suggests a way to go around the simultaneity issue (as well as selection bias) by providing a ``proxy'' for the structural term in the TFP. This proxy is current investment (denoted $i_{it}$). Intuitively, the argument relies on the fact that while investment is directly correlated with productivity shocks, it will not affect labor or capital until the next period!
+
+This method works only under a set of assumptions:\begin{enumerate}
+\item Information: the firm's information set includes only current and past realizations of $\omega$ and $\varepsilon$ is exogenous ($\E{\varepsilon_t|I_t} = 0$).
+\item First-order Markov processes: the TFP shock follows a first-order Markov process such that $\prob{\omega_{i,t+1}|I_{it}} = \prob{\omega_{i,t+1}|\omega_{it}}$.
+\item Timing of investment: firms accumulate capital according to the law $k_{it} = \kappa(k_{i,t-1}, i_{i,t-1})$. Labor is not dynamic.
+\item Scalar unobservable: firms' investment decisions are functions of current capital stock and productivity shock ($i_{it} = f_t(k_{it}, \omega_{it})$).
+\item Strict monotonicity: $f_t(\cdot)$ is strictly increasing in $\omega_{it}$.
+\end{enumerate}
+
+In particular, assumptions 2 and 5 are crucial to allow for ``inverting'' investment into TFP, meaning that we can write $\omega_{it}$ as a function of $k_{it}$ and $i_{it}$: $$\omega_{it} = h(k_{it}, i_{it}) $$
+Then, by plugging it back into the production function we get: $$ y_{it} = \beta_l l_{it} +  \beta_k k_{it} + h(k_{it}, i_{it})+ \varepsilon_{it} $$ and since $h$ is unknown, we cannot differentiate between the use of $k$ within $h$ and outside of $h$, thus we effectively use: $$y_{it} = \beta_l l_{it} + \Phi(k_{it}, i_{it})+ \varepsilon_{it} $$ where $\Phi$ is unknown (to be estimated).
+
+\subsection{Estimation}
+
+The econometric procedure relies on two stages: in the first stage, the goal is to recover $\beta_l$ and $\Phi$, the former is already identified but the latter is not an object of interest per se, thus we only need to be most flexible possible. Then, in the second step, we recover $\beta_k$ by using our first-stage estimates.
+
+\subsubsection{First stage}
+
+The first-stage regression is defined as: $$y_{it} = \beta_l l_{it} + \Phi(k_{it}, i_{it})+ \varepsilon_{it} $$ where the goal is to estimate $\beta_l$ and $\Phi$ as flexibly as possible. To do this, there are two main ways: (1) by ``parameterizing'' $\Phi(\cdot)$ as a polynomial of $k$ and $i$ or (2) using a semi-parametric approach as in Robinson (1988) where $\beta_l$ is estimated parametrically and $\Phi$ nonparametrically.
+
+\subsubsection{Second stage}
+
+We can decompose $\omega$ into its expected value plus an innovation term $\xi_{it}$: $$\omega_{it} = \E{\omega_{it}|I_{i,t-1}} + \xi_{it} =  \E{\omega_{it}|\omega_{i,t-1}} + \xi_{it} = g(\omega_{i,t-1}) + \xi_{it} $$ With $\hat\Phi(k_{it}, i_{it})$ and $\hat\beta_l$ in hand, we can rewrite $\omega_{i,t-1}$ as a function of estimated parameters and thus, given a guess for $\beta_k$ and a parametric form for $g(\cdot)$, we have: $$ \xi_{it}(\beta_k) = \phi_{it} - \beta_k k_{it} - g(\phi_{it-1} - \beta_k k_{it}) $$ which first conditional moment can be used to recover $\beta_k$. Usually, the moment condition used is $\E{\xi k} = 0$. 
+
+\subsection{Results}
+
+
+
+\section{Levinsohn and Petrin (2003)}
+
+\subsection{Intuition}
+
+The key insight behind Levinsohn and Petrin is to use materials instead of investment as a proxy for the TFP. In fact, it seems fair to assume that the current choice of intermediate inputs is correlated with the current productivity shock. Moreover, the authors argue that investment was not a good proxy to begin with because (1) too many zeroes in the data and (2) investment is lumpy and thus might not react to productivity shocks right away. In contrast, intermediate inputs such as materials will be more flexible and have more variation.
+
+To include materials in the regression, it helps to think of it as we did with capital in OP. First, the production function is now: $$y_{it} = \beta_l l_{it} +  \beta_k k_{it} + \beta_{m} m_{it} + \omega_{it} + \varepsilon_{it} $$ Then, under similar assumptions as in OP, we can ``invert'' the materials function to get $\omega_{it} = h(k_{it}, m_{it}$. Finally, as in OP, we are now able to identify the production function as: $$y_{it} = \beta_l l_{it} +  \Phi(k_{it}, m_{it}) + \varepsilon_{it} $$
+
+\subsection{Estimation}
+
+The estimation procedure follows the procedure in OP, with the addition of a moment condition in the last step. In fact, since we now care about $\beta_k$ and $\beta_,$, we need an extra moment. Note that we cannot use a similar moment as with capital since current materials are correlated with the productivity shock $\xi$, thus we need to find an ``instrument'' in the past realization of materials ($m_{it-1}$).
+
+\section{Ackerberg, Caves and Frazer (2015)}
+
+\subsection{Intuition}
+
+Ackerberg, Caves and Frazer (2015) raise an important issue within the two previous approaches. In fact, considering how the production function is parametrized, once conditioned on $k$, $\omega$ and $m$ (in LP), the amount of $l$ is completely determined! Essentially, whenever $l$ can be written as a function of only $k$, $m$ and $t$, then $\beta_l$ will not be identified.
+
+To go around this issue, ACF suggests to alter how we think about the timing assumptions. In particular, they assume $l$ is set at time $t$ and $k$ at $t-1$ as usual, but $m$ is now set in between at $t-b$ where $b\in (0, 1)$. This implies that at the time when $k$ and $m$ are chosen, there is still a random element that is not known to the firm and will affect production. Moreover, ACF considers the value added production function instead of the gross production. This implies that $m$ can be used to invert productivity but will not end up in the final moment condition.
+
+\subsection{Estimation}
+
+Again, the estimation procedure is very similar to the two previous approaches, with the difference that value added production is preferred to gross, and the additional moment condition is now $\E{\xi_{it}l_{it-1}}$ in order to recover $\beta_l$.
+
+\section{De Loecker and Warzynski (2012)}
+
+\subsection{From production function to markup}
+
+
+
+\subsection{Results}
+
+
+
+\subsection{Criticisms}
+
