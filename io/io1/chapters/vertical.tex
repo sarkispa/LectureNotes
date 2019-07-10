@@ -35,9 +35,11 @@ These results come from the presence of two markups! This is what we call double
 
 
 
-\section{Mortimer (2008)}
+\newpage
 
-\subsection{Summary}
+\section{Papers}
+
+\subsection{Mortimer (2008)}
 
 \subsubsection{Background}
 
@@ -62,69 +64,90 @@ Main observation unit is the store-title-week level, where observed variables in
 
 Revenue-sharing contracts had positive effects on welfare across the board (consumer surplus, profits, etc.). Other vertical contracts are having a positive effect on profits while decreasing consumer surplus.
 
-\section{Conlon and Mortimer (2017)}
-
-\subsection{Summary}
+\newpage
+\subsection{Conlon and Mortimer (2017)}
 
 \subsubsection{Background}
 
-
+This paper studies the effects of vertical rebates on efficiency (greater retail effort) and foreclosure (of competing products). Using field experiment, consumer choice and retailer behavior. Vending machine industry: AUD (all-units discount) gives discount per-unit, quantity target and facing requirement.
 
 \subsubsection{Model}
 
+Consumer choice model: random-coefficients logit.
 
+Retailer behavior (portfolio and effort): dynamic model of restocking à la Rust (1987).
 
 \subsubsection{Data}
 
+Dataset from field experiment: observation unit is machine-visit, observed variables are quantity vended, price, other facings, etc.
 
+Data from Mars: AUD contractual terms.
 
 \subsubsection{Assumptions}
 
+\begin{itemize}
+\item Instruments: no price coefficient because no variation.
+\end{itemize}
 
+\subsubsection{Results}
+
+Vertical rebates do increase effort levels for the retailer. 
+
+\newpage
+\subsection{Ho, Ho and Mortimer (2012)}
+
+\subsubsection{Background}
+
+This paper studies the effects of bundling as a vertical contract between manufacturers and retailers (= full-line forcing) on welfare. In the video rental industry, the content is very important so need of both supply and demand models (always renewed, etc.).
+
+\subsubsection{Model}
+
+Sort of dynamic nested-logit model (static with decay) with focus on changing choice sets: typical nested-logit with a decay term (months since release fixed effect).
+
+Portfolio choice for the retailer: using moment inequalities, under the assumption that on average portfolio choice is optimal.
+
+Profit model for counterfactuals.
+
+\subsubsection{Data}
+
+Dataset from Rentrak. Observation unit is transaction (store-title), observed variables are distributor, genre, box-office categories, type of release, etc. and type of vertical contract. Additional information on demographics.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item Data and computation limitation: no stockouts, month-level aggregation, nests based on box-office categories (not genre?), monopolies (because don't observe competition).
+\item Instruments: average inventory in other stores of same size (for inventory); average number of movies in group and average within group share in other stores of same size (for within group share); no instrument for price (results were the same).
+\item Supply side: stores have perfect foresight of demand
+\end{itemize}
 
 \subsubsection{Results}
 
 
 
-\section{Ho, Ho and Mortimer (2012)}
-
-\subsection{Summary}
-
-\subsubsection{Background}
-
-
-
-\subsubsection{Model}
-
-
-
-\subsubsection{Data}
-
-
-
-\subsubsection{Assumptions}
-
-
-
-\subsubsection{Results}
-
-
-
-\section{Crawford et al. (2017)}
-
-\subsection{Summary}
+\newpage
+\subsection{Crawford et al. (2017)}
 
 \subsubsection{Background}
 
-
+This paper studies the welfare effects of vertical integration (a type of vertical contract), in terms of reduced double marginalization (positive) and foreclosure (negative). In the multichannel TV market: acquisitions of regional sports networks by multichannel video programming distributors.
 
 \subsubsection{Model}
 
+Viewership: Static time-allocation problem yields value function.
 
+Subscription: Typical logit model including viewership based utility parameters.
+
+Distributor pricing: Static profit maximization given fees, over bundle choice and price.
+
+Affiliate fee bargaining: Nash-in-Nash bargaining.
 
 \subsubsection{Data}
 
+Downstream data: prices, quantities and characteristics for both cable TV and satellite providers.
 
+Viewership data: individual viewership data and aggregate data.
+
+Channel fees and ad revenues: fees (per subscriber) paid to distribute channel; average ad revenue per subscriber.
 
 \subsubsection{Assumptions}
 

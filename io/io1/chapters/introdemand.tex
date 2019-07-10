@@ -59,7 +59,7 @@ As we know, prices in this model are endogenous (simultaneity issue) but here we
 There are three popular approaches to reduce the dimensionality of the product space problem. The first two approaches are useful only for for a particular set of questions, such as situations when variety is very important (e.g. in international trade they use them all the time), while the last one is the most often used in IO.
 
 The first approach is to use a Constant Elasticity of Substitution model, such that utility is defined as: $$ u(q) = \left(\sum_k q_k^\rho\right)^{1-\rho} \Rightarrow q_j(p) = \frac{p_j^{-1/(1-\rho)}}{\sum_k p_k^{-\rho/(1-\rho)}} \cdot M $$
-This approach is very efficient at reducing dimensionality since we now have only one parameter to estimete: $\rho$. However, it comes with the property that all goods have the same own-price elasticity and the same cross-price elasticities. While this definitely seems implausible, this approach is used in macro models and in trade.
+This approach is very efficient at reducing dimensionality since we now have only one parameter to estimate: $\rho$. However, it comes with the property that all goods have the same own-price elasticity and the same cross-price elasticities. While this definitely seems implausible, this approach is used in macro models and in trade.
 
 The second approach is to use a logit demand model (not the same logit as in the characteristic approach). In this model, we have that: $$ u(q) = \sum_k (\delta_k - \ln(q_k))q_k $$ The problem with this approach is the IIA property, which implies that elasticities depend on market shares rather than ``closeness'' between products.
 
@@ -166,13 +166,15 @@ Utility is given by: $$ U_{ij} = f(v_i, p_j) + \sum_{k}\sum_{r} g(x_{jk}, v_{ir}
 
 The BLP model (for the authors' names Berry, Levinsohn and Pakes), is a parameterized version of the pure characteristics model. It is probably the most commonly used demand model in the empirical literature as of now, and is also very popular in non-research applications of IO. Utility is given by: $$ U_{ij} = f(v_i, p_j) + \sum_{k}\sum_{r} x_{jk}v_{ir}\theta_{kr} + \varepsilon_{ij} $$ where the $\varepsilon_{ij}$ extreme-value Type I error term has been added.
 
-\section{Application: Vertical model}
+\section{Applications}
+
+\subsection{Purely vertical model}
 
 As we have mentioned in earlier, in a vertical model, all consumers agree on the relative quality of products (i.e. there is a clear ranking). However, people differ in their willingness to pay for such quality. The general form of utility is: $$U_{ij} = \bar u - v_i p_j + \delta_j $$
 
 From this equation, the objective is to recover the implied shares as a function of the parameters, and then estimate these parameters by comparing with the observed shares in the data.
 
-\subsection{Recovering the shares}
+\subsubsection{Recovering the shares}
 
 In order to recover the shares, we first need to know the shape of the distribution of $v_i$. In this application, we assume it follows a lognormal distribution with implicit mean $\mu$ and variance $\sigma^2$. 
 
@@ -191,13 +193,13 @@ $$ \text{ and } s_J(\theta) = F[(\delta_J - \delta_{J-1})/(p_J - p_{J-1})] $$
 
 This gives us a system of $J$ equations with $J+2$ unknown parameters in $\theta$. This means that we can only identify $J$ parameters (the $\delta$s, provided we know/assume the parameters of the consumer characteristic distribution). Each $\delta$ will be identified using the associated market share and price.
 
-\subsection{Estimation}
+\subsubsection{Estimation}
 
 As we have seen in the previous section, our pure vertical model is not identified if the parameters of $v_i$'s distribution are unknown. That's why, in this particular case, we need to reduce the dimension of the problem first, and then estimate via maximum likelihood.
 
 In the vertical model, we need to ``project'' the product quality $\delta_j$ onto a few characteristics $x_j$ (a $K$ dimension vector, such that $K < J$). Formally, we have that: $$ \delta_j = \sum_{k=1}^{K} \beta_k x_{kj} $$ Now that all goods have the same $K$ coefficients governing the value of $\delta$, $\theta$ is effectively a $K+2$ dimension vector, estimable using the $J$ shares!
 
-\subsection{Issues with the vertical model}
+\subsubsection{Issues with the vertical model}
 
 There is a number of issues that arise when using this model:\begin{enumerate}
 \item Cross-price elasticities are 0 for all goods that are further away than direct neighboring products. This cannot capture a lot of actual variation in these elasticities.
@@ -209,4 +211,29 @@ There is a number of issues that arise when using this model:\begin{enumerate}
 \item The error term is deterministic given the functional form of $f(v)$.
 \end{enumerate}
 
+\subsection{Mortimer (2007)}
 
+\subsubsection{Background}
+
+This paper studies the effects of ``indirect'' price discrimination on consumer welfare and retailer profits in the industry for video rentals, using the vertical differentiation between VHS and DVDs (same content, clearly defined quality scale). 
+
+\subsubsection{Data}
+
+Rentrak dataset. Observation unit is the store-title level, where observed variables include title characteristics, contract with retailer (only sell-through priced movies are included), format, price, etc. + aggregate store-level characteristics to account for competition, demographics, etc.
+
+\subsubsection{Model}
+
+Consumer demand: four vertically differentiated products (outside good, rental and purchase in periods 1 or 2, to account for indirect price discrimination) with heterogenous agents (non-random coefficients).
+
+Pricing: decision for wholesale prices on rental and final sales markets, considering demand from consumer model, considering consumer interest decay.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item Model: ordering of products is used, rental and new; only two time periods for purchasing (not dynamic); Weibull distribution for income (random coefficients).
+\item Instruments: ``jackknife'' instruments for prices using (1) expected average cost across other titles in the same store and (2) expected average inventory across other titles in the same store, but should also consider that prices are very sticky, thus might not need instrumenting.
+\end{itemize}
+
+\subsubsection{Results}
+
+Substantial evidence that pricing is done optimally, in the face of forbidden direct discrimination. Direct discrimination would benefit movie providers and consumers but hurt retailers. 

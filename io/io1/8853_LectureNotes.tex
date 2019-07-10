@@ -13,13 +13,11 @@
 \usepackage[tikz]{bclogo}
 \usepackage{enumitem}
 
-\setcounter{tocdepth}{2}
+\setcounter{tocdepth}{1}
 
 \def\D{\mathrm{d}}
 
 \setlength{\parindent}{0ex}
-\setlength{\parskip}{1em}%Espacement des par
-
 \setlist[itemize]{topsep=-6pt, itemsep=-1pt}
 \setlist[enumerate]{topsep=-6pt, itemsep=-1pt}
 
@@ -47,6 +45,7 @@ fancyline, #1]{\begin{spacing}{.5}#2\end{spacing}}}
 
 \tableofcontents
 
+\setlength{\parskip}{1em}
 
 \chapter{Overview of Demand Systems and Vertical Model}
 \input{chapters/introdemand}
