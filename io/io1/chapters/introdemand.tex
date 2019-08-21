@@ -1,10 +1,14 @@
 \section{Introduction}
 
-Demand system estimation is at the core of the Industrial Organization field of economics. In fact, it is central to many economic applications such as the study of comparative statics, welfare impacts, advertising, etc. Since there are many types of markets where estimating demand is useful, there are also many approaches to estimate demand. The goal of this chapter is to present the standard and most common approaches, work out the intuition to apply these methods and discuss their advantages and disadvantages.
+The goal of this chapter is to present the standard and most common approaches in the analysis of demand systems, work out the intuition to apply these methods, discuss their advantages, disadvantages and their implications (study of markups, price indices, etc.).
 
-\subsection{Intuition}
+\subsection{Why do we care about demand systems?}
 
-Before diving in the theory, let's get some intuition. A demand system is the relationship between prices and goods purchased on the consumer side. Thus, IO researchers typically want to estimate the effect of products characteristics, most commonly price, on consumers' propensity to buy the products. To do this, the IO researcher needs to observe a market and its interactions. A unit of observation is therefore a market interaction such as the purchase of a good. In this unit of observation, we would ideally observe what good was purchased, its defining characteristics, its price, the state of available competing products, etc. This makes the data requirements pretty big, which is why acquiring a good enough dataset is complicated and often expensive.
+Demand system estimation is at the core of the Industrial Organization field of economics and there are two main reasons for this. First, the demand system provides the framework to analyze the firms' decisions and incentive in any market. Quite obviously, these incentives play a major role in the determination of profits, pricing decisions, investment, entry/exit decisions, research and development, advertising, etc. Of course, there are other determinants to firm decisions, the main one being costs, but historically cost data have been ``hidden'' from academic economists since they are mostly proprietary. Hence, much of the progress in the IO literature has been made in the analysis of demand systems rather than cost structures. The second reason to study demand systems is the ability to perform welfare analysis. In fact, any demand system starts with a micro-foundation where individuals have utility functions and make choices which are aggregated to a market level (where the demand system lies). Demand systems therefore yield the perfect framework for the analysis of changes in utility, which can be used in several ways (measuring consumer surplus, constructing price indices, etc.).
+
+\subsection{What exactly is a demand system?}
+
+Before diving in the theory, let's get some intuition. A demand system is the relationship between prices and goods purchased on the consumer side. Thus, IO economists typically want to estimate the effect of products characteristics, most commonly price, on consumers' propensity to buy the products. To do this, the IO researcher needs to observe a market and its interactions. A unit of observation is therefore a market interaction such as the purchase of a good. In this unit of observation, we would ideally observe what good was purchased, its defining characteristics, its price, the state of available competing products, etc. This makes the data requirements pretty big, which is why acquiring a good enough dataset is complicated and often expensive.
 
 \subsection{An early example: Bresnahan (1987)}
 
@@ -34,6 +38,101 @@ While the previous model is very simple, a straightforward extension would be to
 
 When we enter demand systems with multiple products, we need a way to differentiate those products. There are two approaches to do this: the product space approach, where a product is a nonseparable single entity; and the characteristic space approach, where a product is a combination of various characteristics.
 
+\subsection{Product Space}
+
+This course explores product space approaches only briefly since most of modern IO revolves around the characteristic space approach. The product space approach is the traditional (in the sense of ``first used'') way of estimating demand. As we've seen, the product space approach considers each product as an entity on its own, meaning that all observed and unobserved features of the product enter the ``utility'' derived from the product. Because different consumers can derive different utilities from the same product, we might be interested in using heterogeneous agents models. At the time, these approaches tended to use representative agents rather than heterogeneous because of simplicity. In fact, as we have quickly mentioned in the previous section, heterogenous agents models require distributional assumptions that can limit tractability in computing the solutions. Now that we have computers and in particular, now that we know how to use simulation methods efficiently, the situation has changed. We will hover over the two approaches in the rest of this section.
+
+\subsubsection{Product Space and Representative agent}
+
+In a representative agent model, the general demand model is defined as: $$\ln q_j = \alpha p_j + \beta p_{-j} + \gamma x_j + \epsilon_j $$ where $p_j$ represents the own-price, $p_{-j}$ is the vector of all competing products' prices and $x_j$ is a vector of all other observed characteristics.
+
+As we know, prices in this model are endogenous (simultaneity issue) but here we have more than one endogenous price (we have as many as products), thus estimating this model will require a very demanding IV strategy. Moreover, we can see that each product's demand function has at least $J$ parameters, so that the number of parameters to be estimated will increase quadratically compared to the number of products: $J$ goods implies on the order of $J^2$ parameters, where it is not unusual to have 50 or more goods in a market.
+
+There are three popular approaches to reduce the dimensionality of the product space problem. The first two approaches are useful only for for a particular set of questions, such as situations when variety is very important (e.g. in international trade they use them all the time), while the last one is the most often used in IO.
+
+The first approach is to use a Constant Elasticity of Substitution model, such that utility is defined as: $$ u(q) = \left(\sum_k q_k^\rho\right)^{1-\rho} \Rightarrow q_j(p) = \frac{p_j^{-1/(1-\rho)}}{\sum_k p_k^{-\rho/(1-\rho)}} \cdot M $$
+This approach is very efficient at reducing dimensionality since we now have only one parameter to estimate: $\rho$. However, it comes with the property that all goods have the same own-price elasticity and the same cross-price elasticities. While this definitely seems implausible, this approach is used in macro models and in trade.
+
+The second approach is to use a logit demand model (not the same logit as in the characteristic approach). In this model, we have that: $$ u(q) = \sum_k (\delta_k - \ln(q_k))q_k $$ The problem with this approach is the IIA property, which implies that elasticities depend on market shares rather than ``closeness'' between products.
+
+Finally, the third empirical approach is to use a model of multi-level budgeting, as in a ``utility tree''. The basic idea behind this is that consumers  would first allocate expenditures to groups of goods, then allocate expenditures within the group. Using a linear or log-linear functional form, $J$ goods organized into $K$ groups, we achieve $J^2	/K + K^2$ compared to the previous $J^2$ parameters without groups. Say $J = 50$ and $K=5$, this yields 525 parameters, compared to 2500 previously: it is still large, but already more manageable. To use this approach, we need to assume two properties:\begin{itemize}
+\item Weak Separability: this property ensures that preferences for products coming from one group are independent of consumption of products from other groups. Formally, this implies that the utility function takes the following form: $$ u(q) = f(u_1(q^1), ..., u_n(q^K)) $$ where there are $K$ groups.
+\item Multi-stage budgeting: this property ensures that consumers can allocate expenditures in stages, considering only the current level of grouping and not what is inside the group.
+\end{itemize}
+
+It follows that this approach has three steps: \begin{enumerate}
+\item Grouping the products together in a (defensible) way.
+\item Allocate expenditures to each group.
+\item Allocate expenditures dynamics between groups.
+\end{enumerate}
+
+\subsubsection{Product Space and Heterogeneous agents}
+
+Heterogeneous agents models are quite interesting to use for two main reasons: first, it allows the economist to combine data from different markets and/or time periods in a theoretically sensible way, which adds information content to the estimation; second, it allows to evaluate welfare, responses, etc. on the entire distribution of consumers, as opposed to a weighted average in the case of a representative agents model.
+
+\subsection{Characteristic Space Approach}
+
+The characteristic space approach follows a different philosophy than the product space:\begin{itemize}
+\item Products are considered as a vector of characteristics
+\item Consumers' preferences (and thus their utility functions) are defined over these characteristics.
+\item Consumers are assumed to choose the characteristic vector (the product) that maximize their utility.
+\begin{itemize}
+\item One consumer makes one choice to buy a single product. Allowing for buying more than one product is computationally costly and is an open area for research.
+\end{itemize}
+\item Demand is aggregated by simply summing over consumers' choices.
+\end{itemize}
+
+This new space has a much (much) smaller number of observable dimensions. To illustrate, suppose we have $k$ observable characteristics, assuming symmetry and normality, we get $k(1 + (k+1)/2)$ parameters to estimate ($k$ means and $k(k+1)/2$ covariances) for a model of $J$ goods, regardless of the size of $J$!
+
+\subsubsection{Formal model}
+
+Assume the following context:\begin{itemize}
+\item A consumer $i$ is offered $J$ alternatives. Consumer $i$ is identified by his characteristics, $\nu_i$, similarly to the product being defined by its characteristics $x_j$ and its price $p_j$.
+\begin{itemize}
+\item Typically, we also consider an ``outside good'' representing all other options that the consumer could observe but are not observed in the data.
+\item The consumer can choose only one option $j\in J$.
+\end{itemize}
+\item Utility of an individual $i$ for a good $j$ is given by: $$U_{i,j} \equiv U(x_j, p_j, \nu_i, \theta) \text{ for all } j = 0, 1, ..., J $$
+\begin{itemize}
+\item $\theta$ is the vector of parameters that determine the effect of preferences and product characteristics on utility.
+\end{itemize}
+\end{itemize}  The variable (or most probably the vector) $x_j$ contains non-price characteristics about good $j$, for example the size of the engine, the AC system, the dashboard software, etc.; while $\nu_i$ is the consumer preferences (which could also be attributed to observable characteristics such as income, age, etc.). Note that in order to estimate the model correctly, you need to be sure that all consumers (or groups of consumers) in the sample have the same access to all $J$ goods, or in other words, that they face the same choice set.
+
+Consumer $i$ will choose good $j$ if and only if $U_{i,j} > U_{i, k}$ for any other good $k$. This means that the probability of consumer $i$ buying good $j$ is given by: $$\prob{U_{ij}>U_{ik}\text{ for all } k\neq j} $$ Now assuming that utility is given by an observable component $V_{ij}$ and an unobservable component $\varepsilon_{ij}$, we can rewrite the probability of buying the good as: \begin{align*} P_{ij} & = \prob{U_{ij}>U_{ik}\text{ for all } k\neq j} \\
+& = \prob{V_{ij}+\varepsilon_{ij}>V_{ik}+\varepsilon_{ik}\text{ for all } k\neq j} \\
+& = \prob{\varepsilon_{ij} - \varepsilon_{ik} > V_{ik} - V_{ij} \text{ for all } k\neq j}
+\end{align*} Finally, define $f(\varepsilon_i)$ as the $J$-dimensional probability density function for consumer $i$. Then the probability $P_{ij}$ can be written as: $$P_{ij} = \int \mathbb{I}\{\varepsilon_{ij} - \varepsilon_{ik} > V_{ik} - V_{ij}\}f(\varepsilon_i)\partial \varepsilon_i $$ which is (as $\varepsilon_i$) a $J$ dimensional integral over $f(\varepsilon_i)$.
+
+We will see later on that some choices could make our life easier in estimating this integral (hard to do it analytically), mainly by parameterizing the error term:\begin{itemize}
+\item \textbf{Multivariate normal:} $\varepsilon_i \sim N(0, \Omega)\quad \to $ multinomial probit model.
+\item \textbf{Type 1 Extreme-value:} $f(\varepsilon_i) = e^{-\varepsilon_{ij}} e^{-e^{-\varepsilon_{ij}}} \quad \to $ multinomial logit model.
+\item other variants...
+\end{itemize}
+
+We could also turn to thinking about absolute demand for good $j$ instead of its probability, which is given by the size of the set $S_j(\theta)$ defined as: $$ S_j(\theta) \equiv \{i : U_{i,j} > U_{i, k} \text{ for all } k \}$$ Now suppose consumers are distributed following a pdf $f(\nu\vert \theta)$, we could recover the market share of good $j$ as: $$ s_j(\mathbf{x}, \mathbf{p}\vert \theta) = \int_{i\in S_j(\theta)} f(\nu)\D v $$ Given a total market size of $M$, total demand for good $j$ is: $M\cdot s_j(\mathbf{x}, \mathbf{p}\vert \theta)$.
+
+As we've seen the complete model of characteristic space relies on utility functions and error terms distributions. This is why, unsurprisingly, the functional forms of utility and errors are exactly what will differentiate the models within the characteristic space approach.
+
+\subsubsection{Normalization}
+
+Note that in the random utility model described above, the functions are cardinal! This means that, for any individual, choices (and thus shares, on the aggregate level) are invariant to affine transformations such as: (1) multiplying individual utility by a person-specific constant and (2) adding  a person-specific constant to individual utility.
+
+This feature implies that we have two normalizations to make, one of ``scale'' and one of ``location''. While these will be discussed in depth in the following chapters, the basic idea is to fix variables to a certain level. For location, we fix the value of the outside good to 0, which is equivalent to substracting the real value of the outside option from any good's utility; for scale, we normalize the size of a coefficient on a variable to one, usually related to the error term. Since these transformations are very common and necessary to any demand system estimation procedure in characteristic space, it is quite common also to forget them in the interpretation, so we should always be careful about these.
+
+\subsubsection{Main examples}
+
+There are 5 main models of characteristic space.
+
+\textbf{Pure horizontal model:} Analog to the Hotelling model (in its simplest form), there are $n$ ice cream sellers along a beach where consumers are distributed. A consumer $i$ has utility: $$U_{ij} = \bar u - p_j + \theta(\delta_j - \nu_i)^2 $$ where the term $(\delta_j - \nu_i)^2$ captures some kind of quadratic transportation cost in the distance from $i$'s preferences ($\nu_i$) to the characteristics of product $j$ ($\delta_j$). In the simple Hotelling model, $\delta_j$ and $\nu_i$ are location parameters (where ice cream seller $j$ and consumer $i$ are on the beach).
+
+\textbf{Pure vertical model:} On the pure vertical, you don't need to model a distance from consumer preferences since everyone agrees on what product is better. In this case, utility is given by: $$ U_{ij} = \bar u - \nu_ip_j + \delta_j $$ The interaction between consumer characteristics and prices show that although every consumer has the same utility for the characteristics of good $j$ (i.e. $\bar u + \delta_j$), consumers differ in their willingness to pay ($\nu_i$).
+
+\textbf{Logit model:} In the logit model, consumers have the same taste for the goods' characteristics but are subject to an idiosyncratic shock depending on both the product and the consumer. Utility is given by: $$U_{ij} = \delta_j - p_j + \varepsilon_{ij} $$ where $\varepsilon_{ij}$ follows an iid extreme-value type I distribution. Analogous to the OLS, the error term allows for identification of the other parameters as long as it is not correlated with the $\delta_j$ and the price.
+
+\textbf{Pure characteristic model:} This model nests both concepts of verticality and horizontality of differentiation. Utility is given by: $$ U_{ij} = f(\nu_i, p_j) + \sum_{k}\sum_{r} g(x_{jk}, v_{ir}, \theta_{kr}) $$ so that it could handle vertical model if $g(\cdot)$ is 0 for cross-products variables. It could also handle the horizontal model. It is a very general form and rarely used?
+
+\textbf{BLP model:} The BLP model (for the authors' names Berry, Levinsohn and Pakes), is a parameterized version of the pure characteristics model. It is probably the most commonly used demand model in the empirical literature as of now, and is also very popular in non-research applications of IO. Utility is given by: $$ U_{ij} = f(\nu_i, p_j) + \sum_{k}\sum_{r} x_{jk}v_{ir}\theta_{kr} + \varepsilon_{ij} $$ where the $\varepsilon_{ij}$ extreme-value Type I error term has been added.
+
 \subsection{Which approach to chose?}
 
 \subsubsection{Disadvantages of the product space approach}
@@ -44,37 +143,81 @@ In the product space approach, all competing products are estimated as fixed eff
  
 In the characteristic space approach, the data requirements are way higher than in the product space approach. This creates two main issues: first, obviously it will be hard to get all the data about all characteristics for all products; second, inevitably some characteristics will not be observed and might create endogeneity if they have an important role in demand. Moreover, we will get the same issue as in the product space approach when new dimensions are introduced (not new products, since we would be able to estimate consumers' preferences using other products).
 
-\subsection{Product Space approach}
+\section{Applications}
 
-This course explores product space approaches only briefly since most of modern IO revolves around the characteristic space approach.
+\subsection{Purely vertical model}
 
-As we've seen, the product space approach considers each product as an entity on its own, meaning that all observed and unobserved features of the product enter the ``utility'' derived from the product. Because different consumers can derive different utilities from the same product, we might be interested in using heterogeneous agents models. In fact, in this approach, the basic breakdown between models is whether they include a representative agent or heterogeneous agents. The heterogeneous agents models use more of the available information (better estimates) but also provide a framework for distributional policy analysis (estimating the distribution of responses). While these models have been around for a long time, they still face big issues such as treatment of zeroes (when some consumers have no access to a particular good) or aggregation issues (computational). This is why much of the work that has been done in product space revolves around representative agent models, starting with the AIDS model by Deaton and Muellbauer (1980).
+As we have mentioned in earlier, in a vertical model, all consumers agree on the relative quality of products (i.e. there is a clear ranking). However, people differ in their willingness to pay for such quality. The general form of utility is: $$U_{ij} = \bar u - \nu_i p_j + \delta_j $$
 
-In a representative agent model, the general demand model is defined as: $$\ln q_j = \alpha p_j + \beta p_{-j} + \gamma x_j + \epsilon_j $$ where $p_j$ represents the own-price, $p_{-j}$ is the vector of all competing products' prices and $x_j$ is a vector of all other observed characteristics.
+From this equation, the objective is to recover the implied shares as a function of the parameters, and then estimate these parameters by comparing with the observed shares in the data.
 
-As we know, prices in this model are endogenous (simultaneity issue) but here we have more than one endogenous price (we have as many as products), thus estimating this model will require a very demanding IV strategy. Moreover, we can see that each product's demand function has at least $J$ parameters, so that the number of parameters to be estimated will increase quadratically compared to the number of products: we will typically need to reduce the dimensionality of the problem to be able to estimate the demand model.
+\subsubsection{Recovering the shares}
 
-\subsubsection{Reducing the dimensionality}
+In order to recover the shares, we first need to know the shape of the distribution of $\nu_i$. In this application, we assume it follows a lognormal distribution with implicit mean $\mu$ and variance $\sigma^2$. 
 
-There are three popular approaches to reduce the dimensionality of the product space problem. The first two approaches are useful only for for a particular set of questions, such as situations when variety is very important (e.g. in international trade they use them all the time), while the last one is the most often used in IO.
+Then, we order all goods in increasing order of price (or $\delta_j$) but by assumption, it has to be the same order since people would buy a better alternative if it was also cheaper.
 
-The first approach is to use a Constant Elasticity of Substitution model, such that utility is defined as: $$ u(q) = \left(\sum_k q_k^\rho\right)^{1-\rho} \Rightarrow q_j(p) = \frac{p_j^{-1/(1-\rho)}}{\sum_k p_k^{-\rho/(1-\rho)}} \cdot M $$
-This approach is very efficient at reducing dimensionality since we now have only one parameter to estimate: $\rho$. However, it comes with the property that all goods have the same own-price elasticity and the same cross-price elasticities. While this definitely seems implausible, this approach is used in macro models and in trade.
+We can show that if $U_{ij} < U_{ij+1}$, then, $U_{ij} < U_{ik}$ for all $k \geq j+1$, assuming that $(\delta_{j+1} - \delta_j)/(p_{j+1} - p_j)$ is decreasing in $j$ (the improvement in quality is not as fast as the increase in prices).
 
-The second approach is to use a logit demand model (not the same logit as in the characteristic approach). In this model, we have that: $$ u(q) = \sum_k (\delta_k - \ln(q_k))q_k $$ The problem with this approach is the IIA property, which implies that elasticities depend on market shares rather than ``closeness'' between products.
+Normalize the outside good to 0, and you get that a consumer would choose the outside good if and only if: $$ 0 \geq \max_{j\geq 1} U_{ij} $$ Using the property of the previous paragraph, we know that this is equivalent to: $$ 0 \geq U_{i1} $$ Thus, we have that the probability that a consumer buys the outside good is: $$ P_{i0} = \prob{0 \geq -\nu_ip_1 + \delta_1} = \prob{\nu_i \geq \delta_1/p_1} $$ and more generally, the share of the outside good is given by: $$ s_0(\theta) = 1 - F(\delta_1/p_1) $$ where $\theta$ is the parameter vector containing all $\delta$s, $\mu$ and $\theta$ and $F(\cdot)$ is the cdf of the lognormal distribution.
 
-Finally, the third empirical approach is to use a model of multi-level budgeting, as in a ``utility tree''. This approach's intuition is to divide the set of products into small groups and sub-groups, while allowing flexible substitution within groups. To use this approach, we need to assume two properties:\begin{itemize}
-\item Separability: this property ensures that preferences for products coming from one group are independent of consumption of products from other groups. Formally, this implies that the utility function takes the following form: $$ u(q) = f(u_1(q^1), ..., u_n(q^n)) $$ where there are $n$ groups.
-\item Multi-stage budgeting: this property ensures that consumers can allocate expenditures in stages, considering only the current level of grouping and not what is inside the group.
+For inside goods, we have that a consumer would choose good 1 if and only if $U_{i1} > 0$ and $U_{i1} > U_{i2}$. Thus, the probability is: \begin{align*}
+P_{i1} & = \prob{0 \leq -\nu_ip_1 + \delta_1 \geq -\nu_ip_2 + \delta_2} \\ & = \prob{\nu_i \leq \delta_1/p_1 \text{ and } \nu_i \geq (\delta_2 - \delta_1)/(p_2 - p_1) }
+\end{align*}
+and more generally, the share of the first good is: $$s_1(\theta) = F(\delta_1/p_1) - F((\delta_2 - \delta_1)/(p_2 - p_1)) $$
+Following the same argument for the following products, we get: $$ s_j(\theta) = F[(\delta_j - \delta_{j-1})/(p_j - p_{j-1})] - F[(\delta_{j+1} - \delta_j)/(p_{j+1} - p_j)] \text{ for all } j=2, ..., J-1 $$
+$$ \text{ and } s_J(\theta) = F[(\delta_J - \delta_{J-1})/(p_J - p_{J-1})] $$
+
+This gives us a system of $J$ equations with $J+2$ unknown parameters in $\theta$. This means that we can only identify $J$ parameters (the $\delta$s, provided we know/assume the parameters of the consumer characteristic distribution). Each $\delta$ will be identified using the associated market share and price.
+
+\subsubsection{Estimation}
+
+As we have seen in the previous section, our pure vertical model is not identified if the parameters of $\nu_i$'s distribution are unknown. That's why, in this particular case, we need to reduce the dimension of the problem first, and then estimate via maximum likelihood.
+
+In the vertical model, we need to ``project'' the product quality $\delta_j$ onto a few characteristics $x_j$ (a $K$ dimension vector, such that $K < J$). Formally, we have that: $$ \delta_j = \sum_{k=1}^{K} \beta_k x_{kj} $$ Now that all goods have the same $K$ coefficients governing the value of $\delta$, $\theta$ is effectively a $K+2$ dimension vector, estimable using the $J$ shares!
+
+\subsubsection{Issues with the vertical model}
+
+There is a number of issues that arise when using this model:\begin{enumerate}
+\item Cross-price elasticities are 0 for all goods that are further away than direct neighboring products. This fails to capture a lot of actual variation in these elasticities.
+\item Own-price elasticities are not decreasing in $j$, thus leading to high-priced products having comparable elasticities to low-priced products, which is thought of as an undesirable property.
+\item Estimating the model relies on multiple researcher assumptions:\begin{itemize}
+\item The outside good has to be chosen to be the lowest or highest good.
+\item The functional form of the distribution of $\nu_i$ has to be assumed.
 \end{itemize}
-
-It follows that this approach has three steps: \begin{enumerate}
-\item Grouping the products together in a (defensible) way.
-\item Allocate expenditures to each group.
-\item Allocate expenditures dynamics between groups.
+\item The error term is deterministic given the functional form of $f(v)$.
 \end{enumerate}
 
-\subsubsection{Almost Ideal Demand System (AIDS)}
+\subsection{Mortimer (2007)}
+
+\subsubsection{Background}
+
+This paper studies the effects of ``indirect'' price discrimination on consumer welfare and retailer profits in the industry for video rentals, using the vertical differentiation between VHS and DVDs (same content, clearly defined quality scale). 
+
+\subsubsection{Data}
+
+Rentrak dataset. Observation unit is the store-title level, where observed variables include title characteristics, contract with retailer (only sell-through priced movies are included), format, price, etc. + aggregate store-level characteristics to account for competition, demographics, etc.
+
+\subsubsection{Model}
+
+Consumer demand: four vertically differentiated products (outside good, rental and purchase in periods 1 or 2, to account for indirect price discrimination) with heterogenous agents (non-random coefficients).
+
+Pricing: decision for wholesale prices on rental and final sales markets, considering demand from consumer model, considering consumer interest decay.
+
+\subsubsection{Assumptions}
+
+\begin{itemize}
+\item Model: ordering of products is used, rental and new; only two time periods for purchasing (not dynamic); Weibull distribution for income (random coefficients).
+\item Instruments: ``jackknife'' instruments for prices using (1) expected average cost across other titles in the same store and (2) expected average inventory across other titles in the same store, but should also consider that prices are very sticky, thus might not need instrumenting.
+\end{itemize}
+
+\subsubsection{Results}
+
+Substantial evidence that pricing is done optimally, in the face of forbidden direct discrimination. Direct discrimination would benefit movie providers and consumers but hurt retailers. 
+
+\section{Appendix}
+
+\subsection{Almost Ideal Demand System (AIDS)}
 
 One of the most popular model of the multi-level budgeting approach is the Almost Ideal Demand System (AIDS) model, designed by Deaton and Muellbauer.
 
@@ -107,133 +250,6 @@ The market is divided hierarchically in three levels:\begin{enumerate}
 
 In the bottom-level, you have to instrument the price since it is correlated with unobserved product quality (taste, etc.) and unobserved demand shocks (special events like the World Cup, etc.). Then you must find brand-level instruments: this is where the infamous Hausman instruments come in. Hausman instruments use prices in one city to instrument for prices in other cities. These instruments are typically strong, however, their relevance is very questionable. In particular, think about nation-wide advertising which was the main criticism of these instruments. They would clearly affect both cities' prices in the same way creating correlation. Most of the time you can observe these patterns but be wary of unobserved shocks that could affect the complete market. Optimally, the best instrument would be observed input costs for the brand, tax rates, etc.
 
-\subsection{Characteristic Space Approach}
+\subsection{Pure Characteristics vs. BLP}
 
-The characteristic space approach follows a different philosophy than the product space:\begin{itemize}
-\item Products are considered as a vector of characteristics
-\item Consumers' preferences (and thus their utility functions) are defined over these characteristics.
-\item Consumers are assumed to choose the characteristic vector (the product) that maximize their utility.
-\begin{itemize}
-\item One consumer makes one choice to buy a single product. Allowing for buying more than one product is computationally costly and is an open area for research.
-\end{itemize}
-\item Demand is aggregated by simply summing over consumers' choices.
-\end{itemize}
-
-\subsubsection{Formal base model}
-
-Assume the following context:\begin{itemize}
-\item A consumer $i$ is offered $J$ alternatives. Consumer $i$ is identified by his characteristics, $v_i$, similarly to the product being defined by its characteristics $x_j$ and its price $p_j$.
-\item He must choose one option only $j\in J$, which he will do with probability $P_{ij}$
-\item Utility of an individual $i$ for a good $j$ is given by: $$U_{i,j} \equiv U(x_j, p_j, v_i, \theta) \text{ for all } j = 0, 1, ..., J $$ where good $j =0$ is referred to as the outside good.
-\end{itemize}  The variable (or most probably the vector) $x_j$ contains non-price characteristics about good $j$, for example the size of the engine, the AC system, the dashboard software, etc.; while $v_i$ is the vector of consumer characteristics such as income, age, etc. Finally, $\theta$ is the vector of parameters of the utility which is to be estimated. Note that in order to estimate the model correctly, you need to be sure that all consumers (or groups of consumers) in the sample have the same access to all $J$ goods, or in other words, they face the same choice set.
-
-Consumer $i$ will choose good $j$ if and only if $U_{i,j} > U_{i, k}$ for any other good $k$. This means that the probability of consumer $i$ buying good $j$ is given by: $$\prob{U_{ij}>U_{ik}\text{ for all } k\neq j} $$ Now assuming that utility is given by an observable component $V_{ij}$ and an unobservable component $\varepsilon_{ij}$, we can rewrite the probability of buying the good as: \begin{align*} P_{ij} & = \prob{U_{ij}>U_{ik}\text{ for all } k\neq j} \\
-& = \prob{V_{ij}+\varepsilon_{ij}>V_{ik}+\varepsilon_{ik}\text{ for all } k\neq j} \\
-& = \prob{\varepsilon_{ij} - \varepsilon_{ik} > V_{ik} - V_{ij} \text{ for all } k\neq j}
-\end{align*} Finally, define $f(\varepsilon_i)$ as the $J$-dimensional probability density function for consumer $i$. Then the probability $P_{ij}$ can be written as: $$P_{ij} = \int \mathbb{I}\{\varepsilon_{ij} - \varepsilon_{ik} > V_{ik} - V_{ij}\}f(\varepsilon_i)\partial \varepsilon_i $$ which is (as $\varepsilon_i$) a $J$ dimensional integral over $f(\varepsilon_i)$.
-
-We will see later on that some choices could make our life easier in estimating this integral (hard to do it analytically), mainly by parameterizing the error term:\begin{itemize}
-\item \textbf{Multivariate normal:} $\varepsilon_i \sim N(0, \Omega)\quad \to $ multinomial probit model.
-\item \textbf{Type 1 Extreme-value:} $f(\varepsilon_i) = e^{-\varepsilon_{ij}} e^{-e^{-\varepsilon_{ij}}} \quad \to $ multinomial logit model.
-\item other variants...
-\end{itemize}
-
-We could also turn to thinking about absolute demand for good $j$ instead of its probability, which is given by the size of the set $S_j(\theta)$ defined as: $$ S_j(\theta) \equiv \{i : U_{i,j} > U_{i, k} \text{ for all } k \}$$ Now suppose consumers are distributed following a pdf $f(v\vert \theta)$, we could recover the market share of good $j$ as: $$ s_j(\mathbf{x}, \mathbf{p}\vert \theta) = \int_{i\in S_j(\theta)} f(v)\D v $$ Given a total market size of $M$, total demand for good $j$ is: $M\cdot s_j(\mathbf{x}, \mathbf{p}\vert \theta)$
-
-As we've seen the complete model of characteristic space relies on utility functions and error terms distributions. This is why, unsurprisingly, the functional forms of utility and errors are exactly what will differentiate the models within the characteristic space approach.
-
-There are 5 main models of characteristic space.
-
-\subsubsection{Pure horizontal model}
-
-Analog to the Hotelling model (in its simplest form), there are $n$ ice cream sellers along a beach where consumers are distributed. A consumer $i$ has utility: $$U_{ij} = \bar u - p_j + \theta(\delta_j - v_i)^2 $$ where the term $(\delta_j - v_i)^2$ captures some kind of quadratic transportation cost in the distance from $i$'s preferences ($v_i$) to the characteristics of product $j$ ($\delta_j$). In the simple Hotelling model, $\delta_j$ and $v_i$ are location parameters (where ice cream seller $j$ and consumer $i$ are on the beach).
-
-\subsubsection{Pure vertical model}
-
-On the pure vertical, you don't need to model a distance from consumer preferences since everyone agrees on what product is better. In this case, utility is given by: $$ U_{ij} = \bar u - v_ip_j + \delta_j $$ The interaction between consumer characteristics and prices show that although every consumer has the same utility for the characteristics of good $j$ (i.e. $\bar u + \delta_j$), consumers differ in their willingness to pay ($v_i$).
-
-\subsubsection{Logit model}
-
-In the logit model, consumers have the same taste for the goods' characteristics but are subject to an idiosyncratic shock depending on both the product and the consumer. Utility is given by: $$U_{ij} = \delta_j - p_j + \varepsilon_{ij} $$ where $\varepsilon_{ij}$ follows an iid extreme-value type I distribution. Analogous to the OLS, the error term allows for identification of the other parameters as long as it is not correlated with the $\delta_j$ and the price.
-
-\subsubsection{Pure characteristic model}
-
-This model nests both concepts of verticality and horizontality of differentiation.
-
-Utility is given by: $$ U_{ij} = f(v_i, p_j) + \sum_{k}\sum_{r} g(x_{jk}, v_{ir}, \theta_{kr}) $$ so that it could handle vertical model if $g(\cdot)$ is 0 for cross-products variables. It could also handle the horizontal model. It is a very general form and rarely used?
-
-\subsubsection{BLP model}
-
-The BLP model (for the authors' names Berry, Levinsohn and Pakes), is a parameterized version of the pure characteristics model. It is probably the most commonly used demand model in the empirical literature as of now, and is also very popular in non-research applications of IO. Utility is given by: $$ U_{ij} = f(v_i, p_j) + \sum_{k}\sum_{r} x_{jk}v_{ir}\theta_{kr} + \varepsilon_{ij} $$ where the $\varepsilon_{ij}$ extreme-value Type I error term has been added.
-
-\section{Applications}
-
-\subsection{Purely vertical model}
-
-As we have mentioned in earlier, in a vertical model, all consumers agree on the relative quality of products (i.e. there is a clear ranking). However, people differ in their willingness to pay for such quality. The general form of utility is: $$U_{ij} = \bar u - v_i p_j + \delta_j $$
-
-From this equation, the objective is to recover the implied shares as a function of the parameters, and then estimate these parameters by comparing with the observed shares in the data.
-
-\subsubsection{Recovering the shares}
-
-In order to recover the shares, we first need to know the shape of the distribution of $v_i$. In this application, we assume it follows a lognormal distribution with implicit mean $\mu$ and variance $\sigma^2$. 
-
-Then, we order all goods in increasing order of price (or $\delta_j$) but by assumption, it has to be the same order since people would buy a better alternative if it was also cheaper.
-
-We can show that if $U_{ij} < U_{ij+1}$, then, $U_{ij} < U_{ik}$ for all $k \geq j+1$, assuming that $(\delta_{j+1} - \delta_j)/(p_{j+1} - p_j)$ is decreasing in $j$ (the improvement in quality is not as fast as the increase in prices).
-
-Normalize the outside good to 0, and you get that a consumer would choose the outside good if and only if: $$ 0 \geq \max_{j\geq 1} U_{ij} $$ Using the property of the previous paragraph, we know that this is equivalent to: $$ 0 \geq U_{i1} $$ Thus, we have that the probability that a consumer buys the outside good is: $$ P_{i0} = \prob{0 \geq -v_ip_1 + \delta_1} = \prob{v_i \geq \delta_1/p_1} $$ and more generally, the share of the outside good is given by: $$ s_0(\theta) = 1 - F(\delta_1/p_1) $$ where $\theta$ is the parameter vector containing all $\delta$s, $\mu$ and $\theta$ and $F(\cdot)$ is the cdf of the lognormal distribution.
-
-For inside goods, we have that a consumer would choose good 1 if and only if $U_{i1} > 0$ and $U_{i1} > U_{i2}$. Thus, the probability is: \begin{align*}
-P_{i1} & = \prob{0 \leq -v_ip_1 + \delta_1 \geq -v_ip_2 + \delta_2} \\ & = \prob{v_i \leq \delta_1/p_1 \text{ and } v_i \geq (\delta_2 - \delta_1)/(p_2 - p_1) }
-\end{align*}
-and more generally, the share of the first good is: $$s_1(\theta) = F(\delta_1/p_1) - F((\delta_2 - \delta_1)/(p_2 - p_1)) $$
-Following the same argument for the following products, we get: $$ s_j(\theta) = F[(\delta_j - \delta_{j-1})/(p_j - p_{j-1})] - F[(\delta_{j+1} - \delta_j)/(p_{j+1} - p_j)] \text{ for all } j=2, ..., J-1 $$
-$$ \text{ and } s_J(\theta) = F[(\delta_J - \delta_{J-1})/(p_J - p_{J-1})] $$
-
-This gives us a system of $J$ equations with $J+2$ unknown parameters in $\theta$. This means that we can only identify $J$ parameters (the $\delta$s, provided we know/assume the parameters of the consumer characteristic distribution). Each $\delta$ will be identified using the associated market share and price.
-
-\subsubsection{Estimation}
-
-As we have seen in the previous section, our pure vertical model is not identified if the parameters of $v_i$'s distribution are unknown. That's why, in this particular case, we need to reduce the dimension of the problem first, and then estimate via maximum likelihood.
-
-In the vertical model, we need to ``project'' the product quality $\delta_j$ onto a few characteristics $x_j$ (a $K$ dimension vector, such that $K < J$). Formally, we have that: $$ \delta_j = \sum_{k=1}^{K} \beta_k x_{kj} $$ Now that all goods have the same $K$ coefficients governing the value of $\delta$, $\theta$ is effectively a $K+2$ dimension vector, estimable using the $J$ shares!
-
-\subsubsection{Issues with the vertical model}
-
-There is a number of issues that arise when using this model:\begin{enumerate}
-\item Cross-price elasticities are 0 for all goods that are further away than direct neighboring products. This cannot capture a lot of actual variation in these elasticities.
-\item Own-price elasticities are not decreasing in $j$, thus leading to high-priced products having comparable elasticities to low-priced products, which is thought of as an undesirable property.
-\item Estimating the model relies on multiple researcher assumptions:\begin{itemize}
-\item The outside good has to be chosen to be the lowest or highest good.
-\item The functional form of the distribution of $v_i$ has to be assumed.
-\end{itemize}
-\item The error term is deterministic given the functional form of $f(v)$.
-\end{enumerate}
-
-\subsection{Mortimer (2007)}
-
-\subsubsection{Background}
-
-This paper studies the effects of ``indirect'' price discrimination on consumer welfare and retailer profits in the industry for video rentals, using the vertical differentiation between VHS and DVDs (same content, clearly defined quality scale). 
-
-\subsubsection{Data}
-
-Rentrak dataset. Observation unit is the store-title level, where observed variables include title characteristics, contract with retailer (only sell-through priced movies are included), format, price, etc. + aggregate store-level characteristics to account for competition, demographics, etc.
-
-\subsubsection{Model}
-
-Consumer demand: four vertically differentiated products (outside good, rental and purchase in periods 1 or 2, to account for indirect price discrimination) with heterogenous agents (non-random coefficients).
-
-Pricing: decision for wholesale prices on rental and final sales markets, considering demand from consumer model, considering consumer interest decay.
-
-\subsubsection{Assumptions}
-
-\begin{itemize}
-\item Model: ordering of products is used, rental and new; only two time periods for purchasing (not dynamic); Weibull distribution for income (random coefficients).
-\item Instruments: ``jackknife'' instruments for prices using (1) expected average cost across other titles in the same store and (2) expected average inventory across other titles in the same store, but should also consider that prices are very sticky, thus might not need instrumenting.
-\end{itemize}
-
-\subsubsection{Results}
-
-Substantial evidence that pricing is done optimally, in the face of forbidden direct discrimination. Direct discrimination would benefit movie providers and consumers but hurt retailers. 
+The battle of the generalizations.
