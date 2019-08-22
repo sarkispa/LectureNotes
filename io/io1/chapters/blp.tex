@@ -4,78 +4,64 @@ Mixed logit models are a class of models that encompasses all types of models wh
 
 We'll first cover the basics of mixed logit and random coefficients, before talking in depth about estimation techniques as found in BLP and DFS.
 
-\section{Model}
+\section{Base Model}
 
-Generally, we write utility derived from consumption of a good $j$ by consumer $i$ as the function $u_{ij}(X_j, p_j, \xi_j, \nu_i, \theta)$, which is a function of product $j$ observable characteristics ($X_j$ of dimension $L-1$), price ($p_j$), unobservable characteristics ($\xi_j$) and consumer characteristics (observable $z_i$ and unobservables $\nu_i$), all entering the utility function through a vector of parameters $\theta$. 
-
-As a simpler case, define utility as a linear function of those parameters such that: $$U_{ij} = \sum_{l=1}^L x_{jl}\beta_{il} + \xi_j + \varepsilon_{ij} $$ $$ \text{where } \beta_{il} = \lambda_l + \beta_l^o z_i + \beta_l^u \nu_i $$  Notice the main differences with logit models as we know them: first, price is not separated but included in observable characteristics of product $j$ because of the second point, that $\beta_i$ is a coefficient dependent on consumer characteristics. This means that different consumers will have different tastes in the same characteristics. For example, some person might be interested in the price of a phone while someone would disregard this and focus only on memory, another one on camera quality, etc.
-
-We can rewrite the utility function by plugging in the definition of $\beta$: \begin{align*}
-U_{ij} & = \sum_{l=1}^L x_{jl}\left(\lambda_l + \beta_l^o z_i + \beta_l^u \nu_i \right) + \xi_j + \varepsilon_{ij} \\
-& = \underbrace{\sum_{l=1}^L x_{jl}\lambda_l + \xi_j}_{\delta_j\text{: product mean utility}} + \sum_{l=1}^L x_{jl}\beta_l^o z_i + \sum_{l=1}^L x_{jl}\beta_l^u \nu_i  + \varepsilon_{ij}
-\end{align*}
-There are five elements in this utility function:\begin{itemize}
+Generally, we write utility derived from consumption of a good $j$ by consumer $i$ as the function $U(X_j, p_j, \xi_j, \nu_i, \theta)$, which is a function of product $j$ observable characteristics ($X_j$ of dimension $L-1$), price ($p_j$), unobservable characteristics ($\xi_j$) and consumer characteristics (observable $z_i$ and unobservables $\nu_i$), all entering the utility function through a vector of parameters $\theta$. As a simpler case, define utility as a linear function of those parameters such that: $$u_{ij} = \sum_{l=1}^L x_{jl}\beta_{il} + \xi_j + \varepsilon_{ij} $$ $$ \text{where } \beta_{il} = \bar\beta_l + \beta_l^o z_i + \beta_l^u \nu_i $$  There are five elements in this utility function:\begin{itemize}
 \item Observed ($x_j\lambda$) and unobserved ($\xi_j$) product quality.
 \item Observed ($x_{j}\beta^o z_i$) and unobserved ($x_{j}\beta^u \nu_i$) consumer-product interactions.
 \item A type-I EV iid error term ($\varepsilon_{ij}$).
-\end{itemize}
-The main features of the mixed logit model rely on the consumer-product interactions. Because they are not restricted to take the logit form, they will display more reasonable subsitution patterns when aggregated. With these interactions, products will be close in terms of the characteristics of the consumers who buy the product. For example, consider an auto market following a price increase for the BMW 7 series (very expensive and luxurious car). In the logit model, this would create substitution to all other cars based on their market shares, meaning that a small Toyota Echo would benefit from the price increase. In the nested logit, provided we defined nests correctly, only cars within the same nest would be affected (luxury cars). Already, this makes more sense, but in the mixed logit model, we use parameters estimated from price variation to figure out what happened to the people who were buying BMW 7 series.
+\end{itemize} 
+The main difference with the typical discrete-choice models described in the previous chapter is that a ``contribution'' of $\lambda$ to product $j$'s $l$-th characteristic is given by $(\bar\beta_l + \beta_l^o z_i + \beta_l^u \nu_i)\cdot\lambda$, meaning that it varies across consumers. These consumer-product interactions are the main feature of mixed logit models, as they allow for more complex (and thus realistic) substitution patterns between products. For example, if we consider demand for cars, this model will allow consumers who have a preference for size to attach higher utility to all large cars, inducing larger substitution effects between goods that share the same characteristics.
 
-\subsubsection{Aggregate vs. micro data}
+For simplicity, we usually rewrite the utility function as the sum of a product-specific mean and a consumer-specific mean deviation: $$u_{ij} = \underbrace{\sum_{l=1}^L x_{jl}\lambda_l + \xi_j}_{\delta_j\text{: product mean utility}} + \underbrace{\sum_{l=1}^L x_{jl}\beta_l^o z_i + \sum_{l=1}^L x_{jl}\beta_l^u \nu_i  + \varepsilon_{ij}}_{\mu_{ij}\text{: mean deviation}} $$
 
-We have seen that the general form of the mixed logit model includes both observed and unobserved consumer characteristics. In general however, market data does not come with exact description of consumer characteristics for each interaction. At best, we might have aggregate consumer data (about a geographical region, a point in time, ...) but most often we cannot observe any characteristic.
+This general form of the mixed logit model includes both observed and unobserved consumer characteristics. In general however, market data does not come with exact description of consumer characteristics for each interaction. At best, we might have aggregate consumer data (about a geographical region, a point in time, ...) but most often we cannot observe any characteristic. When we do observe consumer characteristics, we can use them in $z_i$ to estimate the model. A particularly influential paper using this type of data is the MicroBLP paper. When such data is unobserved, we work with just the $\nu_i$ part of the model, as in the original BLP paper.
 
-When we do observe consumer characteristics, we can use them in $z_i$ to estimate the model. A particularly influential paper using this type of data is the MicroBLP paper. When such data is unobserved, we work with just the $\nu_i$ part of the model, as in the original BLP paper. For the rest of this section, we assume that we do not observe $z_i$.
+\section{Berry, Levinsohn and Pakes, 1995}
 
-\subsection{Building the shares}
+The Berry, Levinsohn and Pakes (1995) paper made a very important contribution to the discrete-choice demand literature by designing a procedure to estimate random-coefficient logit models. Their approach comprises the usual GMM estimator as an outer loop and a nested fixed-point algorithm in the inner loop to circumvent computational issues. Note that the nested fixed-point (NFP) terminology refers only to the computational algorithm used to compute the estimator; BLP refers to the estimator. Other approaches exist, some exploring other procedures within the inner loop, like Bajari, Fox, Kim and Ryan (2011), others relying on a different philosophy altogether (for example, the MPEC approach introduced by Su and Judd (2012) and Dubé, Fox and Su (2012)). Nevertheless, BLP stands as one of the most common and known demand models in IO, as well as in other fields.
 
-Recall the utility function from the previous section (without $z_i$ by assumption): $$ U_{ij} = \delta_j + \sum_{l=1}^L x_{jl}\beta_l^u \nu_i  + \varepsilon_{ij} $$ Using the fact the error term is a type-I EV as in the simple logit, we can integrate it and get logit shares, but only conditional on $\nu_i$! Formally, we get: $$ P_{ij}|\nu_i = \frac{\exp(\delta_j + x_{j}\beta \nu_i )}{\sum_k \exp(\delta_k + x_{k}\beta \nu_i )} $$ $$ \Rightarrow P_{ij} = \int \frac{\exp(\delta_j + x_{j}\beta \nu_i )}{\sum_k \exp(\delta_k + x_{k}\beta \nu_i )} f(\nu_i)\D \nu_i $$
+\subsection{Getting to the shares equation}
 
-\subsubsection{Latent-class models}
+Recall the utility function from the previous section (without $z_i$ by assumption): $$ U_{ij} = \delta_j + \sum_{l=1}^L x_{jl}\beta_l^u \nu_i  + \varepsilon_{ij} $$ Using the fact the error term is a type-I EV as in the simple logit, we can integrate it and get logit shares, but only conditional on $\nu_i$! Formally, we get: $$ P_{ij}|\nu_i = \frac{\exp(\delta_j + x_{j}\beta \nu_i )}{\sum_k \exp(\delta_k + x_{k}\beta \nu_i )} $$ $$ \Rightarrow s_{j} = \int \frac{\exp(\delta_j + x_{j}\beta \nu_i )}{\sum_k \exp(\delta_k + x_{k}\beta \nu_i )} f(\nu_i)\D \nu_i $$ However, this integral cannot be reduced to a simple unidimensional integral but rather is a $L$-dimensional integral and thus is very hard to compute for large $L$, even using modern computers. The BLP paper's main addition to the literature consists in solving this computational issue using an ``aggregation by simulation'' designed in Pakes (1986). 
 
-In the simplest case, consider that there are only two types of people, such that only two $\beta_i$ are possible, say $\beta_H$ and $\beta_L$. There are also two probabilities associated with the types. Thus the shares become: $$ P_{ij} = \frac{\exp(\delta_j + x_{j}\beta_H )}{\sum_k \exp(\delta_k + x_{k}\beta_H )} \cdot p_H + \frac{\exp(\delta_j + x_{j}\beta_L )}{\sum_k \exp(\delta_k + x_{k}\beta_L )} \cdot (1 - p_H) $$
-
-\section{BLP algorithm}
+\subsection{BLP estimation algorithm}
 
 Consider the situation where data is available only on the aggregate product-level, and no consumer data is observable. We will work out the estimation of demand following four steps:\begin{enumerate}
-\item Work out the aggregate shares conditional on both $\delta$ (mean utility) and $\beta$ (taste variation).
-\item Invert the shares to get $\xi$.
-\item Estimate the model using the method of moments.
-\item Repeat until convergence of all parameters.
+\item Conditional on a value for $\theta$, estimate the implied market shares by simulation.
+\item Solve for the vector pf product unobservables $\xi$ as a function of both implied and observed market shares.
+\item Estimate $\theta$ by GMM on implied moment conditions.
+\item Update $\theta$ with the new results and repeat until convergence.
 \end{enumerate}
 
-To help understanding the details of the following steps, you should keep in mind a quick summary of what it to be done. As always, we are interested in the parameters of utility (that affect demand), thus $\lambda$ and $\beta^u$ (that we we now call $\beta$ only). These parameters are estimated using the interaction of the unobservable product characteristic $\xi$ and adequate instruments. Until now, nothing should surprise you as we follow the same steps as described the GMM estimation strategy for logit and nested-logit models. However, this time it is different since to get $\xi$, you will need the parameters you are looking for (this is the main difference of BLP). That is why you use starting values for those, and iterate until you find the parameters that are stable through estimation (this is a fixed point problem).
+As in the estimation procedures of logit and nested logit models, the key to estimate $\theta$ is to use the interaction of the unobservable product characteristic $\xi$ and adequate instruments. However, there are two main differences: (1) the product-specific constant $\xi$ is not a linear function of market shares and characteristics anymore and (2) the implied market shares to be used in computing $\xi$ are multi-dimensional integrals. The second point is the reason why we need to estimate market shares by simulation, for a given $\theta$; the first point will require a more complex solving process based on a contraction mapping.
 
-\subsubsection{Step 1: Conditional aggregate shares}
 
-Recall that in the simple and nested logit models we studied, the probability $P_{ij}$ that a consumer $i$ buys product $j$ was equal to the market share since they did not differ from the representative consumer in any way. This time, we now that two different consumers will have different probabilities of buying the product. Consequently, the market share is going to be the integral of consumers individual probabilities over their characteristics (here $\nu_i$ since we do not observe any consumer characteristics).
+\subsubsection{Step 1: Estimating market shares by simulation}
 
 Recall that we computed the market shares as a function of product characteristics: $$s_j(\delta, \beta) = \int \frac{\exp(\delta_j + X_j\nu_i\beta^u)}{1 + \sum_k \exp(\delta_k + X_k\nu_i\beta^u) } f(\nu) \D\nu $$
-The issue with this integral is that it cannot be solved analytically ($\nu_i$ is usually a multivariate normal distribution, which makes the market share a multi-dimensional integral); we can approximate it by taking the sample average over a set of $ns$ draws in a simulation. This yields: $$\hat s_j^{ns}(\delta, \beta) = \frac{1}{ns} \sum_{i} \frac{\exp(\delta_j + X_j\nu_i\beta^u)}{1 + \sum_k \exp(\delta_k + X_k\nu_i\beta^u) } $$ which is a function of parameters that we want to estimate ($\delta$ and $\beta$). We will see that $\delta$ will be computed, and $\beta$ will be estimated by doing this step multiple times and finding the best one. This is why you should keep the simulated $\nu_i$ for the whole exercise, else it is never going to converge.
+The issue with this integral is that it cannot be solved analytically ($\nu_i$ is usually a multivariate normal distribution, which makes the market share a multi-dimensional integral); we can approximate it by taking the sample average over a set of $ns$ draws in a simulation. This yields: $$\hat s_j^{ns}(\delta, \beta) = \frac{1}{ns} \sum_{i} \frac{\exp(\delta_j + X_j\nu_i\beta^u)}{1 + \sum_k \exp(\delta_k + X_k\nu_i\beta^u) } $$
+As we can see, even using simulations we can only estimate market shares using values for $\delta$ and $\beta$, but these parameters are precisely the ones we are trying to estimate. Because of this, we will have to ``nest'' this estimation procedure into a bigger loop that will find the best values $\delta$ and $\beta$ (using convergence properties). This convergence result requires to keep the set of simulated $\nu_i$ for the whole exercise: the process of drawing these simulated individuals must not be nested inside any loop. If the distribution of these $\nu_i$ (not observations, but at least the pdf) is observed, then we can draw from the said distribution, but usually, we assume $\nu_i$ to come from a multivariate normal distribution (across multiple consumer unobserved characteristics). 
 
-Note that integration over the distribution of $\nu_i$ is a different problem than $\varepsilon_{ij}$ for which we can use the form of the type-I EV distribution to help us with analysis. In the case of $\nu_i$, we assume a multivariate normal distribution (across multiple consumer unobserved characteristics). If the distribution (not observations, but at least the pdf) is observed, then we can draw from the said distribution.
+Moreover, it is important to note that the use of a finite number of draws in the simulation will create a new source of errors within our estimation routine. Enough simulation draws should help tampering this issue, although finding the good number of draws is not an exact science, but more like a tradeoff between computation speed and errors. Overall, numerical evaluation of integrals is a particular topic that is deep enough to think about it carefully. For deeper explanations on selecting the right way to simulate, solve nonlinear equations in the case of random-coefficients logit, refer to Knittel and Metaxoglou (2013).
 
-Moreover, notice that the use of a finite number of draws in the simulation will create a new source of errors within our estimation routine. Enough simulation draws should help tampering this issue, although finding the good number of draws is not an exact science, but more like a tradeoff between computation speed and errors. Overall, numerical evaluation of integrals is a particular topic that is deep enough to think about it carefully.
-
-\subsubsection{Step 2: BLP inversion}
+\subsubsection{Step 2: NFP inversion}
 
 We now need to recover the product unobservable term $\xi_j$. In the same way as we did in the simple logit models, we already have the link between $\delta$ and $\xi$, but $\delta$ is "buried" in a nonlinear fashion into the the market shares: we need to invert the market shares to get delta, thus $\xi$, as a function of the shares (rather than the opposite). Doing that requires a special trick that is at the very core of\cite{blp_95} contribution.
 
-Their trick is to use the fact that the following system: $$\delta_j^k(\beta) = \delta_j^{k-1}(\beta) + \ln(s_j) - \ln(\hat s_j^{ns}(\delta^{k-1}, \beta)) $$ is a contraction mapping. To see it, understand that $s_j$ is the observed market share, the exponent $k$ represents the iteration process. In other words, by iterating over this function, the $\delta$ values will converge to the true value, $\delta^*(\beta, s, \hat s)$, where $s, \hat s$ are respectively the vectors of observed and estimated shares conditional on $\beta$. Finally, we can write: $$\xi(\beta, s, \hat s) = \delta^*(\beta, s, \hat s) - X_j\lambda $$ and use this form to construct the moments.
+Their trick is to use the fact that the following system: $$\delta_j^k(\beta) = \delta_j^{k-1}(\beta) + \ln(s_j) - \ln(\hat s_j^{ns}(\delta^{k-1}, \beta)) $$ is a contraction mapping. To see it, understand that $s_j$ is the observed market share, the exponent $k$ represents the iteration process. In other words, by iterating over this function, the $\delta$ values will converge to the true value, $\delta^*(\beta, s, \hat s)$, where $s, \hat s$ are respectively the vectors of observed and estimated shares conditional on $\beta$. Finally, we can write: $$\xi(\beta, s, \hat s) = \delta^*(\beta, s, \hat s) - X_j\bar\beta $$ and use this form to construct the moments.
 
 \subsubsection{Step 3: Constructing the moments}
 
-Now that we have recovered $\xi$ as a function of $\beta$ (and $\lambda$ through $\beta$ since there is a way to write $\lambda$ as a function of $\beta$), we can construct the moment conditions for demand estimation. To do this, we can go the OLS route if no component of $x$ is endogenous but most probably we will go the IV route, using $w$ as the instrument matrix. The moment condition would therefore be: $$ \E{\xi_j(\beta) w_j} = 0 $$
+Now that we have recovered $\xi$ as a function of $\beta$, we can construct the moment conditions for demand estimation. To do this, we can go the OLS route if no component of $x$ is endogenous but most probably we will go the IV route, using $w$ as the instrument matrix. The moment condition would therefore be: $$ \E{\xi_j(\beta) w_j} = 0 $$ As always in GMM, we want to select $\beta$ such that the average analog to the moment equation is the closest possible to 0.
 
-As always in GMM, we want to select $\beta$ such that the average analog to the moment equation is the closest possible to 0.
-
-\subsubsection{Step 4: Algorithm iteration}
+\subsubsection{Step 4: Outer loop optimization}
 
 The first three steps were performed for a given $\beta$, thus we now need to find the best $\beta$, using a nonlinear search over $\beta$.
 
 \subsection{Identification}
 
-In order to fully identify the model, we need four sources of variation:\begin{enumerate}
+In order to fully identify the model, we need four elements:\begin{enumerate}
 \item Choice set variation:
 \item Product characteristics variation:
 \item Consumer characteristics variation:
@@ -85,3 +71,18 @@ In order to fully identify the model, we need four sources of variation:\begin{e
 \subsection{Adding a supply side}
 
 Supply-side estimation in BLP is similar to what was done in simpler logit models. Refer to section \ref{sec:supplyside} for more information.
+
+\section{Dubé, Fox and Su, 2012}
+
+Dubé, Fox and Su (2012) introduce a new computational algorithm (DFS) for implementing the BLP estimator. The intuition behind the paper is to ``recast'' the GMM objective function of BLP into a mathematical program with equilibrium constraints (MPEC). Compared to the NFP method described earlier, the MPEC approaches generates the exact same estimator but differs in the fact that it does not use any nested inner loop and that can use first-order or second-order derivatives to improve convergence.
+
+\subsection{MPEC: A constrained optimization}
+
+Let $W$ be the GMM weighting matrix. DFS suggests a constrained optimization formulation as: $$\hat\theta, \hat\xi = \arg \min_{\theta, \xi} g(\xi)' W g(\xi) $$ $$ \text{ s.t. } s(\xi;\theta) = S $$ where the moment condition term is $g(\xi) = 1/T \cdot \sum_{t=1}^T \sum_{j=1}^J \xi_{j,t} w_{j,t}$; $s(\xi;\theta)$ is the vector function of implied market shares (aggregated by simulation as in the previous approach) and $S$ is the vector of observed market shares. From this optimization problem, it is clear that the nested loop has disappeared to accommodate a nonlinear search over both the utility function parameters and product-specific constants $\xi$.
+
+\subsubsection{Advantages over NFP}
+
+There are two main advantages of using MPEC instead of the traditional NFP procedure:\begin{enumerate}
+\item Without inner loop, there are no errors that propagate to the outer loop, thus reducing errors in the overall estimates.
+\item MPEC does not require its constraint to hold for each iteration, as long as they hold at the end, thus improving speed of convergence.
+\end{enumerate}
